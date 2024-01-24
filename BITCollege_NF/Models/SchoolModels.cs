@@ -30,7 +30,7 @@ namespace BITCollege_NF.Models
         [MinLength(10000000)]
         [MaxLength(99999999)]
         [Display(Name ="Student\nNumber")]
-        public long StudentNumber { get; set; }
+        public string StudentNumber { get; set; }
 
         [Required]
         [Display(Name ="First\nName")]
