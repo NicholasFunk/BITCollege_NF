@@ -18,7 +18,7 @@ namespace BITCollege_NF.Controllers
         // GET: AuditCourses
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(a => a.AcademicProgram);
+            var courses = db.AuditCourses.Include(a => a.AcademicProgram);
             return View(courses.ToList());
         }
 

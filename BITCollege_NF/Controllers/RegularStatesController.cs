@@ -18,7 +18,7 @@ namespace BITCollege_NF.Controllers
         // GET: RegularStates
         public ActionResult Index()
         {
-            return View(db.GradePointStates.ToList());
+            return View(db.RegularStates.ToList());
         }
 
         // GET: RegularStates/Details/5
@@ -28,7 +28,7 @@ namespace BITCollege_NF.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RegularState regularState = (RegularState)db.GradePointStates.Find(id);
+            RegularState regularState = db.RegularStates.Find(id);
             if (regularState == null)
             {
                 return HttpNotFound();
@@ -66,7 +66,7 @@ namespace BITCollege_NF.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RegularState regularState = (RegularState)db.GradePointStates.Find(id);
+            RegularState regularState = db.RegularStates.Find(id);
             if (regularState == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace BITCollege_NF.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RegularState regularState = (RegularState)db.GradePointStates.Find(id);
+            RegularState regularState = db.RegularStates.Find(id);
             if (regularState == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace BITCollege_NF.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RegularState regularState = (RegularState)db.GradePointStates.Find(id);
+            RegularState regularState = db.RegularStates.Find(id);
             db.GradePointStates.Remove(regularState);
             db.SaveChanges();
             return RedirectToAction("Index");

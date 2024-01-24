@@ -18,7 +18,7 @@ namespace BITCollege_NF.Controllers
         // GET: MasteryCourses
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(m => m.AcademicProgram);
+            var courses = db.MasteryCourses.Include(m => m.AcademicProgram);
             return View(courses.ToList());
         }
 

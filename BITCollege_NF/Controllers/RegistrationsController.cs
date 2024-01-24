@@ -40,8 +40,8 @@ namespace BITCollege_NF.Controllers
         // GET: Registrations/Create
         public ActionResult Create()
         {
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseNumber");
-            ViewBag.StudentId = new SelectList(db.Students, "StudentId", "FirstName");
+            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Title");
+            ViewBag.StudentId = new SelectList(db.Students, "StudentId", "FullName");
             return View();
         }
 

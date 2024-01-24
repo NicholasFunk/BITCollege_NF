@@ -18,7 +18,7 @@ namespace BITCollege_NF.Controllers
         // GET: SuspendedStates
         public ActionResult Index()
         {
-            return View(db.GradePointStates.ToList());
+            return View(db.SuspendedStates.ToList());
         }
 
         // GET: SuspendedStates/Details/5
@@ -28,7 +28,7 @@ namespace BITCollege_NF.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SuspendedState suspendedState = (SuspendedState)db.GradePointStates.Find(id);
+            SuspendedState suspendedState = db.SuspendedStates.Find(id);
             if (suspendedState == null)
             {
                 return HttpNotFound();
@@ -66,7 +66,7 @@ namespace BITCollege_NF.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SuspendedState suspendedState = (SuspendedState)db.GradePointStates.Find(id);
+            SuspendedState suspendedState = db.SuspendedStates.Find(id);
             if (suspendedState == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace BITCollege_NF.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SuspendedState suspendedState = (SuspendedState)db.GradePointStates.Find(id);
+            SuspendedState suspendedState = db.SuspendedStates.Find(id);
             if (suspendedState == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace BITCollege_NF.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SuspendedState suspendedState = (SuspendedState)db.GradePointStates.Find(id);
+            SuspendedState suspendedState = db.SuspendedStates.Find(id);
             db.GradePointStates.Remove(suspendedState);
             db.SaveChanges();
             return RedirectToAction("Index");

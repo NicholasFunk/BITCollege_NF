@@ -329,12 +329,12 @@ namespace BITCollege_NF.Models
     {
         [Required]
         [Display(Name ="Assignments")]
-        [DisplayFormat(DataFormatString = "{0:%%}")]
+        [DisplayFormat(DataFormatString = "{0:P}")]
         public double AssignmentWeight { get; set; }
 
         [Required]
         [Display(Name ="Exams")]
-        [DisplayFormat(DataFormatString = "{0:%%}")]
+        [DisplayFormat(DataFormatString = "{0:P}")]
         public double ExamWeight { get; set; }
     }
     
