@@ -134,8 +134,12 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\GradePointStatesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HonoursStatesController.cs" />
+    <Compile Include="Controllers\ProbationStatesController.cs" />
     <Compile Include="Controllers\RegistrationsController.cs" />
+    <Compile Include="Controllers\RegularStatesController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SuspendedStatesController.cs" />
     <Compile Include="Data\BITCollege_NFContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,6 +198,26 @@
     <Content Include="Views\Registrations\Details.cshtml" />
     <Content Include="Views\Registrations\Edit.cshtml" />
     <Content Include="Views\Registrations\Index.cshtml" />
+    <Content Include="Views\ProbationStates\Create.cshtml" />
+    <Content Include="Views\ProbationStates\Delete.cshtml" />
+    <Content Include="Views\ProbationStates\Details.cshtml" />
+    <Content Include="Views\ProbationStates\Edit.cshtml" />
+    <Content Include="Views\ProbationStates\Index.cshtml" />
+    <Content Include="Views\SuspendedStates\Create.cshtml" />
+    <Content Include="Views\SuspendedStates\Delete.cshtml" />
+    <Content Include="Views\SuspendedStates\Details.cshtml" />
+    <Content Include="Views\SuspendedStates\Edit.cshtml" />
+    <Content Include="Views\SuspendedStates\Index.cshtml" />
+    <Content Include="Views\HonoursStates\Create.cshtml" />
+    <Content Include="Views\HonoursStates\Delete.cshtml" />
+    <Content Include="Views\HonoursStates\Details.cshtml" />
+    <Content Include="Views\HonoursStates\Edit.cshtml" />
+    <Content Include="Views\HonoursStates\Index.cshtml" />
+    <Content Include="Views\RegularStates\Create.cshtml" />
+    <Content Include="Views\RegularStates\Delete.cshtml" />
+    <Content Include="Views\RegularStates\Details.cshtml" />
+    <Content Include="Views\RegularStates\Edit.cshtml" />
+    <Content Include="Views\RegularStates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

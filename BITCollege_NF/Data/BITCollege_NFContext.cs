@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
 namespace BITCollege_NF.Data
 {
@@ -28,5 +29,13 @@ namespace BITCollege_NF.Data
         public System.Data.Entity.DbSet<BITCollege_NF.Models.Registration> Registrations { get; set; }
 
         public System.Data.Entity.DbSet<BITCollege_NF.Models.Course> Courses { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.ProbationState> ProbationStates { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.SuspendedState> SuspendedStates { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.HonoursState> HonoursStates { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.RegularState> RegularStates { get; set; }
     }
 }
