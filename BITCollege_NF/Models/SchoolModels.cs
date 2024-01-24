@@ -27,9 +27,8 @@ namespace BITCollege_NF.Models
         public int? AcademicProgramId { get; set; }
 
         [Required]
-        [MinLength(10000000)]
-        [MaxLength(99999999)]
-        [Display(Name ="Student\nNumber")]
+        [Range(10000000, 99999999)]
+        [Display(Name = "Student\nNumber")]
         public long StudentNumber { get; set; }
 
         [Required]
