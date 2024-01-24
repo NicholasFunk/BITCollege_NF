@@ -37,5 +37,11 @@ namespace BITCollege_NF.Data
         public System.Data.Entity.DbSet<BITCollege_NF.Models.HonoursState> HonoursStates { get; set; }
 
         public System.Data.Entity.DbSet<BITCollege_NF.Models.RegularState> RegularStates { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.AuditCourse> AuditCourses { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.GradedCourse> GradedCourses { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.MasteryCourse> MasteryCourses { get; set; }
     }
 }
