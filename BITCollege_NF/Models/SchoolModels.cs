@@ -148,7 +148,7 @@ namespace BITCollege_NF.Models
     /// GradePointState Model 
     /// Represents the GradePointState table in the database
     /// </summary>
-    public class GradePointState
+    public abstract class GradePointState
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -264,7 +264,7 @@ namespace BITCollege_NF.Models
     /// Course Model 
     /// Represents the Course table in the database
     /// </summary>
-    public class Course
+    public abstract class Course
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
