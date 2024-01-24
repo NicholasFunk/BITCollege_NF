@@ -30,7 +30,7 @@ namespace BITCollege_NF.Models
         [MinLength(10000000)]
         [MaxLength(99999999)]
         [Display(Name ="Student\nNumber")]
-        public string StudentNumber { get; set; }
+        public long StudentNumber { get; set; }
 
         [Required]
         [Display(Name ="First\nName")]
@@ -221,6 +221,7 @@ namespace BITCollege_NF.Models
     /// </summary>
     public class Registration
     {
+        [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int RegstrationId { get; set; }
 
