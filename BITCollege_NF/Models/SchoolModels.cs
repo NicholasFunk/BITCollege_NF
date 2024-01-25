@@ -79,7 +79,7 @@ namespace BITCollege_NF.Models
         }
 
         [Display(Name ="Address")]
-        public string FullAdress
+        public string FullAddress
         {
             get
             {
@@ -174,9 +174,9 @@ namespace BITCollege_NF.Models
             get
             {
                 string input = GetType().Name;
-                string digits = string.Concat(input.Where(char.IsDigit));
+                int underscore = input.IndexOf('_');
                 string state = "State";
-                string output = String.Format("{0}", input.Substring(0, input.Length - digits.Length - state.Length));
+                string output = String.Format("{0}", input.Substring(0, underscore - state.Length));
                 output = output.Trim(' ');
 
                 return output;

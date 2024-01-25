@@ -60,7 +60,7 @@ namespace BITCollege_NF.Controllers
             }
 
             ViewBag.AcademicProgramId = new SelectList(db.AcademicPrograms, "AcademicProgramId", "ProgramAcronym", student.AcademicProgram.ProgramAcronym);
-            ViewBag.GradePointStateId = new SelectList(db.GradePointStates, "GradePointStateId", "GradePointStateId", student.GradePointState.Description);
+            ViewBag.GradePointStateId = new SelectList(db.GradePointStates, "GradePointStateId", "Description", student.GradePointState.Description);
             return View(student);
         }
 
