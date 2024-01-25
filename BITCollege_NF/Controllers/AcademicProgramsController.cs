@@ -111,6 +111,11 @@ namespace BITCollege_NF.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             AcademicProgram academicProgram = db.AcademicPrograms.Find(id);
+
+            // Use clear method here.
+            academicProgram.Student.Clear();
+            academicProgram.Course.Clear();
+
             db.AcademicPrograms.Remove(academicProgram);
             db.SaveChanges();
             return RedirectToAction("Index");
