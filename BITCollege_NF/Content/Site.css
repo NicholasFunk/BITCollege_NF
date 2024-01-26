@@ -27,3 +27,7 @@ textarea {
     white-space: pre-line;
 }
 
+#GradepointAverage, #Grades {
+    text-align: right;
+}
+
