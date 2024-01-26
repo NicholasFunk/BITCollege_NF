@@ -69,7 +69,7 @@ namespace BITCollege_NF.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GradedCourse gradedCourse = (GradedCourse)db.Courses.Find(id);
+            GradedCourse gradedCourse = db.GradedCourses.Find(id);
             if (gradedCourse == null)
             {
                 return HttpNotFound();

@@ -27,6 +27,3 @@ textarea {
     white-space: pre-line;
 }
 
-#Balance, #GradePointAverage, #AdditionalNumericField {
-    text-align: right;
-}
