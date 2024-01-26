@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#multiword_headings th {
+    white-space: pre-line;
+}
+
+#Balance, #GradePointAverage, #AdditionalNumericField {
+    text-align: right;
+}
