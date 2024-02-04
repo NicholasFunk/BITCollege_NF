@@ -153,6 +153,9 @@ namespace BITCollege_NF.Models
     /// </summary>
     public abstract class GradePointState
     {
+
+        protected static Data.BITCollege_NFContext db = new Data.BITCollege_NFContext();
+
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int GradePointStateId { get; set; }
@@ -204,11 +207,25 @@ namespace BITCollege_NF.Models
 
     public class SuspendedState : GradePointState
     {
-        private SuspendedState suspendedState;
+        private static SuspendedState suspendedState;
 
-        private SuspendedState() { }
+        private SuspendedState() { this.LowerLimit = 0.00; this.UpperLimit = 1.00; this.TuitionRateFactor = 1.1; }
 
-        public SuspendedState GetInstance { get { return this; } }
+        public static SuspendedState GetInstance()
+        {
+            if (suspendedState == null)
+            {
+                suspendedState = db.SuspendedStates.SingleOrDefault();
+                if (suspendedState == null)
+                {
+                    suspendedState = new SuspendedState();
+                    db.SuspendedStates.Add(suspendedState);
+                    db.SaveChanges();
+                }
+            }
+
+            return suspendedState;
+        }
 
         public double TuitionRateAdjustment(Student student) { return 0; }
 
@@ -218,11 +235,30 @@ namespace BITCollege_NF.Models
 
     public class ProbationState : GradePointState
     {
-        private ProbationState probationState;
+        private static  ProbationState probationState;
 
-        private ProbationState() { }
+        private ProbationState()
+        {
+            this.LowerLimit = 1.00;
+            this.UpperLimit = 2.00;
+            this.TuitionRateFactor = 1.075;
+        }
 
-        public ProbationState GetInstance { get { return this; } }
+        public static ProbationState GetInstance()
+        {
+            if (probationState == null)
+            {
+                probationState = db.ProbationStates.SingleOrDefault();
+                if (probationState == null)
+                {
+                    probationState = new ProbationState();
+                    db.ProbationStates.Add(probationState);
+                    db.SaveChanges();
+                }
+            }
+
+            return probationState;
+        }
 
         public double TuitionRateAdjustment(Student student) { return 0; }
         public void StateChangeCheck(Student student) { }
@@ -230,12 +266,64 @@ namespace BITCollege_NF.Models
 
     public class HonoursState : GradePointState
     {
-        private HonoursState honoursState;
+        private static HonoursState honoursState;
+        private HonoursState()
+        {
+            this.LowerLimit = 2.00;
+            this.UpperLimit = 3.70;
+            this.TuitionRateFactor = 1.0;
+        }
+        public static HonoursState GetInstance()
+        {
+            if (honoursState == null)
+            {
+                honoursState = db.HonoursStates.SingleOrDefault();
+                if (honoursState == null)
+                {
+                    honoursState = new HonoursState();
+                    db.HonoursStates.Add(honoursState);
+                    db.SaveChanges();
+                }
+            }
+
+            return honoursState;
+        }
+
+        public double TutionRateAdjustment(Student student) { return 0; }
+
+        public void StateChangeCheck(Student student) { }
     }
 
     public class RegularState : GradePointState
     {
-        private RegularState regularState;
+        private static RegularState regularState;
+
+        private RegularState()
+        {
+            this.LowerLimit = 2.00;
+            this.UpperLimit = 3.70;
+            this.TuitionRateFactor = 1.0;
+        }
+
+        public static RegularState GetInstance()
+        {
+            if (regularState==null)
+            {
+                regularState = db.RegularStates.SingleOrDefault();
+                if (regularState==null)
+                {
+                    regularState = new RegularState();
+                    db.RegularStates.Add(regularState);
+                    db.SaveChanges();
+                }
+            }
+
+            return regularState;
+        }
+
+        public double TutionRateAdjustment(Student student) { return 0; }
+
+        public void StateChangeCheck(Student student) { }
     }
 
     /// <summary>
