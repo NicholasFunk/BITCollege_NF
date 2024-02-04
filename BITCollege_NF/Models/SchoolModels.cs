@@ -219,6 +219,13 @@ namespace BITCollege_NF.Models
     public class ProbationState : GradePointState
     {
         private ProbationState probationState;
+
+        private ProbationState() { }
+
+        public ProbationState GetInstance { get { return this; } }
+
+        public double TuitionRateAdjustment(Student student) { return 0; }
+        public void StateChangeCheck(Student student) { }
     }
 
     public class HonoursState : GradePointState
