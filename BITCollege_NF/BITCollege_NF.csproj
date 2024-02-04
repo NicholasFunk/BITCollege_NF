@@ -196,26 +196,18 @@
     <Content Include="Views\Registrations\Details.cshtml" />
     <Content Include="Views\Registrations\Edit.cshtml" />
     <Content Include="Views\Registrations\Index.cshtml" />
-    <Content Include="Views\ProbationStates\Create.cshtml" />
     <Content Include="Views\ProbationStates\Delete.cshtml" />
     <Content Include="Views\ProbationStates\Details.cshtml" />
     <Content Include="Views\ProbationStates\Edit.cshtml" />
-    <Content Include="Views\ProbationStates\Index.cshtml" />
-    <Content Include="Views\SuspendedStates\Create.cshtml" />
     <Content Include="Views\SuspendedStates\Delete.cshtml" />
     <Content Include="Views\SuspendedStates\Details.cshtml" />
     <Content Include="Views\SuspendedStates\Edit.cshtml" />
-    <Content Include="Views\SuspendedStates\Index.cshtml" />
-    <Content Include="Views\HonoursStates\Create.cshtml" />
     <Content Include="Views\HonoursStates\Delete.cshtml" />
     <Content Include="Views\HonoursStates\Details.cshtml" />
     <Content Include="Views\HonoursStates\Edit.cshtml" />
-    <Content Include="Views\HonoursStates\Index.cshtml" />
-    <Content Include="Views\RegularStates\Create.cshtml" />
     <Content Include="Views\RegularStates\Delete.cshtml" />
     <Content Include="Views\RegularStates\Details.cshtml" />
     <Content Include="Views\RegularStates\Edit.cshtml" />
-    <Content Include="Views\RegularStates\Index.cshtml" />
     <Content Include="Views\AuditCourses\Create.cshtml" />
     <Content Include="Views\AuditCourses\Delete.cshtml" />
     <Content Include="Views\AuditCourses\Details.cshtml" />
@@ -236,6 +228,10 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\HonoursStates\Index.cshtml" />
+    <Content Include="Views\ProbationStates\Index.cshtml" />
+    <Content Include="Views\RegularStates\Index.cshtml" />
+    <Content Include="Views\SuspendedStates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
