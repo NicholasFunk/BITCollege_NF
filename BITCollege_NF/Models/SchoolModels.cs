@@ -32,11 +32,11 @@ namespace BITCollege_NF.Models
         public long StudentNumber { get; set; }
 
         [Required]
-        [Display(Name ="First\nName")]
+        [Display(Name = "First\nName")]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name ="Last\nName")]
+        [Display(Name = "Last\nName")]
         public string LastName { get; set; }
 
         [Required]
@@ -47,29 +47,29 @@ namespace BITCollege_NF.Models
 
 
         [Required]
-        [RegularExpression("^(N[BLSTU]|[AMN]B|[BQ]C|ON|PE|SK|YT)", ErrorMessage ="Please enter a valid 2 Character Province.")]
+        [RegularExpression("^(N[BLSTU]|[AMN]B|[BQ]C|ON|PE|SK|YT)", ErrorMessage = "Please enter a valid 2 Character Province.")]
         public string Province { get; set; }
 
 
         [Required]
-        [Display(Name ="Date")]
-        [DisplayFormat(DataFormatString ="{0:d}")]
+        [Display(Name = "Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime DateCreated { get; set; }
 
 
-        [Display(Name ="Grade Point\nAverage")]
-        [DisplayFormat(DataFormatString ="{0:C2}")]
+        [Display(Name = "Grade Point\nAverage")]
+        [DisplayFormat(DataFormatString = "{0:n2}")]
         [Range(0, 4.5)]
         public double? GradePointAverage { get; set; }
 
         [Required]
-        [Display(Name ="Fees")]
-        [DisplayFormat(DataFormatString ="{0:C2}")]
+        [Display(Name = "Fees")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public double OutstandingFees { get; set; }
 
         public string Notes { get; set; }
 
-        [Display(Name ="Name")]
+        [Display(Name = "Name")]
         public string FullName
         {
             get
@@ -78,7 +78,7 @@ namespace BITCollege_NF.Models
             }
         }
 
-        [Display(Name ="Address")]
+        [Display(Name = "Address")]
         public string FullAddress
         {
             get
@@ -86,6 +86,10 @@ namespace BITCollege_NF.Models
                 return String.Format("{0} {1} {2}", Address, City, Province);
             }
         }
+
+
+        public void ChangeState() { }
+
 
         /// <summary>
         /// Navigation Property
@@ -154,21 +158,21 @@ namespace BITCollege_NF.Models
         public int GradePointStateId { get; set; }
 
         [Required]
-        [Display(Name ="Lower\nLimit")]
+        [Display(Name = "Lower\nLimit")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public double LowerLimit { get; set; }
 
         [Required]
-        [Display(Name ="Upper\nLimit")]
+        [Display(Name = "Upper\nLimit")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public double UpperLimit { get; set; }
 
         [Required]
-        [Display(Name ="Tuition Rate\nFactor")]
+        [Display(Name = "Tuition Rate\nFactor")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public double TuitionRateFactor { get; set; }
 
-        [Display(Name ="State")]
+        [Display(Name = "State")]
         public string Description
         {
             get
@@ -184,6 +188,10 @@ namespace BITCollege_NF.Models
             }
         }
 
+        public double TuitionRateAdjustment(Student student) { return 0; }
+
+        public void StateChangeCheck(Student student) { }
+
         /// <summary>
         /// Navigation Property
         /// Represent * or 0-* or 1-* cardinality with the Student table in the database.
@@ -197,6 +205,15 @@ namespace BITCollege_NF.Models
     public class SuspendedState : GradePointState
     {
         private SuspendedState suspendedState;
+
+        private SuspendedState() { }
+
+        public SuspendedState GetInstance { get { return this; } }
+
+        public double TuitionRateAdjustment(Student student) { return 0; }
+
+        public void SateChangeCheck(Student student) { }
+
     }
 
     public class ProbationState : GradePointState
@@ -290,22 +307,22 @@ namespace BITCollege_NF.Models
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public double TuitionAmount { get; set; }
 
-        [Display(Name ="Course\nType")]
-        public string CourseType 
-        { 
-            get 
+        [Display(Name = "Course\nType")]
+        public string CourseType
+        {
+            get
             {
-         
-                    string input = GetType().Name;
-                    string digits = string.Concat(input.Where(char.IsDigit));
-                    string state = "State";
-                    string output = String.Format("{0}", input.Substring(0, input.Length - digits.Length - state.Length));
-                    output = output.Trim(' ');
 
-                    return output;
+                string input = GetType().Name;
+                string digits = string.Concat(input.Where(char.IsDigit));
+                string state = "State";
+                string output = String.Format("{0}", input.Substring(0, input.Length - digits.Length - state.Length));
+                output = output.Trim(' ');
 
-                
-            } 
+                return output;
+
+
+            }
         }
 
         public string Notes { get; set; }
@@ -328,20 +345,20 @@ namespace BITCollege_NF.Models
     public class GradedCourse : Course
     {
         [Required]
-        [Display(Name ="Assignments")]
+        [Display(Name = "Assignments")]
         [DisplayFormat(DataFormatString = "{0:P}")]
         public double AssignmentWeight { get; set; }
 
         [Required]
-        [Display(Name ="Exams")]
+        [Display(Name = "Exams")]
         [DisplayFormat(DataFormatString = "{0:P}")]
         public double ExamWeight { get; set; }
     }
-    
+
     public class MasteryCourse : Course
     {
         [Required]
-        [Display(Name ="Maximum\nAttempts")]
+        [Display(Name = "Maximum\nAttempts")]
         public int MaximumAttempts { get; set; }
     }
 
