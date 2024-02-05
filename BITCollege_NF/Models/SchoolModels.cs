@@ -16,6 +16,9 @@ namespace BITCollege_NF.Models
     /// </summary>
     public class Student
     {
+
+        private Data.BITCollege_NFContext db = new Data.BITCollege_NFContext();
+
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
 
@@ -88,7 +91,10 @@ namespace BITCollege_NF.Models
         }
 
 
-        public void ChangeState() { }
+        public void ChangeState(GradePointState gradePointState) 
+        {
+            this.GradePointStateId = gradePointState.GradePointStateId;
+        }
 
 
         /// <summary>
@@ -191,9 +197,9 @@ namespace BITCollege_NF.Models
             }
         }
 
-        public double TuitionRateAdjustment(Student student) { return 0; }
+        public abstract double TuitionRateAdjustment(Student student);
 
-        public void StateChangeCheck(Student student) { }
+        public abstract void StateChangeCheck(Student student);
 
         /// <summary>
         /// Navigation Property
@@ -227,15 +233,32 @@ namespace BITCollege_NF.Models
             return suspendedState;
         }
 
-        public double TuitionRateAdjustment(Student student) { return 0; }
+        public override double TuitionRateAdjustment(Student student) 
+        {
+            // Check the students current GPA standing
+            
 
-        public void SateChangeCheck(Student student) { }
+            // Use the studentId to check which courses they have registered for
+            double adjustedTuition = 0;
+
+
+            return 0;
+        }
+
+        public override void StateChangeCheck(Student student) 
+        {
+            if (student.GradePointAverage > this.UpperLimit)
+            {
+                student.ChangeState(ProbationState.GetInstance());
+            }
+            db.SaveChanges();
+        }
 
     }
 
     public class ProbationState : GradePointState
     {
-        private static  ProbationState probationState;
+        private static ProbationState probationState;
 
         private ProbationState()
         {
@@ -260,8 +283,24 @@ namespace BITCollege_NF.Models
             return probationState;
         }
 
-        public double TuitionRateAdjustment(Student student) { return 0; }
-        public void StateChangeCheck(Student student) { }
+        public override double TuitionRateAdjustment(Student student) 
+        {
+            return 0; 
+        }
+
+        public override void StateChangeCheck(Student student)
+        {
+            if (student.GradePointAverage > this.UpperLimit)
+            {
+                student.ChangeState(RegularState.GetInstance());
+            }
+            else if (student.GradePointAverage < this.LowerLimit)
+            {
+                student.ChangeState(SuspendedState.GetInstance());
+            }
+
+            db.SaveChanges();
+        }
     }
 
     public class HonoursState : GradePointState
@@ -289,9 +328,17 @@ namespace BITCollege_NF.Models
             return honoursState;
         }
 
-        public double TutionRateAdjustment(Student student) { return 0; }
+        public override double TuitionRateAdjustment(Student student) { return 0; }
 
-        public void StateChangeCheck(Student student) { }
+        public override void StateChangeCheck(Student student) 
+        {
+            if (student.GradePointAverage < this.LowerLimit)
+            {
+                student.ChangeState(RegularState.GetInstance());
+            }
+
+            db.SaveChanges();
+        }
     }
 
     public class RegularState : GradePointState
@@ -321,9 +368,24 @@ namespace BITCollege_NF.Models
             return regularState;
         }
 
-        public double TutionRateAdjustment(Student student) { return 0; }
+        public override double TuitionRateAdjustment(Student student) 
+        {
+            return 0;
+        }
 
-        public void StateChangeCheck(Student student) { }
+        public override void StateChangeCheck(Student student) 
+        {
+            if (student.GradePointAverage > this.UpperLimit)
+            {
+                student.ChangeState(HonoursState.GetInstance());
+            }
+            else if (student.GradePointAverage < this.LowerLimit)
+            {
+                student.ChangeState(ProbationState.GetInstance());
+            }
+
+            db.SaveChanges();
+        }
     }
 
     /// <summary>
