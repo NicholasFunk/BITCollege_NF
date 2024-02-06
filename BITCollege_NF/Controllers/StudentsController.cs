@@ -52,6 +52,10 @@ namespace BITCollege_NF.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentId,GradePointStateId,AcademicProgramId,StudentNumber,FirstName,LastName,Address,City,Province,DateCreated,GradePointAverage,OutstandingFees,Notes")] Student student)
         {
+
+            // Check for a GPA state change.
+            // Automatically persist the change in the db.
+
             if (ModelState.IsValid)
             {
                 db.Students.Add(student);
@@ -88,6 +92,20 @@ namespace BITCollege_NF.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentId,GradePointStateId,AcademicProgramId,StudentNumber,FirstName,LastName,Address,City,Province,DateCreated,GradePointAverage,OutstandingFees,Notes")] Student student)
         {
+            // Check for a GPA state change.
+            // Automatically persist the change in the db.
+            // Step 1: Query our student
+            //Student student = db.Students.Include(s => s.Registrations).Include(s => s.GradePointState).First(s => s.Id == student.StudentId);
+
+            //double tuitionAdjustment = student.GradePointState.TuitionRateAdjustment(student);
+
+
+            //Gpas = db.GradePointStates.ToList();
+            //Whenever we check the GPA of a student.
+            
+            
+            //IQueryable<double> tuitionAmounts = from courses in db.Courses where courses.AcademicProgramId == student.AcademicProgramId select courses.TuitionAmount;
+
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
