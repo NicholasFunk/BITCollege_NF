@@ -1,22 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BITCollege_NF;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System.ComponentModel.Design.Serialization;
-using BITCollege_NF.Data;
+﻿using BITCollege_NF.Data;
 using BITCollege_NF.Models;
 
 
 
-//BITCollege_NFContext db;
-//db = new BITCollege_NFContext();
 
-Student student = new Student();
+namespace BITCollege_NF
+{
+    class Program
+    {
+        private static BITCollege_NFContext db;
 
-// See https://aka.ms/new-console-template for more information
-//Console.WriteLine(student);
+        static void Main(string[] args) 
+        {
+            suspendedState_TuitionRateAdjustment_Test();
+        }
+
+        static void suspendedState_TuitionRateAdjustment_Test()
+        {
+            db = new BITCollege_NFContext();
+
+            double newTuition = 0;
+
+            Student student = new Student();
+            student.AcademicProgramId = 1;
+            student.GradePointStateId = 1;
+            student.GradePointAverage = 1;
+
+            SuspendedState suspendedState;
+
+            suspendedState = SuspendedState.GetInstance();
+            newTuition = suspendedState.TuitionRateAdjustment(student);
+
+            Console.WriteLine("Student Tuition: ", newTuition);
+        }
+    }
+}

@@ -18,7 +18,7 @@ namespace BITCollege_NF.Controllers
         // GET: SuspendedStates
         public ActionResult Index()
         {
-            return View(SuspendedState.GetInstance());
+            return View(db.SuspendedStates.ToList());
         }
 
         // GET: SuspendedStates/Details/5

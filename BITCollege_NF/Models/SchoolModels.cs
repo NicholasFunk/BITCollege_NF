@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.ComponentModel.Design.Serialization;
+using System.Data.SqlClient;
 
 namespace BITCollege_NF.Models
 {
@@ -91,7 +92,7 @@ namespace BITCollege_NF.Models
         }
 
 
-        public void ChangeState(GradePointState gradePointState) 
+        public void ChangeState(GradePointState gradePointState)
         {
             this.GradePointStateId = gradePointState.GradePointStateId;
         }
@@ -188,7 +189,7 @@ namespace BITCollege_NF.Models
             {
                 string input = GetType().Name;
                 int underscore = input.IndexOf('_');
-                string state = "State";
+                //string state = "State";
                 string output = String.Format("{0}", input); //.Substring(0, underscore - state.Length)
                 output = output.Trim(' ');
 
@@ -221,8 +222,7 @@ namespace BITCollege_NF.Models
         {
             if (suspendedState == null)
             {
-                suspendedState = db.SuspendedStates.SingleOrDefault();
-                if (suspendedState == null)
+                if (db.SuspendedStates.SingleOrDefault() == null)
                 {
                     suspendedState = new SuspendedState();
                     db.SuspendedStates.Add(suspendedState);
@@ -233,27 +233,25 @@ namespace BITCollege_NF.Models
             return suspendedState;
         }
 
-        public override double TuitionRateAdjustment(Student student) 
+        public override double TuitionRateAdjustment(Student student)
         {
+
+            double tuition = 1000;
             double adjustedTuition = 0;
 
-            // if(student.GradePointAverage < 0.75)
-            // {
-            //      increase tuition by 2%;
-            // }
-            // else
-            // {
-            //      increase tuition by 1%;
-            // }
-
-            // suspendedState.TuitionRateFactor; = 1.1
-
-            // Add it to outstanding fees Student
+            if (student.GradePointAverage < 0.75)
+            {
+                adjustedTuition = tuition * 1.02; // 2% increase
+            }
+            else
+            {
+                adjustedTuition = tuition * 1.01; // 1% increase
+            }
 
             return adjustedTuition;
         }
 
-        public override void StateChangeCheck(Student student) 
+        public override void StateChangeCheck(Student student)
         {
             if (student.GradePointAverage > this.UpperLimit)
             {
@@ -279,8 +277,7 @@ namespace BITCollege_NF.Models
         {
             if (probationState == null)
             {
-                probationState = db.ProbationStates.SingleOrDefault();
-                if (probationState == null)
+                if (db.ProbationStates.SingleOrDefault() == null)
                 {
                     probationState = new ProbationState();
                     db.ProbationStates.Add(probationState);
@@ -297,13 +294,7 @@ namespace BITCollege_NF.Models
             // If the Student has completed 5 or more courses, tuition for each newly registered course is increased by only 3.5
             double adjustedTuition = 0;
 
-            if (student.GradePointAverage < 0.75)
-            {
-                
-            }
-
-
-            return 0; 
+            return adjustedTuition;
         }
 
         public override void StateChangeCheck(Student student)
@@ -334,8 +325,7 @@ namespace BITCollege_NF.Models
         {
             if (honoursState == null)
             {
-                honoursState = db.HonoursStates.SingleOrDefault();
-                if (honoursState == null)
+                if (db.HonoursStates.SingleOrDefault() == null)
                 {
                     honoursState = new HonoursState();
                     db.HonoursStates.Add(honoursState);
@@ -356,9 +346,10 @@ namespace BITCollege_NF.Models
                 If the Student’s GradePointAverage is above 4.25, the student will receive an additional 2 % discount.
                 Note: The above scenarios are mutually exclusive.As such, a student can be eligible for both discounts.
             */
-            return 0; }
+            return 0;
+        }
 
-        public override void StateChangeCheck(Student student) 
+        public override void StateChangeCheck(Student student)
         {
             if (student.GradePointAverage < this.LowerLimit)
             {
@@ -382,10 +373,9 @@ namespace BITCollege_NF.Models
 
         public static RegularState GetInstance()
         {
-            if (regularState==null)
+            if (regularState == null)
             {
-                regularState = db.RegularStates.SingleOrDefault();
-                if (regularState==null)
+                if (db.RegularStates.SingleOrDefault() == null)
                 {
                     regularState = new RegularState();
                     db.RegularStates.Add(regularState);
@@ -396,13 +386,13 @@ namespace BITCollege_NF.Models
             return regularState;
         }
 
-        public override double TuitionRateAdjustment(Student student) 
+        public override double TuitionRateAdjustment(Student student)
         {
             // For Students with a Regular GradePointState, the TuitionRateFactor for each newly registered course has already been defined as 1. As such, there will be no adjustments made to the cost of tuition for all RegularState students.
             return 0;
         }
 
-        public override void StateChangeCheck(Student student) 
+        public override void StateChangeCheck(Student student)
         {
             if (student.GradePointAverage > this.UpperLimit)
             {
