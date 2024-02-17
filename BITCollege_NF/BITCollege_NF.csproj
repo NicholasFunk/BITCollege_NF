@@ -150,6 +150,7 @@
     <Compile Include="Controllers\NextGradedCoursesController.cs" />
     <Compile Include="Controllers\NextMasteryCoursesController.cs" />
     <Compile Include="Controllers\NextRegistrationsController.cs" />
+    <Compile Include="Controllers\NextStudentsController.cs" />
     <Compile Include="Controllers\NextUniqueNumbersController.cs" />
     <Compile Include="Controllers\ProbationStatesController.cs" />
     <Compile Include="Controllers\RegistrationsController.cs" />
@@ -275,6 +276,11 @@
     <Content Include="Views\NextRegistrations\Details.cshtml" />
     <Content Include="Views\NextRegistrations\Edit.cshtml" />
     <Content Include="Views\NextRegistrations\Index.cshtml" />
+    <Content Include="Views\NextStudents\Create.cshtml" />
+    <Content Include="Views\NextStudents\Delete.cshtml" />
+    <Content Include="Views\NextStudents\Details.cshtml" />
+    <Content Include="Views\NextStudents\Edit.cshtml" />
+    <Content Include="Views\NextStudents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
