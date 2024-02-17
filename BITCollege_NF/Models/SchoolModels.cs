@@ -662,7 +662,7 @@ namespace BITCollege_NF.Models
 
         private NextGradedCourse()
         {
-            // Used for later implementation...
+            this.NextAvailableNumber = 200000;
         }
 
         public static NextGradedCourse GetInstance()
