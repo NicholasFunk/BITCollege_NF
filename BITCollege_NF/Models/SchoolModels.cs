@@ -622,6 +622,21 @@ namespace BITCollege_NF.Models
         public long NextAvailableNumber { get; set; }
     }
 
+    class NextStudent : NextUniqueNumber
+    {
+        private static NextStudent nextStudent;
+
+        private NextStudent()
+        { 
+            // Used for later implementation...
+        }
+
+        public static NextStudent GetInstance()
+        {
+            return nextStudent;
+        }
+    }
+
 
 
     #endregion
