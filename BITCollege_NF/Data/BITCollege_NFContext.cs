@@ -47,5 +47,7 @@ namespace BITCollege_NF.Data
         public System.Data.Entity.DbSet<BITCollege_NF.Models.NextUniqueNumber> NextUniqueNumbers { get; set; }
 
         public System.Data.Entity.DbSet<BITCollege_NF.Models.NextAuditCourse> NextAuditCourses { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.NextGradedCourse> NextGradedCourses { get; set; }
     }
 }
