@@ -673,7 +673,6 @@ namespace BITCollege_NF.Models
 
     public class NextAuditCourse : NextUniqueNumber
     {
-
         private static NextAuditCourse nextAuditCourse;
             
         private NextAuditCourse()
@@ -696,7 +695,7 @@ namespace BITCollege_NF.Models
             this.NextAvailableNumber = 20000;
         }
 
-        public NextMasteryCourse GetInstance()
+        public static NextMasteryCourse GetInstance()
         {
             return nextMasteryCourse;
         }
