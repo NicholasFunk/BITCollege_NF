@@ -692,8 +692,8 @@ namespace BITCollege_NF.Models
         private static NextMasteryCourse nextMasteryCourse;
 
         private NextMasteryCourse()
-        { 
-            // Used for later implementation...
+        {
+            this.NextAvailableNumber = 20000;
         }
 
         public NextMasteryCourse GetInstance()
