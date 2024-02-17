@@ -616,6 +616,8 @@ namespace BITCollege_NF.Models
 
     public abstract class NextUniqueNumber
     {
+        protected static Data.BITCollege_NFContext db = new Data.BITCollege_NFContext();
+
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int NextUniqueNumberId { get; set; }
@@ -630,7 +632,7 @@ namespace BITCollege_NF.Models
 
         private NextStudent()
         {
-            // Used for later implementation...
+            this.NextAvailableNumber = 20000000;
         }
 
         public static NextStudent GetInstance()
