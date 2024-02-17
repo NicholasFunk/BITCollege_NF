@@ -1,5 +1,9 @@
 ﻿using BITCollege_NF.Data;
 using BITCollege_NF.Models;
+using System.Data.Common;
+using System.Data.Sql;
+using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 
 
@@ -17,21 +21,15 @@ namespace BITCollege_NF
 
         static void suspendedState_TuitionRateAdjustment_Test()
         {
+
             db = new BITCollege_NFContext();
 
-            double newTuition = 0;
+            Student student = db.Students.FirstOrDefault();
 
-            Student student = new Student();
-            student.AcademicProgramId = 1;
-            student.GradePointStateId = 1;
-            student.GradePointAverage = 1;
+            Console.WriteLine(student.FirstName);
 
-            SuspendedState suspendedState;
-
-            suspendedState = SuspendedState.GetInstance();
-            newTuition = suspendedState.TuitionRateAdjustment(student);
-
-            Console.WriteLine("Student Tuition: ", newTuition);
+            
+           
         }
     }
 }

@@ -9,6 +9,9 @@ using System.Text.RegularExpressions;
 using System.ComponentModel.Design.Serialization;
 using System.Data.SqlClient;
 
+
+
+
 namespace BITCollege_NF.Models
 {
     /// <summary>
@@ -97,6 +100,10 @@ namespace BITCollege_NF.Models
             this.GradePointStateId = gradePointState.GradePointStateId;
         }
 
+        public void SetNextStudentNumber()
+        {
+
+        }
 
         /// <summary>
         /// Navigation Property
@@ -179,7 +186,7 @@ namespace BITCollege_NF.Models
 
         [Required]
         [Display(Name = "Tuition Rate\nFactor")]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
+        [DisplayFormat(DataFormatString = "{0:n2}")]
         public double TuitionRateFactor { get; set; }
 
         [Display(Name = "State")]
@@ -188,9 +195,8 @@ namespace BITCollege_NF.Models
             get
             {
                 string input = GetType().Name;
-                int underscore = input.IndexOf('_');
-                //string state = "State";
-                string output = String.Format("{0}", input); //.Substring(0, underscore - state.Length)
+
+                string output = String.Format("{0}", input.Substring(0, input.Length - 5));
                 output = output.Trim(' ');
 
                 return output;
@@ -216,20 +222,22 @@ namespace BITCollege_NF.Models
     {
         private static SuspendedState suspendedState;
 
-        private SuspendedState() { this.LowerLimit = 0.00; this.UpperLimit = 1.00; this.TuitionRateFactor = 1.1; }
+        private SuspendedState() { this.LowerLimit = 0.00; this.UpperLimit = 1.00; this.TuitionRateFactor = 1.10; }
 
         public static SuspendedState GetInstance()
         {
             if (suspendedState == null)
             {
-                if (db.SuspendedStates.SingleOrDefault() == null)
+                suspendedState = db.SuspendedStates.SingleOrDefault();
+
+                if (suspendedState == null)
                 {
                     suspendedState = new SuspendedState();
                     db.SuspendedStates.Add(suspendedState);
                     db.SaveChanges();
                 }
             }
-
+            // Returning Null Value
             return suspendedState;
         }
 
@@ -277,7 +285,8 @@ namespace BITCollege_NF.Models
         {
             if (probationState == null)
             {
-                if (db.ProbationStates.SingleOrDefault() == null)
+                probationState = db.ProbationStates.SingleOrDefault();
+                if (probationState == null)
                 {
                     probationState = new ProbationState();
                     db.ProbationStates.Add(probationState);
@@ -293,6 +302,10 @@ namespace BITCollege_NF.Models
             // For Students with a Probation GradePointState, the TuitionRateFactor for each newly registered course has already been defined as 1.075. As such, all ProbationState students will pay an additional 7.5% for each newly registered course.
             // If the Student has completed 5 or more courses, tuition for each newly registered course is increased by only 3.5
             double adjustedTuition = 0;
+            // If student has completed 5 or more courses
+            //      Tuition adjustment is 3.5%
+            // Else
+            //      Tuition adjustment is 7.5%
 
             return adjustedTuition;
         }
@@ -317,15 +330,17 @@ namespace BITCollege_NF.Models
         private static HonoursState honoursState;
         private HonoursState()
         {
-            this.LowerLimit = 2.00;
-            this.UpperLimit = 3.70;
-            this.TuitionRateFactor = 1.0;
+            this.LowerLimit = 3.70;
+            this.UpperLimit = 4.5;
+            this.TuitionRateFactor = 0.90;
         }
         public static HonoursState GetInstance()
         {
             if (honoursState == null)
             {
-                if (db.HonoursStates.SingleOrDefault() == null)
+                honoursState = db.HonoursStates.SingleOrDefault();
+
+                if (honoursState == null)
                 {
                     honoursState = new HonoursState();
                     db.HonoursStates.Add(honoursState);
@@ -346,6 +361,15 @@ namespace BITCollege_NF.Models
                 If the Student’s GradePointAverage is above 4.25, the student will receive an additional 2 % discount.
                 Note: The above scenarios are mutually exclusive.As such, a student can be eligible for both discounts.
             */
+
+            // Pseudo code
+            // if student has an honours grade point state
+            //      tuition adjustment pay 10% less
+            // if student has an honours grade point state and completed 5 or more courses
+            //      tuition adjustment pay 15% less
+            // if student GPA is greater than 4.25
+            //      tuition adjusment additional 2% discount
+
             return 0;
         }
 
@@ -375,7 +399,8 @@ namespace BITCollege_NF.Models
         {
             if (regularState == null)
             {
-                if (db.RegularStates.SingleOrDefault() == null)
+                regularState = db.RegularStates.SingleOrDefault();
+                if (regularState == null)
                 {
                     regularState = new RegularState();
                     db.RegularStates.Add(regularState);
@@ -502,6 +527,8 @@ namespace BITCollege_NF.Models
         }
 
         public string Notes { get; set; }
+
+       
 
         /// <summary>
         /// Navigation Property
