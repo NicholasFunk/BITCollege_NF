@@ -587,7 +587,10 @@ namespace BITCollege_NF.Models
 
     public class AuditCourse : Course
     {
-
+        new public void SetNextCourseNumber()
+        { 
+            // Used for later implementation...
+        }
     }
 
 }
