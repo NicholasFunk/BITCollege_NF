@@ -465,6 +465,12 @@ namespace BITCollege_NF.Models
 
         public string Notes { get; set; }
 
+        public void SetNextRegistrationNumber() 
+        { 
+            // Used for later implementation...
+        }
+
+
         /// <summary>
         /// Navigation Property.
         /// Represents an exactly 1 Cardinality with the Student table in the database.
@@ -476,6 +482,8 @@ namespace BITCollege_NF.Models
         /// Represents an exactly 1 Cardinality with the Student table in the database.
         /// </summary>
         public virtual Course Course { get; set; }
+
+
     }
 
     /// <summary>
