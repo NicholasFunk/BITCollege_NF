@@ -18,7 +18,7 @@ namespace BITCollege_NF.Controllers
         // GET: NextAuditCourses
         public ActionResult Index()
         {
-            return View(db.NextAuditCourses.ToList());
+            return View(NextAuditCourse.GetInstance());
         }
 
         // GET: NextAuditCourses/Details/5
