@@ -652,6 +652,28 @@ namespace BITCollege_NF.Models
         }
     }
 
+    class NextGradedCourse : NextUniqueNumber
+    {
+        private static NextGradedCourse nextGradedCourse;
+
+        private NextGradedCourse() 
+        { 
+            // Used for later implementation...
+        }
+
+        public static NextGradedCourse GetInstance() 
+        {
+            return nextGradedCourse;
+        }
+    }
+
+    class NextAuditCourse : NextUniqueNumber
+    {
+        private static NextAuditCourse nextAuditCourse;
+
+
+    }
+
     #endregion
 
 }
