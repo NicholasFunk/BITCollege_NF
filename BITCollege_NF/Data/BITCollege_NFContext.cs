@@ -51,5 +51,7 @@ namespace BITCollege_NF.Data
         public System.Data.Entity.DbSet<BITCollege_NF.Models.NextGradedCourse> NextGradedCourses { get; set; }
 
         public System.Data.Entity.DbSet<BITCollege_NF.Models.NextMasteryCourse> NextMasteryCourses { get; set; }
+
+        public System.Data.Entity.DbSet<BITCollege_NF.Models.NextRegistration> NextRegistrations { get; set; }
     }
 }
