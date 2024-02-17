@@ -14,6 +14,7 @@ using System.Data.SqlClient;
 
 namespace BITCollege_NF.Models
 {
+    #region Student
     /// <summary>
     /// Student Model
     /// Represents the Student table in the database
@@ -126,7 +127,9 @@ namespace BITCollege_NF.Models
         /// </summary>
         public virtual ICollection<Registration> Registration { get; set; }
     }
+    #endregion 
 
+    #region AcademicProgram
     /// <summary>
     /// AcademicProgram Model
     /// Represents the AcademicProgram table in the database
@@ -160,6 +163,7 @@ namespace BITCollege_NF.Models
         /// </summary>
         public virtual ICollection<Course> Course { get; set; }
     }
+    #endregion
 
     #region GradePointStates
     /// <summary>
@@ -434,59 +438,6 @@ namespace BITCollege_NF.Models
     }
     #endregion
 
-    /// <summary>
-    /// Registration Model 
-    /// Represents the Registration table in the database
-    /// </summary>
-    public class Registration
-    {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int RegstrationId { get; set; }
-
-        [Required]
-        [ForeignKey("Student")]
-        public int StudentId { get; set; }
-
-        [Required]
-        [ForeignKey("Course")]
-        public int CourseId { get; set; }
-
-        [Required]
-        [Display(Name = "Registration\nNumber")]
-        public long RegistrationNumber { get; set; }
-
-        [Required]
-        [Display(Name = "Date")]
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime RegistrationDate { get; set; }
-
-        [Range(0, 1)]
-        [DisplayFormat(NullDisplayText = "Ungraded")]
-        public double? Grade { get; set; }
-
-        public string Notes { get; set; }
-
-        public void SetNextRegistrationNumber() 
-        { 
-            // Used for later implementation...
-        }
-
-        /// <summary>
-        /// Navigation Property.
-        /// Represents an exactly 1 Cardinality with the Student table in the database.
-        /// </summary>
-        public virtual Student Student { get; set; }
-
-        /// <summary>
-        /// Navigation Property.
-        /// Represents an exactly 1 Cardinality with the Student table in the database.
-        /// </summary>
-        public virtual Course Course { get; set; }
-
-
-    }
-
     #region Courses
     /// <summary>
     /// Course Model 
@@ -571,7 +522,7 @@ namespace BITCollege_NF.Models
         public double ExamWeight { get; set; }
 
         new public void SetNextCourseNumber()
-        { 
+        {
             // Used for later implementation...
         }
     }
@@ -582,8 +533,8 @@ namespace BITCollege_NF.Models
         [Display(Name = "Maximum\nAttempts")]
         public int MaximumAttempts { get; set; }
 
-        new public void SetNextCourseNumber() 
-        { 
+        new public void SetNextCourseNumber()
+        {
             // Used for later implementation...
         }
     }
@@ -591,9 +542,64 @@ namespace BITCollege_NF.Models
     public class AuditCourse : Course
     {
         new public void SetNextCourseNumber()
+        {
+            // Used for later implementation...
+        }
+    }
+    #endregion
+
+    #region Registration
+    /// <summary>
+    /// Registration Model 
+    /// Represents the Registration table in the database
+    /// </summary>
+    public class Registration
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int RegstrationId { get; set; }
+
+        [Required]
+        [ForeignKey("Student")]
+        public int StudentId { get; set; }
+
+        [Required]
+        [ForeignKey("Course")]
+        public int CourseId { get; set; }
+
+        [Required]
+        [Display(Name = "Registration\nNumber")]
+        public long RegistrationNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime RegistrationDate { get; set; }
+
+        [Range(0, 1)]
+        [DisplayFormat(NullDisplayText = "Ungraded")]
+        public double? Grade { get; set; }
+
+        public string Notes { get; set; }
+
+        public void SetNextRegistrationNumber() 
         { 
             // Used for later implementation...
         }
+
+        /// <summary>
+        /// Navigation Property.
+        /// Represents an exactly 1 Cardinality with the Student table in the database.
+        /// </summary>
+        public virtual Student Student { get; set; }
+
+        /// <summary>
+        /// Navigation Property.
+        /// Represents an exactly 1 Cardinality with the Student table in the database.
+        /// </summary>
+        public virtual Course Course { get; set; }
+
+
     }
     #endregion
 
