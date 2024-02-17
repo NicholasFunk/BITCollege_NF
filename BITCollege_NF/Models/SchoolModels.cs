@@ -682,7 +682,20 @@ namespace BITCollege_NF.Models
         }
     }
 
-    
+    class NextMasteryCourse 
+    {
+        private static NextMasteryCourse nextMasteryCourse;
+
+        private NextMasteryCourse()
+        { 
+            // Used for later implementation...
+        }
+
+        public NextMasteryCourse GetInstance()
+        {
+            return nextMasteryCourse;
+        }
+    }
 
     #endregion
 
