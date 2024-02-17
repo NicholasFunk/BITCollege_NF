@@ -678,7 +678,7 @@ namespace BITCollege_NF.Models
             
         private NextAuditCourse()
         {
-            // Used for later implementation...
+            this.NextAvailableNumber = 2000;
         }
 
         public static NextAuditCourse GetInstance()
@@ -701,7 +701,5 @@ namespace BITCollege_NF.Models
             return nextMasteryCourse;
         }
     }
-
     #endregion
-
 }
