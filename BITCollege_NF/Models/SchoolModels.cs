@@ -612,17 +612,19 @@ namespace BITCollege_NF.Models
         }
     }
 
-    #region NextUniqueNumber
+    #region NextUniqueNumber & Subclasses
 
-    abstract class NextUniqueNumber
+    public abstract class NextUniqueNumber
     {
+        [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int NextUniqueNumberId { get; set; }
 
+        [Required]
         public long NextAvailableNumber { get; set; }
     }
 
-    class NextStudent : NextUniqueNumber
+    public class NextStudent : NextUniqueNumber
     {
         private static NextStudent nextStudent;
 
@@ -637,7 +639,7 @@ namespace BITCollege_NF.Models
         }
     }
 
-    class NextRegistration : NextUniqueNumber
+    public class NextRegistration : NextUniqueNumber
     {
         private static NextRegistration nextRegistration;
 
@@ -652,7 +654,7 @@ namespace BITCollege_NF.Models
         }
     }
 
-    class NextGradedCourse : NextUniqueNumber
+    public class NextGradedCourse : NextUniqueNumber
     {
         private static NextGradedCourse nextGradedCourse;
 
@@ -667,10 +669,11 @@ namespace BITCollege_NF.Models
         }
     }
 
-    class NextAuditCourse : NextUniqueNumber
+    public class NextAuditCourse : NextUniqueNumber
     {
-        private static NextAuditCourse nextAuditCourse;
 
+        private static NextAuditCourse nextAuditCourse;
+            
         private NextAuditCourse()
         {
             // Used for later implementation...
@@ -682,7 +685,7 @@ namespace BITCollege_NF.Models
         }
     }
 
-    class NextMasteryCourse 
+    public class NextMasteryCourse 
     {
         private static NextMasteryCourse nextMasteryCourse;
 
