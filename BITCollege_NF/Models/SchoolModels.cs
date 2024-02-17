@@ -593,4 +593,13 @@ namespace BITCollege_NF.Models
         }
     }
 
+    static class StoredProcedure
+    {
+        public static long? NextNumber(String discriminator)
+        {
+            // Used for later implementation...
+            return 0;
+        }
+    }
+
 }
