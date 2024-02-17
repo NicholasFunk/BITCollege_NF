@@ -685,7 +685,7 @@ namespace BITCollege_NF.Models
         }
     }
 
-    public class NextMasteryCourse 
+    public class NextMasteryCourse : NextUniqueNumber
     {
         private static NextMasteryCourse nextMasteryCourse;
 
