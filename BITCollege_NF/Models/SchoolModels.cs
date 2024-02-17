@@ -102,7 +102,7 @@ namespace BITCollege_NF.Models
 
         public void SetNextStudentNumber()
         {
-
+            // Used in later implementation...
         }
 
         /// <summary>
@@ -161,6 +161,7 @@ namespace BITCollege_NF.Models
         public virtual ICollection<Course> Course { get; set; }
     }
 
+    #region GradePointStates
     /// <summary>
     /// GradePointState Model 
     /// Represents the GradePointState table in the database
@@ -431,6 +432,7 @@ namespace BITCollege_NF.Models
             db.SaveChanges();
         }
     }
+    #endregion
 
     /// <summary>
     /// Registration Model 
@@ -485,6 +487,7 @@ namespace BITCollege_NF.Models
 
     }
 
+    #region Courses
     /// <summary>
     /// Course Model 
     /// Represents the Course table in the database
@@ -537,7 +540,7 @@ namespace BITCollege_NF.Models
 
         public void SetNextCourseNumber()
         {
-
+            // Used for later implementation...
         }
 
         /// <summary>
@@ -592,6 +595,7 @@ namespace BITCollege_NF.Models
             // Used for later implementation...
         }
     }
+    #endregion
 
     static class StoredProcedure
     {
@@ -601,5 +605,7 @@ namespace BITCollege_NF.Models
             return 0;
         }
     }
+
+    
 
 }
