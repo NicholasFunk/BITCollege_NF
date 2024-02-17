@@ -612,6 +612,18 @@ namespace BITCollege_NF.Models
         }
     }
 
-    
+    #region NextUniqueNumber
+
+    abstract class NextUniqueNumber 
+    {
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int NextUniqueNumberId { get; set; }
+
+        public long NextAvailableNumber { get; set; }
+    }
+
+
+
+    #endregion
 
 }
