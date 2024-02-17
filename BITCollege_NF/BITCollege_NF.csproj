@@ -146,6 +146,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HonoursStatesController.cs" />
     <Compile Include="Controllers\MasteryCoursesController.cs" />
+    <Compile Include="Controllers\NextUniqueNumbersController.cs" />
     <Compile Include="Controllers\ProbationStatesController.cs" />
     <Compile Include="Controllers\RegistrationsController.cs" />
     <Compile Include="Controllers\RegularStatesController.cs" />
@@ -255,6 +256,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Courses\" />
     <Folder Include="Views\GradePointStates\" />
+    <Folder Include="Views\NextUniqueNumbers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
