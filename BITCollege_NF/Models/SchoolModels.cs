@@ -647,7 +647,7 @@ namespace BITCollege_NF.Models
 
         private NextRegistration()
         {
-            // Used for later implementation...
+            this.NextAvailableNumber = 700;
         }
 
         public static NextRegistration GetInstance()
