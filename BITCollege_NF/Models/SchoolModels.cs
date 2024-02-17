@@ -470,7 +470,6 @@ namespace BITCollege_NF.Models
             // Used for later implementation...
         }
 
-
         /// <summary>
         /// Navigation Property.
         /// Represents an exactly 1 Cardinality with the Student table in the database.
@@ -567,6 +566,11 @@ namespace BITCollege_NF.Models
         [Display(Name = "Exams")]
         [DisplayFormat(DataFormatString = "{0:P}")]
         public double ExamWeight { get; set; }
+
+        new public void SetNextCourseNumber()
+        { 
+            // Used for later implementation...
+        }
     }
 
     public class MasteryCourse : Course
