@@ -578,6 +578,11 @@ namespace BITCollege_NF.Models
         [Required]
         [Display(Name = "Maximum\nAttempts")]
         public int MaximumAttempts { get; set; }
+
+        new public void SetNextCourseNumber() 
+        { 
+            // Used for later implementation...
+        }
     }
 
     public class AuditCourse : Course
