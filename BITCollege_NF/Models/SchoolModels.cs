@@ -637,7 +637,20 @@ namespace BITCollege_NF.Models
         }
     }
 
+    class NextRegistration : NextUniqueNumber
+    {
+        private static NextRegistration nextRegistration;
 
+        private NextRegistration()
+        { 
+            // Used for later implementation...
+        }
+
+        public static NextRegistration GetInstance()
+        {
+            return nextRegistration;
+        }
+    }
 
     #endregion
 
