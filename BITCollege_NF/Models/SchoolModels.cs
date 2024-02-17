@@ -528,7 +528,10 @@ namespace BITCollege_NF.Models
 
         public string Notes { get; set; }
 
-       
+        public void SetNextCourseNumber()
+        {
+
+        }
 
         /// <summary>
         /// Navigation Property
