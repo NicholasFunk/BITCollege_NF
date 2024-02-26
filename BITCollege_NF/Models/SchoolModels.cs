@@ -95,10 +95,23 @@ namespace BITCollege_NF.Models
             }
         }
 
-
         public void ChangeState(GradePointState gradePointState)
         {
-            this.GradePointStateId = gradePointState.GradePointStateId;
+            // Ask current state, if it needs to change.
+            // Repeatedly Check, until it is done changing.
+            // Temp store state id and compare to the state id after the check
+
+            int tempId = gradePointState.GradePointStateId;
+
+
+            while (tempId != gradePointState)
+            {
+                gradePointState.StateChangeCheck(this);
+
+            }
+
+            // If we check and find that we need to change
+            
         }
 
         public void SetNextStudentNumber()
@@ -234,7 +247,6 @@ namespace BITCollege_NF.Models
             if (suspendedState == null)
             {
                 suspendedState = db.SuspendedStates.SingleOrDefault();
-
                 if (suspendedState == null)
                 {
                     suspendedState = new SuspendedState();
@@ -242,7 +254,6 @@ namespace BITCollege_NF.Models
                     db.SaveChanges();
                 }
             }
-            // Returning Null Value
             return suspendedState;
         }
 
@@ -264,11 +275,12 @@ namespace BITCollege_NF.Models
             return adjustedTuition;
         }
 
+        // When we edit a student, invoke student.
         public override void StateChangeCheck(Student student)
         {
             if (student.GradePointAverage > this.UpperLimit)
             {
-                student.ChangeState(ProbationState.GetInstance());
+                student.GradePointStateId = SuspendedState.GetInstance().GradePointStateId;
             }
             db.SaveChanges();
         }
@@ -319,11 +331,11 @@ namespace BITCollege_NF.Models
         {
             if (student.GradePointAverage > this.UpperLimit)
             {
-                student.ChangeState(RegularState.GetInstance());
+                student.GradePointStateId = RegularState.GetInstance().GradePointStateId;
             }
             else if (student.GradePointAverage < this.LowerLimit)
             {
-                student.ChangeState(SuspendedState.GetInstance());
+                student.GradePointStateId = SuspendedState.GetInstance().GradePointStateId;
             }
 
             db.SaveChanges();
@@ -382,9 +394,8 @@ namespace BITCollege_NF.Models
         {
             if (student.GradePointAverage < this.LowerLimit)
             {
-                student.ChangeState(RegularState.GetInstance());
+                student.GradePointStateId = RegularState.GetInstance().GradePointStateId;
             }
-
             db.SaveChanges();
         }
     }
@@ -426,11 +437,11 @@ namespace BITCollege_NF.Models
         {
             if (student.GradePointAverage > this.UpperLimit)
             {
-                student.ChangeState(HonoursState.GetInstance());
+                student.GradePointStateId = HonoursState.GetInstance().GradePointStateId;
             }
             else if (student.GradePointAverage < this.LowerLimit)
             {
-                student.ChangeState(ProbationState.GetInstance());
+                student.GradePointStateId = ProbationState.GetInstance().GradePointStateId;
             }
 
             db.SaveChanges();
