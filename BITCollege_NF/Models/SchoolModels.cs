@@ -529,7 +529,7 @@ namespace BITCollege_NF.Models
 
         new public void SetNextCourseNumber()
         {
-            // Used for later implementation...
+            CourseNumber = "G- " + StoredProcedure.NextNumber("GradedCourse");
         }
     }
 
@@ -541,7 +541,7 @@ namespace BITCollege_NF.Models
 
         new public void SetNextCourseNumber()
         {
-            // Used for later implementation...
+            CourseNumber = "M- " + StoredProcedure.NextNumber("MasteryCourse");
         }
     }
 
@@ -549,7 +549,7 @@ namespace BITCollege_NF.Models
     {
         new public void SetNextCourseNumber()
         {
-            // Used for later implementation...
+            CourseNumber = "A- " + StoredProcedure.NextNumber("AuditCourse");
         }
     }
     #endregion
