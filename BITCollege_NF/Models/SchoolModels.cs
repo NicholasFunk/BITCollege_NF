@@ -34,8 +34,6 @@ namespace BITCollege_NF.Models
         [ForeignKey("AcademicProgram")]
         public int? AcademicProgramId { get; set; }
 
-        [Required]
-        [Range(10000000, 99999999)]
         [Display(Name = "Student\nNumber")]
         public long StudentNumber { get; set; }
 
@@ -458,7 +456,6 @@ namespace BITCollege_NF.Models
         [ForeignKey("AcademicProgram")]
         public int? AcademicProgramId { get; set; }
 
-        [Required]
         [Display(Name = "Course\nNumber")]
         public string CourseNumber { get; set; }
 
@@ -573,7 +570,6 @@ namespace BITCollege_NF.Models
         [ForeignKey("Course")]
         public int CourseId { get; set; }
 
-        [Required]
         [Display(Name = "Registration\nNumber")]
         public long RegistrationNumber { get; set; }
 
