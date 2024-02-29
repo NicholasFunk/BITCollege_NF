@@ -52,7 +52,7 @@ namespace BITCollege_NF.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentId,GradePointStateId,AcademicProgramId,StudentNumber,FirstName,LastName,Address,City,Province,DateCreated,GradePointAverage,OutstandingFees,Notes")] Student student)
         {
-
+            student.SetNextStudentNumber();
             // Check for a GPA state change.
             // Automatically persist the change in the db.
 
