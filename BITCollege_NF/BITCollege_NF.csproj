@@ -165,6 +165,10 @@
     <Compile Include="Migrations\202402290332306_InitialCreate.designer.cs">
       <DependentUpon>202402290332306_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402290348298_StoredProcedures.cs" />
+    <Compile Include="Migrations\202402290348298_StoredProcedures.designer.cs">
+      <DependentUpon>202402290348298_StoredProcedures.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SchoolModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -301,6 +305,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202402290332306_InitialCreate.resx">
       <DependentUpon>202402290332306_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402290348298_StoredProcedures.resx">
+      <DependentUpon>202402290348298_StoredProcedures.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
