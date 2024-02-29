@@ -13,12 +13,12 @@ namespace BITCollege_NF.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202401241709420_InitialCreate"; }
+            get { return "202402290332306_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

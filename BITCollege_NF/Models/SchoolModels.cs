@@ -95,23 +95,19 @@ namespace BITCollege_NF.Models
             }
         }
 
-        public void ChangeState(GradePointState gradePointState)
+        public void ChangeState()
         {
             // Ask current state, if it needs to change.
+            // Comparing Student GradePointStateId in database to the new one on Edit or Create Post.
             // Repeatedly Check, until it is done changing.
             // Temp store state id and compare to the state id after the check
-
-            int tempId = gradePointState.GradePointStateId;
-
-
-            while (tempId != gradePointState)
-            {
-                gradePointState.StateChangeCheck(this);
-
-            }
-
             // If we check and find that we need to change
-            
+
+            while (this.GradePointStateId != GradePointState.GradePointStateId)
+            {
+                int tempId = GradePointStateId;
+                GradePointState.StateChangeCheck(this);
+            }
         }
 
         public void SetNextStudentNumber()
@@ -443,7 +439,6 @@ namespace BITCollege_NF.Models
             {
                 student.GradePointStateId = ProbationState.GetInstance().GradePointStateId;
             }
-
             db.SaveChanges();
         }
     }
@@ -614,6 +609,7 @@ namespace BITCollege_NF.Models
     }
     #endregion
 
+    #region Procedures
     static class StoredProcedure
     {
         public static long? NextNumber(String discriminator)
@@ -622,6 +618,7 @@ namespace BITCollege_NF.Models
             return 0;
         }
     }
+    #endregion
 
     #region NextUniqueNumber & Subclasses
 

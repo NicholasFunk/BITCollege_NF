@@ -59,6 +59,7 @@ namespace BITCollege_NF.Controllers
             if (ModelState.IsValid)
             {
                 db.Students.Add(student);
+                student.ChangeState();
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -109,6 +110,7 @@ namespace BITCollege_NF.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(student).State = EntityState.Modified;
+                student.ChangeState();
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
