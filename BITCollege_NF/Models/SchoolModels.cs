@@ -614,8 +614,26 @@ namespace BITCollege_NF.Models
     {
         public static long? NextNumber(String discriminator)
         {
-            // Used for later implementation...
-            return 0;
+            try
+            {
+                long? returnValue = 0;
+
+                SqlConnection connection = new SqlConnection("Data Srouce=localhost; " + "Initial Catalog=BITCollege_NFContext; Integrated Security=True");
+                SqlCommand storedProcedure = new SqlCommand("next_number", connection);
+                storedProcedure.CommandType = System.Data.CommandType.StoredProcedure;
+                storedProcedure.Parameters.AddWithValue("@Discriminator", discriminator);
+                SqlParameter outputParameter = new SqlParameter("@NewVal", System.Data.SqlDbType.BigInt) { Direction = System.Data.ParameterDirection.Output };
+                storedProcedure.Parameters.Add(outputParameter);
+                connection.Open();
+                storedProcedure.ExecuteNonQuery();
+                connection.Close();
+                returnValue = (long?)outputParameter.Value;
+                return returnValue;
+            }
+            catch (ArgumentNullException)
+            {
+                throw null;
+            }
         }
     }
     #endregion
@@ -682,15 +700,15 @@ namespace BITCollege_NF.Models
     public class NextAuditCourse : NextUniqueNumber
     {
         private static NextAuditCourse nextAuditCourse;
-            
+
         private NextAuditCourse()
         {
             this.NextAvailableNumber = 2000;
         }
 
         public static NextAuditCourse GetInstance()
-        { 
-            return nextAuditCourse; 
+        {
+            return nextAuditCourse;
         }
     }
 
