@@ -8,6 +8,9 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.ComponentModel.Design.Serialization;
 using System.Data.SqlClient;
+using Microsoft.Ajax.Utilities;
+using System.EnterpriseServices;
+using BITCollege_NF.Data;
 
 // Recovered from clone
 
@@ -95,16 +98,14 @@ namespace BITCollege_NF.Models
 
         public void ChangeState()
         {
-            // Ask current state, if it needs to change.
-            // Comparing Student GradePointStateId in database to the new one on Edit or Create Post.
-            // Repeatedly Check, until it is done changing.
-            // Temp store state id and compare to the state id after the check
-            // If we check and find that we need to change
+            GradePointState gps = db.GradePointStates.Find(GradePointStateId);
+       
+            int tempId = -1;
 
-            while (this.GradePointStateId != GradePointState.GradePointStateId)
+            while (tempId != GradePointStateId)
             {
-                int tempId = GradePointStateId;
-                GradePointState.StateChangeCheck(this);
+                tempId = GradePointStateId;
+                gps.StateChangeCheck(this);
             }
         }
 
@@ -274,7 +275,7 @@ namespace BITCollege_NF.Models
         {
             if (student.GradePointAverage > this.UpperLimit)
             {
-                student.GradePointStateId = SuspendedState.GetInstance().GradePointStateId;
+                student.GradePointStateId = ProbationState.GetInstance().GradePointStateId;
             }
             db.SaveChanges();
         }
