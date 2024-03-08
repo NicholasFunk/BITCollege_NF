@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using Microsoft.Ajax.Utilities;
 using System.EnterpriseServices;
 using BITCollege_NF.Data;
+using BITCollege_NF.Models;
 
 // Recovered from clone
 
@@ -99,7 +100,7 @@ namespace BITCollege_NF.Models
         public void ChangeState()
         {
             GradePointState gps = db.GradePointStates.Find(GradePointStateId);
-       
+
             int tempId = -1;
 
             while (tempId != GradePointStateId)
@@ -111,7 +112,7 @@ namespace BITCollege_NF.Models
 
         public void SetNextStudentNumber()
         {
-            StudentNumber = (long)StoredProcedure.NextNumber("NextStudentNumber");
+            StudentNumber = (long)StoredProcedure.NextNumber("NextStudent");
         }
 
         /// <summary>
@@ -237,6 +238,10 @@ namespace BITCollege_NF.Models
 
         private SuspendedState() { this.LowerLimit = 0.00; this.UpperLimit = 1.00; this.TuitionRateFactor = 1.10; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static SuspendedState GetInstance()
         {
             if (suspendedState == null)
@@ -322,6 +327,10 @@ namespace BITCollege_NF.Models
             return adjustedTuition;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="student"></param>
         public override void StateChangeCheck(Student student)
         {
             if (student.GradePointAverage > this.UpperLimit)
@@ -336,6 +345,7 @@ namespace BITCollege_NF.Models
             db.SaveChanges();
         }
     }
+
 
     public class HonoursState : GradePointState
     {
@@ -609,13 +619,19 @@ namespace BITCollege_NF.Models
     #region Procedures
     static class StoredProcedure
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="discriminator"></param>
+        /// <returns></returns>
+        /// <exception cref="NullReferenceException"></exception>
         public static long? NextNumber(String discriminator)
         {
             try
             {
                 long? returnValue = 0;
 
-                SqlConnection connection = new SqlConnection("Data Srouce=localhost; " + "Initial Catalog=BITCollege_NFContext; Integrated Security=True");
+                SqlConnection connection = new SqlConnection("Data Source=LAPTOP-KBQF560I\\MARS; " + "Initial Catalog=BITCollege_NF; Integrated Security=True");
                 SqlCommand storedProcedure = new SqlCommand("next_number", connection);
                 storedProcedure.CommandType = System.Data.CommandType.StoredProcedure;
                 storedProcedure.Parameters.AddWithValue("@Discriminator", discriminator);
@@ -660,6 +676,16 @@ namespace BITCollege_NF.Models
 
         public static NextStudent GetInstance()
         {
+            if (nextStudent == null)
+            {
+                nextStudent = db.NextStudents.SingleOrDefault();
+                if (nextStudent == null)
+                {
+                    nextStudent = new NextStudent();
+                    db.NextStudents.Add(nextStudent);
+                    db.SaveChanges();
+                }
+            }
             return nextStudent;
         }
     }
@@ -675,8 +701,19 @@ namespace BITCollege_NF.Models
 
         public static NextRegistration GetInstance()
         {
+            if (nextRegistration == null)
+            {
+                nextRegistration = db.NextRegistrations.SingleOrDefault();
+                if (nextRegistration == null)
+                {
+                    nextRegistration = new NextRegistration();
+                    db.NextRegistrations.Add(nextRegistration);
+                    db.SaveChanges();
+                }
+            }
             return nextRegistration;
         }
+
     }
 
     public class NextGradedCourse : NextUniqueNumber
@@ -690,6 +727,16 @@ namespace BITCollege_NF.Models
 
         public static NextGradedCourse GetInstance()
         {
+            if (nextGradedCourse == null)
+            {
+                nextGradedCourse = db.NextGradedCourses.SingleOrDefault();
+                if (nextGradedCourse == null)
+                {
+                    nextGradedCourse = new NextGradedCourse();
+                    db.NextGradedCourses.Add(nextGradedCourse);
+                    db.SaveChanges();
+                }
+            }
             return nextGradedCourse;
         }
     }
@@ -705,6 +752,16 @@ namespace BITCollege_NF.Models
 
         public static NextAuditCourse GetInstance()
         {
+            if (nextAuditCourse == null)
+            {
+                nextAuditCourse = db.NextAuditCourses.SingleOrDefault();
+                if (nextAuditCourse == null)
+                {
+                    nextAuditCourse = new NextAuditCourse();
+                    db.NextAuditCourses.Add(nextAuditCourse);
+                    db.SaveChanges();
+                }
+            }
             return nextAuditCourse;
         }
     }
@@ -720,6 +777,16 @@ namespace BITCollege_NF.Models
 
         public static NextMasteryCourse GetInstance()
         {
+            if (nextMasteryCourse == null)
+            {
+                nextMasteryCourse = db.NextMasteryCourses.SingleOrDefault();
+                if (nextMasteryCourse == null)
+                {
+                    nextMasteryCourse = new NextMasteryCourse();
+                    db.NextMasteryCourses.Add(nextMasteryCourse);
+                    db.SaveChanges();
+                }
+            }
             return nextMasteryCourse;
         }
     }
