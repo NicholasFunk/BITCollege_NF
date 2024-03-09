@@ -523,6 +523,10 @@ namespace BITCollege_NF.Models
         public virtual ICollection<Registration> Registration { get; set; }
     }
 
+    /// <summary>
+    /// GradedCourse Model
+    /// Represents the GradedCourse subclass table in the database
+    /// </summary>
     public class GradedCourse : Course
     {
         [Required]
@@ -541,6 +545,10 @@ namespace BITCollege_NF.Models
         }
     }
 
+    /// <summary>
+    /// MasteryCourse Model
+    /// Represents the MasteryCourse subclass table in the database
+    /// </summary>
     public class MasteryCourse : Course
     {
         [Required]
@@ -553,8 +561,15 @@ namespace BITCollege_NF.Models
         }
     }
 
+    /// <summary>
+    /// AuditCourse Model
+    /// Represents the AuditCourse subclass table in the database
+    /// </summary>
     public class AuditCourse : Course
     {
+        /// <summary>
+        /// Sets the CourseNumber property to the next available 
+        /// </summary>
         new public void SetNextCourseNumber()
         {
             CourseNumber = "A- " + StoredProcedure.NextNumber("NextAuditCourse");
@@ -595,6 +610,9 @@ namespace BITCollege_NF.Models
 
         public string Notes { get; set; }
 
+        /// <summary>
+        /// Sets the RegistrationNumber property to the next available registration number.
+        /// </summary>
         public void SetNextRegistrationNumber()
         {
             RegistrationNumber = (long)StoredProcedure.NextNumber("NextRegistration");
@@ -617,14 +635,19 @@ namespace BITCollege_NF.Models
     #endregion
 
     #region Procedures
+    /// <summary>
+    /// StoredProcedures Model
+    /// Represents the StoredProcedures class table in the database
+    /// </summary>
     static class StoredProcedure
     {
         /// <summary>
-        /// 
+        /// Used to find the next available number for a table PK.
+        /// The discriminator is used to filter out the type of course/state.
         /// </summary>
-        /// <param name="discriminator"></param>
-        /// <returns></returns>
-        /// <exception cref="NullReferenceException"></exception>
+        /// <param name="discriminator">Used to select a row in the database.</param>
+        /// <returns>long? returnValue, the next number in the database.</returns>
+        /// <exception cref="NullReferenceException">Throw if null is detected.</exception>
         public static long? NextNumber(String discriminator)
         {
             try
@@ -652,7 +675,10 @@ namespace BITCollege_NF.Models
     #endregion
 
     #region NextUniqueNumber & Subclasses
-
+    /// <summary>
+    /// NextUniqueNumber Model
+    /// Represents the NextUniqueNumber class table in the database
+    /// </summary>
     public abstract class NextUniqueNumber
     {
         protected static Data.BITCollege_NFContext db = new Data.BITCollege_NFContext();
@@ -665,6 +691,10 @@ namespace BITCollege_NF.Models
         public long NextAvailableNumber { get; set; }
     }
 
+    /// <summary>
+    /// NextStudent Model
+    /// Represents the NextStudent subclass table in the database
+    /// </summary>
     public class NextStudent : NextUniqueNumber
     {
         private static NextStudent nextStudent;
@@ -674,6 +704,10 @@ namespace BITCollege_NF.Models
             this.NextAvailableNumber = 20000000;
         }
 
+        /// <summary>
+        /// Represents a single instance of the NextStudent class
+        /// </summary>
+        /// <returns>Returns a single object of the NextStudent class</returns>
         public static NextStudent GetInstance()
         {
             if (nextStudent == null)
@@ -690,6 +724,10 @@ namespace BITCollege_NF.Models
         }
     }
 
+    /// <summary>
+    /// NextRegistration Model
+    /// Represents the NextRegistration subclass table in the database
+    /// </summary>
     public class NextRegistration : NextUniqueNumber
     {
         private static NextRegistration nextRegistration;
@@ -699,6 +737,10 @@ namespace BITCollege_NF.Models
             this.NextAvailableNumber = 700;
         }
 
+        /// <summary>
+        /// Represents a single instance of the NextRegistration class
+        /// </summary>
+        /// <returns>Returns a single object of the NextRegistration class</returns>
         public static NextRegistration GetInstance()
         {
             if (nextRegistration == null)
@@ -716,6 +758,10 @@ namespace BITCollege_NF.Models
 
     }
 
+    /// <summary>
+    /// NextGradedCourse Model
+    /// Represents the NextGradedCourse subclass table in the database
+    /// </summary>
     public class NextGradedCourse : NextUniqueNumber
     {
         private static NextGradedCourse nextGradedCourse;
@@ -725,6 +771,10 @@ namespace BITCollege_NF.Models
             this.NextAvailableNumber = 200000;
         }
 
+        /// <summary>
+        /// Represents a single instance of the NextGradedCourse class
+        /// </summary>
+        /// <returns>Returns a single object of the NextGradedCourse class</returns>
         public static NextGradedCourse GetInstance()
         {
             if (nextGradedCourse == null)
@@ -741,6 +791,10 @@ namespace BITCollege_NF.Models
         }
     }
 
+    /// <summary>
+    /// NextAuditCourse Model
+    /// Represents the NextAuditCourse subclass table in the database
+    /// </summary>
     public class NextAuditCourse : NextUniqueNumber
     {
         private static NextAuditCourse nextAuditCourse;
@@ -750,6 +804,10 @@ namespace BITCollege_NF.Models
             this.NextAvailableNumber = 2000;
         }
 
+        /// <summary>
+        /// Represents a single instance of the NextAuditCourse class
+        /// </summary>
+        /// <returns>Returns a single object of the NextAuditCourse class</returns>
         public static NextAuditCourse GetInstance()
         {
             if (nextAuditCourse == null)
@@ -766,6 +824,10 @@ namespace BITCollege_NF.Models
         }
     }
 
+    /// <summary>
+    /// NextMasteryCourse Model
+    /// Represents the NextMasteryCourse subclass table in the database
+    /// </summary>
     public class NextMasteryCourse : NextUniqueNumber
     {
         private static NextMasteryCourse nextMasteryCourse;
@@ -775,6 +837,10 @@ namespace BITCollege_NF.Models
             this.NextAvailableNumber = 20000;
         }
 
+        /// <summary>
+        /// Represents a single instance of the NextMasterCourse class
+        /// </summary>
+        /// <returns>Returns a single object of the NextMasteryCourse class</returns>
         public static NextMasteryCourse GetInstance()
         {
             if (nextMasteryCourse == null)
