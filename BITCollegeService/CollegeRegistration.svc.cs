@@ -14,5 +14,25 @@ namespace BITCollegeService
         public void DoWork()
         {
         }
+
+        public bool DropCourse(int registrationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int RegisterCourse(int studentId, int courseId, string notes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double? UpdateGrade(double grade, int registrationId, string notes)
+        {
+            throw new NotImplementedException();
+        }
+
+        private double? CalculateGradePointAverage(int studentId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
