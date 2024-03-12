@@ -13,5 +13,14 @@ namespace BITCollegeService
     {
         [OperationContract]
         void DoWork();
+
+        [OperationContract]
+        bool DropCourse(int registrationId);
+
+        [OperationContract]
+        int RegisterCourse(int studentId, int courseId, String notes);
+
+        [OperationContract]
+        double? UpdateGrade(double grade, int registrationId, String notes);
     }
 }
