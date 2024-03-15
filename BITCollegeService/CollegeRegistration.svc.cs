@@ -53,6 +53,7 @@ namespace BITCollegeService
             registration.Grade = grade;
             registration.Notes = notes;
             db.Registrations.AddOrUpdate(registration);
+            db.SaveChanges();
             double? GradePointAverage = CalculateGradePointAverage(registration.StudentId);
             
             return GradePointAverage;
