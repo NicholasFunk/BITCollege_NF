@@ -2,10 +2,12 @@
 using BITCollege_NF.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Web.Security;
 
 namespace BITCollegeService
 {
@@ -47,7 +49,13 @@ namespace BITCollegeService
 
         public double? UpdateGrade(double grade, int registrationId, string notes)
         {
-            throw new NotImplementedException();
+            Registration registration = db.Registrations.Where(x => x.RegstrationId == registrationId).SingleOrDefault();
+            registration.Grade = grade;
+            registration.Notes = notes;
+            db.Registrations.AddOrUpdate(registration);
+            double? GradePointAverage = CalculateGradePointAverage(registration.StudentId);
+            
+            return GradePointAverage;
         }
 
         private double? CalculateGradePointAverage(int studentId)
