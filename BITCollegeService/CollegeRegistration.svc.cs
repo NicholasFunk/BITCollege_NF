@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Web.Security;
+using Utility;
 
 namespace BITCollegeService
 {
@@ -44,12 +45,18 @@ namespace BITCollegeService
 
         public int RegisterCourse(int studentId, int courseId, string notes)
         {
+            // This method will make use of various return codes to indicate success or failure. In the
+            // event that the course registration fails, the return code will indicate the reason
+
+
+
             throw new NotImplementedException();
         }
 
         public double? UpdateGrade(double grade, int registrationId, string notes)
         {
             Registration registration = db.Registrations.Where(x => x.RegstrationId == registrationId).SingleOrDefault();
+
             registration.Grade = grade;
             registration.Notes = notes;
             db.Registrations.AddOrUpdate(registration);
@@ -61,7 +68,49 @@ namespace BITCollegeService
 
         private double? CalculateGradePointAverage(int studentId)
         {
-            throw new NotImplementedException();
+            double grade = 0; 
+            CourseType courseType; 
+            double gradePoint = 0;
+            double gradePointValue = 0;
+            double totalCreditHours = 0;
+            double totalGradePointValues = 0;
+            Double? calculatedGradePointAverage = 0;
+
+            IQueryable<Registration> registrations = db.Registrations.Where(x => x.Grade != null && x.StudentId == studentId);
+
+            foreach (Registration record in registrations.ToList())
+            {
+                grade = (double)record.Grade;
+                courseType = BusinessRules.CourseTypeLookup(record.Course.CourseType);
+                // If course type is of the audit type, exclude it from the calculation.
+                // GPA formula
+                if (courseType != CourseType.AUDIT)
+                {
+                    gradePoint = BusinessRules.GradeLookup(grade, courseType);
+                    gradePointValue = (double)(gradePoint * getCreditHours(record));
+                    totalGradePointValues += gradePointValue;
+                    totalCreditHours += (double)getCreditHours(record);
+                }
+                
+            }
+
+            if (totalCreditHours == 0)
+            {
+                calculatedGradePointAverage = null;
+            }
+
+            calculatedGradePointAverage = totalGradePointValues / totalCreditHours;
+
+            Student student = db.Students.Where(s => s.StudentId == studentId).SingleOrDefault();
+            student.GradePointAverage = calculatedGradePointAverage;
+            db.Students.AddOrUpdate(student);
+            db.SaveChanges();
+
+            return calculatedGradePointAverage;
+        }
+
+        double getCreditHours(Registration record) {
+            return record.Course.CreditHours;
         }
     }
 }
