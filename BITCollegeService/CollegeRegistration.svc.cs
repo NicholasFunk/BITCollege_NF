@@ -59,6 +59,7 @@ namespace BITCollegeService
             int codeValue = 0;
             int maximumAttempts = 0;
             int numberOfRegistrations = 0;
+            double courseTuition = 0;
 
             IQueryable<Registration> registrations = db.Registrations.Where(x => x.StudentId == studentId && x.CourseId == courseId);
 
@@ -101,7 +102,7 @@ namespace BITCollegeService
 
                 /*The student must now be charged through their OutstandingFees for the new
                     Registration.
-                    o Using the Course query above, determine the TuitionAmount of the Course.
+                    
                     o Update the Student record by adding the Adjusted TuitionAmount to the
                     OutstandingFees property.
                     ▪ Ensure that the student is charged the appropriate fees based on the
@@ -117,6 +118,15 @@ namespace BITCollegeService
                     of -100.
                     o Note: Methods should have only one exit. So ensure that only one return
                     statement is used when coding this method.*/
+
+                // 1. Using the Course query above, determine the TuitionAmount of the Course.
+                courseTuition = courseRecord.TuitionAmount;
+                studentRecord.OutstandingFees = courseTuition;
+
+                studentRecord.GradePointState.TuitionRateAdjustment(studentRecord);
+
+                db.Students.AddOrUpdate(studentRecord);
+                db.SaveChanges();
             }
 
             return codeValue;

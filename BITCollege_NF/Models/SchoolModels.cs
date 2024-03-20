@@ -259,17 +259,16 @@ namespace BITCollege_NF.Models
 
         public override double TuitionRateAdjustment(Student student)
         {
+            // Automatically adds 10% to a Suspended Student's Tuition.
+            double adjustedTuition = student.OutstandingFees * this.TuitionRateFactor;
 
-            double tuition = 1000;
-            double adjustedTuition = 0;
-
-            if (student.GradePointAverage < 0.75)
+            if (student.GradePointAverage < 0.50)
             {
-                adjustedTuition = tuition * 1.02; // 2% increase
+                adjustedTuition *= 1.05; // 5% increase
             }
-            else
+            else if(student.GradePointAverage < 0.75)
             {
-                adjustedTuition = tuition * 1.01; // 1% increase
+                adjustedTuition *= 1.02; // 2% increase
             }
 
             return adjustedTuition;
