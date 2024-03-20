@@ -321,7 +321,6 @@ namespace BITCollege_NF.Models
 
         public override double TuitionRateAdjustment(Student student)
         {
-            // Automatically adds 7.5% to a Probation Student's Tuition.
             int completedCoursesCount = 0;
             double adjustedTuition = 0;
 
@@ -343,6 +342,7 @@ namespace BITCollege_NF.Models
             }
             else
             {
+                // TuitionRateFactor = 7.5%
                 adjustedTuition *= this.TuitionRateFactor;
             }
 
@@ -397,24 +397,34 @@ namespace BITCollege_NF.Models
 
         public override double TuitionRateAdjustment(Student student)
         {
-            /* For Students with an Honours GradePointState, the TuitionRateFactor for each newly registered course has already  been defined as 0.90. As such, all Honours students will pay 10% less for each newly registered course.
-               If the Student has achieved an Honours GradePointState after having completed 5 or more courses, tuition for each newly registered course is discounted by an additional 5 %.
-               Programming 3 Assignment 3
-               11
-                Note: a completed course is defined as a Registration in which the Grade property is not NULL.
-                If the Student’s GradePointAverage is above 4.25, the student will receive an additional 2 % discount.
-                Note: The above scenarios are mutually exclusive.As such, a student can be eligible for both discounts.
-            */
+            int completedCoursesCount = 0;
+            double adjustedTuition = student.OutstandingFees * this.TuitionRateFactor;
 
-            // Pseudo code
-            // if student has an honours grade point state
-            //      tuition adjustment pay 10% less
-            // if student has an honours grade point state and completed 5 or more courses
-            //      tuition adjustment pay 15% less
-            // if student GPA is greater than 4.25
-            //      tuition adjusment additional 2% discount
+            // Get a collection of all registered courses by a particular student.
+            IQueryable<Registration> registrations = db.Registrations.Where(x => x.StudentId == student.StudentId);
 
-            return 0;
+            // Count each course the student has a grade for. These are completed courses.
+            foreach (Registration record in registrations.ToList())
+            {
+                if (record.Grade != null)
+                {
+                    completedCoursesCount += 1;
+                }
+            }
+
+            // If an Honours Student has completed 5 or more courses they shall receive an additional 5% discount.
+            if (completedCoursesCount >= 5)
+            {
+                adjustedTuition *= 1.05;
+            }
+
+            // If an Honours Student has a GPA over 4.25, they are eligible for an additional 2% discount.
+            if (student.GradePointAverage > 4.25)
+            {
+                adjustedTuition *= 1.02;
+            }
+
+            return adjustedTuition;
         }
 
         public override void StateChangeCheck(Student student)
@@ -456,8 +466,8 @@ namespace BITCollege_NF.Models
 
         public override double TuitionRateAdjustment(Student student)
         {
-            // For Students with a Regular GradePointState, the TuitionRateFactor for each newly registered course has already been defined as 1. As such, there will be no adjustments made to the cost of tuition for all RegularState students.
-            return 0;
+            // Students with a Regular State wil have no adjustments made to the cost of tuition.
+            return student.OutstandingFees;
         }
 
         public override void StateChangeCheck(Student student)
