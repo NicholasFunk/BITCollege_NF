@@ -12,6 +12,7 @@ using Microsoft.Ajax.Utilities;
 using System.EnterpriseServices;
 using BITCollege_NF.Data;
 using BITCollege_NF.Models;
+using WebGrease.Css.Extensions;
 
 // Recovered from clone
 
@@ -236,7 +237,12 @@ namespace BITCollege_NF.Models
     {
         private static SuspendedState suspendedState;
 
-        private SuspendedState() { this.LowerLimit = 0.00; this.UpperLimit = 1.00; this.TuitionRateFactor = 1.10; }
+        private SuspendedState()
+        {
+            this.LowerLimit = 0.00;
+            this.UpperLimit = 1.00;
+            this.TuitionRateFactor = 1.10;
+        }
 
         /// <summary>
         /// 
@@ -266,7 +272,7 @@ namespace BITCollege_NF.Models
             {
                 adjustedTuition *= 1.05; // 5% increase
             }
-            else if(student.GradePointAverage < 0.75)
+            else if (student.GradePointAverage < 0.75)
             {
                 adjustedTuition *= 1.02; // 2% increase
             }
@@ -315,13 +321,30 @@ namespace BITCollege_NF.Models
 
         public override double TuitionRateAdjustment(Student student)
         {
-            // For Students with a Probation GradePointState, the TuitionRateFactor for each newly registered course has already been defined as 1.075. As such, all ProbationState students will pay an additional 7.5% for each newly registered course.
-            // If the Student has completed 5 or more courses, tuition for each newly registered course is increased by only 3.5
+            // Automatically adds 7.5% to a Probation Student's Tuition.
+            int completedCoursesCount = 0;
             double adjustedTuition = 0;
-            // If student has completed 5 or more courses
-            //      Tuition adjustment is 3.5%
-            // Else
-            //      Tuition adjustment is 7.5%
+
+            // Get a collection of all registered courses by a particular student.
+            IQueryable<Registration> registrations = db.Registrations.Where(x => x.StudentId == student.StudentId);
+
+            // Count each course the student has a grade for. These are completed courses.
+            foreach (Registration record in registrations.ToList())
+            {
+                if (record.Grade != null)
+                {
+                    completedCoursesCount += 1;
+                }
+            }
+
+            if (completedCoursesCount >= 5)
+            {
+                adjustedTuition *= 1.035;
+            }
+            else
+            {
+                adjustedTuition *= this.TuitionRateFactor;
+            }
 
             return adjustedTuition;
         }
