@@ -520,16 +520,11 @@ namespace BITCollege_NF.Models
         {
             get
             {
-
                 string input = GetType().Name;
-                string digits = string.Concat(input.Where(char.IsDigit));
-                string state = "State";
-                string output = String.Format("{0}", input.Substring(0, input.Length - digits.Length - state.Length));
+                string output = input.Remove(input.IndexOf("Course"));
                 output = output.Trim(' ');
 
                 return output;
-
-
             }
         }
 

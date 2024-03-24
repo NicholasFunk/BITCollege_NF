@@ -3,6 +3,7 @@ using BITCollege_NF.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -58,59 +59,101 @@ namespace BITCollegeService
         {
             int codeValue = 0;
             int maximumAttempts = 0;
-            int numberOfRegistrations = 0;
             double courseTuition = 0;
-
+            MasteryCourse masteryRecord;
+            
 
             IQueryable<Registration> registrations = db.Registrations.Where(x => x.StudentId == studentId && x.CourseId == courseId);
 
-            Course courseRecord = db.Courses.Where(c => c.CourseId == courseId).SingleOrDefault();
+            // Course does not contain a maximum attempts property
+            //Course courseRecord = db.Courses.Where(c => c.CourseId == courseId).SingleOrDefault();
+
+            Course courseRecord = (from results in db.Courses where results.CourseId == courseId select results).SingleOrDefault();
+
             Student studentRecord = db.Students.Where(s => s.StudentId == studentId).SingleOrDefault();
 
-            foreach (Registration record in registrations.ToList())
-            {
-                if (record.Grade == null)
-                {
-                    codeValue = -100;
-                }
-                numberOfRegistrations += 1;
-            }
+            // Error Code Routine
+            // If registration is successful, return a value of 0.
 
+
+            // If an exception occurs while updating, return a value of -300.
+
+
+            // If the student has exceeded the MaximumAttempts of a Mastery course, return a value of -200.
+
+
+            // If the student already has an ungraded registration for this course, return a value of -100.
+
+            // Incomplete Registration Check
+            //foreach (Registration record in registrations)
+            //{
+            //    if (record.Grade == null)
+            //    {
+            //        codeValue = -100;
+            //    }
+            //}
+
+            
+            // Master Attempt Check Incorrect conditional format
             if (BusinessRules.CourseTypeLookup(courseRecord.CourseType) == CourseType.MASTERY)
             {
-                MasteryCourse masteryCourse = (MasteryCourse)courseRecord;
-                maximumAttempts = masteryCourse.MaximumAttempts;
+                
+                codeValue = 1;
+                
             }
 
-            if (numberOfRegistrations >= maximumAttempts)
-            {
-                codeValue = -200;
-            }
+           
+            
 
-            try
-            {
-                Registration registration = new Registration();
-                registration.StudentId = studentId;
-                registration.CourseId = courseId;
-                registration.Notes = notes;
-                registration.RegistrationDate = DateTime.Today;
-                registration.RegistrationNumber = NextRegistration.GetInstance().NextAvailableNumber;
-                db.Registrations.AddOrUpdate(registration);
-                db.SaveChanges();
 
-                courseTuition = courseRecord.TuitionAmount;
-                studentRecord.OutstandingFees = courseTuition;
+            //foreach (Registration record in registrations.ToList())
+            //{ 
+            //    if (record.Grade == null)
+            //    {
+            //        codeValue = -100;
+            //    }
+            //    numberOfRegistrations += 1;
+            //}
 
-                studentRecord.GradePointState.TuitionRateAdjustment(studentRecord);
+            //if (BusinessRules.CourseTypeLookup(courseRecord.CourseType) == CourseType.MASTERY)
+            //{
+            //    MasteryCourse masteryCourse = (MasteryCourse)courseRecord;
+            //    if (numberOfRegistrations >= masteryCourse.MaximumAttempts)
+            //    {
+            //        codeValue = -200;
+            //    }
 
-                db.Students.AddOrUpdate(studentRecord);
-                db.SaveChanges();
 
-            }
-            catch (Exception)
-            {
-                codeValue = -300;
-            }
+            //}
+
+
+            //try
+            //{
+            //    Registration registration = new Registration();
+            //    registration.StudentId = studentId;
+            //    registration.CourseId = courseId;
+            //    registration.Notes = notes;
+            //    registration.RegistrationDate = DateTime.Today;
+            //    registration.RegistrationNumber = NextRegistration.GetInstance().NextAvailableNumber;
+            //    db.Registrations.AddOrUpdate(registration);
+            //    db.SaveChanges();
+
+            //    courseTuition = courseRecord.TuitionAmount;
+            //    studentRecord.OutstandingFees = courseTuition;
+
+            //    studentRecord.GradePointState.TuitionRateAdjustment(studentRecord);
+
+            //    db.Students.AddOrUpdate(studentRecord);
+            //    db.SaveChanges();
+
+            //}
+            //catch (Exception)
+            //{
+            //    codeValue = -300;
+            //}
+            
+
+
 
             return codeValue;
         }
