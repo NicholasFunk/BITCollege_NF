@@ -29,51 +29,100 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label fullNameLabel;
-            System.Windows.Forms.Label fullAddressLabel;
-            System.Windows.Forms.Label courseNumberLabel;
             System.Windows.Forms.Label registrationNumberLabel;
-            System.Windows.Forms.Label creditHoursLabel;
-            System.Windows.Forms.Label titleLabel;
             System.Windows.Forms.Label studentNumberLabel;
             System.Windows.Forms.Label dateCreatedLabel;
             System.Windows.Forms.Label outstandingFeesLabel;
             System.Windows.Forms.Label gradePointAverageLabel;
+            System.Windows.Forms.Label fullAddressLabel;
+            System.Windows.Forms.Label fullNameLabel;
+            System.Windows.Forms.Label courseNumberLabel;
+            System.Windows.Forms.Label creditHoursLabel;
+            System.Windows.Forms.Label titleLabel;
             this.grpStudent = new System.Windows.Forms.GroupBox();
+            this.descriptionLabel1 = new System.Windows.Forms.Label();
+            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gradePointAverageLabel1 = new System.Windows.Forms.Label();
+            this.outstandingFeesLabel1 = new System.Windows.Forms.Label();
+            this.dateCreatedLabel1 = new System.Windows.Forms.Label();
+            this.studentNumberMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.grpRegistration = new System.Windows.Forms.GroupBox();
+            this.registrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.registrationNumberComboBox = new System.Windows.Forms.ComboBox();
             this.lnkUpdateGrade = new System.Windows.Forms.LinkLabel();
             this.lnkViewDetails = new System.Windows.Forms.LinkLabel();
-            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.fullNameTextBox = new System.Windows.Forms.TextBox();
-            this.fullAddressTextBox = new System.Windows.Forms.TextBox();
-            this.registrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.courseNumberTextBox = new System.Windows.Forms.TextBox();
-            this.registrationNumberComboBox = new System.Windows.Forms.ComboBox();
-            this.creditHoursTextBox = new System.Windows.Forms.TextBox();
-            this.titleTextBox = new System.Windows.Forms.TextBox();
-            this.studentNumberMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.dateCreatedLabel1 = new System.Windows.Forms.Label();
-            this.outstandingFeesLabel1 = new System.Windows.Forms.Label();
-            this.gradePointAverageLabel1 = new System.Windows.Forms.Label();
-            this.descriptionLabel1 = new System.Windows.Forms.Label();
-            fullNameLabel = new System.Windows.Forms.Label();
-            fullAddressLabel = new System.Windows.Forms.Label();
-            courseNumberLabel = new System.Windows.Forms.Label();
+            this.fullAddressLabel1 = new System.Windows.Forms.Label();
+            this.fullNameLabel1 = new System.Windows.Forms.Label();
+            this.courseNumberLabel1 = new System.Windows.Forms.Label();
+            this.creditHoursLabel1 = new System.Windows.Forms.Label();
+            this.titleLabel1 = new System.Windows.Forms.Label();
             registrationNumberLabel = new System.Windows.Forms.Label();
-            creditHoursLabel = new System.Windows.Forms.Label();
-            titleLabel = new System.Windows.Forms.Label();
             studentNumberLabel = new System.Windows.Forms.Label();
             dateCreatedLabel = new System.Windows.Forms.Label();
             outstandingFeesLabel = new System.Windows.Forms.Label();
             gradePointAverageLabel = new System.Windows.Forms.Label();
+            fullAddressLabel = new System.Windows.Forms.Label();
+            fullNameLabel = new System.Windows.Forms.Label();
+            courseNumberLabel = new System.Windows.Forms.Label();
+            creditHoursLabel = new System.Windows.Forms.Label();
+            titleLabel = new System.Windows.Forms.Label();
             this.grpStudent.SuspendLayout();
-            this.grpRegistration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
+            this.grpRegistration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.registrationBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
+            // registrationNumberLabel
+            // 
+            registrationNumberLabel.AutoSize = true;
+            registrationNumberLabel.Location = new System.Drawing.Point(50, 48);
+            registrationNumberLabel.Name = "registrationNumberLabel";
+            registrationNumberLabel.Size = new System.Drawing.Size(133, 16);
+            registrationNumberLabel.TabIndex = 2;
+            registrationNumberLabel.Text = "Registration Number:";
+            // 
+            // studentNumberLabel
+            // 
+            studentNumberLabel.AutoSize = true;
+            studentNumberLabel.Location = new System.Drawing.Point(48, 46);
+            studentNumberLabel.Name = "studentNumberLabel";
+            studentNumberLabel.Size = new System.Drawing.Size(106, 16);
+            studentNumberLabel.TabIndex = 12;
+            studentNumberLabel.Text = "Student Number:";
+            // 
+            // dateCreatedLabel
+            // 
+            dateCreatedLabel.AutoSize = true;
+            dateCreatedLabel.Location = new System.Drawing.Point(50, 168);
+            dateCreatedLabel.Name = "dateCreatedLabel";
+            dateCreatedLabel.Size = new System.Drawing.Size(90, 16);
+            dateCreatedLabel.TabIndex = 13;
+            dateCreatedLabel.Text = "Date Created:";
+            // 
+            // outstandingFeesLabel
+            // 
+            outstandingFeesLabel.AutoSize = true;
+            outstandingFeesLabel.Location = new System.Drawing.Point(532, 169);
+            outstandingFeesLabel.Name = "outstandingFeesLabel";
+            outstandingFeesLabel.Size = new System.Drawing.Size(115, 16);
+            outstandingFeesLabel.TabIndex = 14;
+            outstandingFeesLabel.Text = "Outstanding Fees:";
+            // 
+            // gradePointAverageLabel
+            // 
+            gradePointAverageLabel.AutoSize = true;
+            gradePointAverageLabel.Location = new System.Drawing.Point(50, 210);
+            gradePointAverageLabel.Name = "gradePointAverageLabel";
+            gradePointAverageLabel.Size = new System.Drawing.Size(136, 16);
+            gradePointAverageLabel.TabIndex = 15;
+            gradePointAverageLabel.Text = "Grade Point Average:";
+            // 
             // grpStudent
             // 
+            this.grpStudent.Controls.Add(fullNameLabel);
+            this.grpStudent.Controls.Add(this.fullNameLabel1);
+            this.grpStudent.Controls.Add(fullAddressLabel);
+            this.grpStudent.Controls.Add(this.fullAddressLabel1);
             this.grpStudent.Controls.Add(this.descriptionLabel1);
             this.grpStudent.Controls.Add(gradePointAverageLabel);
             this.grpStudent.Controls.Add(this.gradePointAverageLabel1);
@@ -83,37 +132,99 @@
             this.grpStudent.Controls.Add(this.dateCreatedLabel1);
             this.grpStudent.Controls.Add(studentNumberLabel);
             this.grpStudent.Controls.Add(this.studentNumberMaskedTextBox);
-            this.grpStudent.Controls.Add(fullAddressLabel);
-            this.grpStudent.Controls.Add(this.fullAddressTextBox);
-            this.grpStudent.Controls.Add(fullNameLabel);
-            this.grpStudent.Controls.Add(this.fullNameTextBox);
             this.grpStudent.Location = new System.Drawing.Point(47, 58);
-            this.grpStudent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpStudent.Margin = new System.Windows.Forms.Padding(4);
             this.grpStudent.Name = "grpStudent";
-            this.grpStudent.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpStudent.Padding = new System.Windows.Forms.Padding(4);
             this.grpStudent.Size = new System.Drawing.Size(816, 255);
             this.grpStudent.TabIndex = 0;
             this.grpStudent.TabStop = false;
             this.grpStudent.Text = "Student Data";
             // 
+            // descriptionLabel1
+            // 
+            this.descriptionLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "GradePointState", true));
+            this.descriptionLabel1.Location = new System.Drawing.Point(339, 207);
+            this.descriptionLabel1.Name = "descriptionLabel1";
+            this.descriptionLabel1.Size = new System.Drawing.Size(100, 23);
+            this.descriptionLabel1.TabIndex = 17;
+            // 
+            // studentBindingSource
+            // 
+            this.studentBindingSource.DataSource = typeof(BITCollege_NF.Models.Student);
+            // 
+            // gradePointAverageLabel1
+            // 
+            this.gradePointAverageLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.gradePointAverageLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "GradePointAverage", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
+            this.gradePointAverageLabel1.Location = new System.Drawing.Point(210, 207);
+            this.gradePointAverageLabel1.Name = "gradePointAverageLabel1";
+            this.gradePointAverageLabel1.Size = new System.Drawing.Size(100, 23);
+            this.gradePointAverageLabel1.TabIndex = 16;
+            this.gradePointAverageLabel1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // outstandingFeesLabel1
+            // 
+            this.outstandingFeesLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.outstandingFeesLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "OutstandingFees", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
+            this.outstandingFeesLabel1.Location = new System.Drawing.Point(653, 166);
+            this.outstandingFeesLabel1.Name = "outstandingFeesLabel1";
+            this.outstandingFeesLabel1.Size = new System.Drawing.Size(100, 23);
+            this.outstandingFeesLabel1.TabIndex = 15;
+            this.outstandingFeesLabel1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // dateCreatedLabel1
+            // 
+            this.dateCreatedLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dateCreatedLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "DateCreated", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "yyyy-mm-dd"));
+            this.dateCreatedLabel1.Location = new System.Drawing.Point(210, 165);
+            this.dateCreatedLabel1.Name = "dateCreatedLabel1";
+            this.dateCreatedLabel1.Size = new System.Drawing.Size(100, 23);
+            this.dateCreatedLabel1.TabIndex = 14;
+            // 
+            // studentNumberMaskedTextBox
+            // 
+            this.studentNumberMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentNumber", true));
+            this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(213, 43);
+            this.studentNumberMaskedTextBox.Mask = "0000-0000";
+            this.studentNumberMaskedTextBox.Name = "studentNumberMaskedTextBox";
+            this.studentNumberMaskedTextBox.Size = new System.Drawing.Size(147, 22);
+            this.studentNumberMaskedTextBox.TabIndex = 13;
+            // 
             // grpRegistration
             // 
             this.grpRegistration.Controls.Add(titleLabel);
-            this.grpRegistration.Controls.Add(this.titleTextBox);
+            this.grpRegistration.Controls.Add(this.titleLabel1);
             this.grpRegistration.Controls.Add(creditHoursLabel);
-            this.grpRegistration.Controls.Add(this.creditHoursTextBox);
+            this.grpRegistration.Controls.Add(this.creditHoursLabel1);
+            this.grpRegistration.Controls.Add(courseNumberLabel);
+            this.grpRegistration.Controls.Add(this.courseNumberLabel1);
             this.grpRegistration.Controls.Add(registrationNumberLabel);
             this.grpRegistration.Controls.Add(this.registrationNumberComboBox);
-            this.grpRegistration.Controls.Add(courseNumberLabel);
-            this.grpRegistration.Controls.Add(this.courseNumberTextBox);
             this.grpRegistration.Location = new System.Drawing.Point(47, 331);
-            this.grpRegistration.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpRegistration.Margin = new System.Windows.Forms.Padding(4);
             this.grpRegistration.Name = "grpRegistration";
-            this.grpRegistration.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpRegistration.Padding = new System.Windows.Forms.Padding(4);
             this.grpRegistration.Size = new System.Drawing.Size(816, 190);
             this.grpRegistration.TabIndex = 1;
             this.grpRegistration.TabStop = false;
             this.grpRegistration.Text = "Registration Data";
+            // 
+            // registrationBindingSource
+            // 
+            this.registrationBindingSource.DataSource = typeof(BITCollege_NF.Models.Registration);
+            // 
+            // registrationNumberComboBox
+            // 
+            this.registrationNumberComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "RegistrationNumber", true));
+            this.registrationNumberComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.registrationNumberComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.registrationNumberComboBox.FormattingEnabled = true;
+            this.registrationNumberComboBox.Location = new System.Drawing.Point(192, 44);
+            this.registrationNumberComboBox.Name = "registrationNumberComboBox";
+            this.registrationNumberComboBox.Size = new System.Drawing.Size(147, 24);
+            this.registrationNumberComboBox.TabIndex = 3;
             // 
             // lnkUpdateGrade
             // 
@@ -139,200 +250,95 @@
             this.lnkViewDetails.Text = "View Details";
             this.lnkViewDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkViewDetails_LinkClicked);
             // 
-            // studentBindingSource
+            // fullAddressLabel
             // 
-            this.studentBindingSource.DataSource = typeof(BITCollege_NF.Models.Student);
+            fullAddressLabel.AutoSize = true;
+            fullAddressLabel.Location = new System.Drawing.Point(48, 129);
+            fullAddressLabel.Name = "fullAddressLabel";
+            fullAddressLabel.Size = new System.Drawing.Size(85, 16);
+            fullAddressLabel.TabIndex = 17;
+            fullAddressLabel.Text = "Full Address:";
+            // 
+            // fullAddressLabel1
+            // 
+            this.fullAddressLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fullAddressLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FullAddress", true));
+            this.fullAddressLabel1.Location = new System.Drawing.Point(209, 126);
+            this.fullAddressLabel1.Name = "fullAddressLabel1";
+            this.fullAddressLabel1.Size = new System.Drawing.Size(100, 23);
+            this.fullAddressLabel1.TabIndex = 18;
             // 
             // fullNameLabel
             // 
             fullNameLabel.AutoSize = true;
-            fullNameLabel.Location = new System.Drawing.Point(50, 88);
+            fullNameLabel.Location = new System.Drawing.Point(48, 87);
             fullNameLabel.Name = "fullNameLabel";
             fullNameLabel.Size = new System.Drawing.Size(71, 16);
-            fullNameLabel.TabIndex = 2;
+            fullNameLabel.TabIndex = 18;
             fullNameLabel.Text = "Full Name:";
             // 
-            // fullNameTextBox
+            // fullNameLabel1
             // 
-            this.fullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FullName", true));
-            this.fullNameTextBox.Location = new System.Drawing.Point(213, 85);
-            this.fullNameTextBox.Multiline = true;
-            this.fullNameTextBox.Name = "fullNameTextBox";
-            this.fullNameTextBox.Size = new System.Drawing.Size(540, 31);
-            this.fullNameTextBox.TabIndex = 3;
-            // 
-            // fullAddressLabel
-            // 
-            fullAddressLabel.AutoSize = true;
-            fullAddressLabel.Location = new System.Drawing.Point(50, 125);
-            fullAddressLabel.Name = "fullAddressLabel";
-            fullAddressLabel.Size = new System.Drawing.Size(85, 16);
-            fullAddressLabel.TabIndex = 4;
-            fullAddressLabel.Text = "Full Address:";
-            // 
-            // fullAddressTextBox
-            // 
-            this.fullAddressTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FullAddress", true));
-            this.fullAddressTextBox.Location = new System.Drawing.Point(213, 122);
-            this.fullAddressTextBox.Multiline = true;
-            this.fullAddressTextBox.Name = "fullAddressTextBox";
-            this.fullAddressTextBox.Size = new System.Drawing.Size(540, 34);
-            this.fullAddressTextBox.TabIndex = 5;
-            // 
-            // registrationBindingSource
-            // 
-            this.registrationBindingSource.DataSource = typeof(BITCollege_NF.Models.Registration);
+            this.fullNameLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fullNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FullName", true));
+            this.fullNameLabel1.Location = new System.Drawing.Point(210, 84);
+            this.fullNameLabel1.Name = "fullNameLabel1";
+            this.fullNameLabel1.Size = new System.Drawing.Size(100, 23);
+            this.fullNameLabel1.TabIndex = 19;
             // 
             // courseNumberLabel
             // 
             courseNumberLabel.AutoSize = true;
-            courseNumberLabel.Location = new System.Drawing.Point(50, 81);
+            courseNumberLabel.Location = new System.Drawing.Point(50, 92);
             courseNumberLabel.Name = "courseNumberLabel";
             courseNumberLabel.Size = new System.Drawing.Size(104, 16);
-            courseNumberLabel.TabIndex = 0;
+            courseNumberLabel.TabIndex = 3;
             courseNumberLabel.Text = "Course Number:";
             // 
-            // courseNumberTextBox
+            // courseNumberLabel1
             // 
-            this.courseNumberTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course.CourseNumber", true));
-            this.courseNumberTextBox.Location = new System.Drawing.Point(192, 78);
-            this.courseNumberTextBox.Multiline = true;
-            this.courseNumberTextBox.Name = "courseNumberTextBox";
-            this.courseNumberTextBox.Size = new System.Drawing.Size(147, 36);
-            this.courseNumberTextBox.TabIndex = 1;
-            // 
-            // registrationNumberLabel
-            // 
-            registrationNumberLabel.AutoSize = true;
-            registrationNumberLabel.Location = new System.Drawing.Point(50, 47);
-            registrationNumberLabel.Name = "registrationNumberLabel";
-            registrationNumberLabel.Size = new System.Drawing.Size(133, 16);
-            registrationNumberLabel.TabIndex = 2;
-            registrationNumberLabel.Text = "Registration Number:";
-            // 
-            // registrationNumberComboBox
-            // 
-            this.registrationNumberComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "RegistrationNumber", true));
-            this.registrationNumberComboBox.FormattingEnabled = true;
-            this.registrationNumberComboBox.Location = new System.Drawing.Point(192, 44);
-            this.registrationNumberComboBox.Name = "registrationNumberComboBox";
-            this.registrationNumberComboBox.Size = new System.Drawing.Size(147, 24);
-            this.registrationNumberComboBox.TabIndex = 3;
+            this.courseNumberLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course", true));
+            this.courseNumberLabel1.Location = new System.Drawing.Point(189, 89);
+            this.courseNumberLabel1.Name = "courseNumberLabel1";
+            this.courseNumberLabel1.Size = new System.Drawing.Size(150, 23);
+            this.courseNumberLabel1.TabIndex = 4;
+            this.courseNumberLabel1.Text = "label1";
             // 
             // creditHoursLabel
             // 
             creditHoursLabel.AutoSize = true;
-            creditHoursLabel.Location = new System.Drawing.Point(50, 124);
+            creditHoursLabel.Location = new System.Drawing.Point(50, 136);
             creditHoursLabel.Name = "creditHoursLabel";
             creditHoursLabel.Size = new System.Drawing.Size(84, 16);
             creditHoursLabel.TabIndex = 4;
             creditHoursLabel.Text = "Credit Hours:";
             // 
-            // creditHoursTextBox
+            // creditHoursLabel1
             // 
-            this.creditHoursTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course.CreditHours", true));
-            this.creditHoursTextBox.Location = new System.Drawing.Point(192, 124);
-            this.creditHoursTextBox.Multiline = true;
-            this.creditHoursTextBox.Name = "creditHoursTextBox";
-            this.creditHoursTextBox.Size = new System.Drawing.Size(147, 36);
-            this.creditHoursTextBox.TabIndex = 5;
+            this.creditHoursLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course", true));
+            this.creditHoursLabel1.Location = new System.Drawing.Point(189, 133);
+            this.creditHoursLabel1.Name = "creditHoursLabel1";
+            this.creditHoursLabel1.Size = new System.Drawing.Size(150, 23);
+            this.creditHoursLabel1.TabIndex = 5;
+            this.creditHoursLabel1.Text = "label1";
             // 
             // titleLabel
             // 
             titleLabel.AutoSize = true;
-            titleLabel.Location = new System.Drawing.Point(403, 69);
+            titleLabel.Location = new System.Drawing.Point(403, 92);
             titleLabel.Name = "titleLabel";
             titleLabel.Size = new System.Drawing.Size(36, 16);
             titleLabel.TabIndex = 6;
             titleLabel.Text = "Title:";
             // 
-            // titleTextBox
+            // titleLabel1
             // 
-            this.titleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course.Title", true));
-            this.titleTextBox.Location = new System.Drawing.Point(445, 66);
-            this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new System.Drawing.Size(291, 22);
-            this.titleTextBox.TabIndex = 7;
-            // 
-            // studentNumberLabel
-            // 
-            studentNumberLabel.AutoSize = true;
-            studentNumberLabel.Location = new System.Drawing.Point(48, 46);
-            studentNumberLabel.Name = "studentNumberLabel";
-            studentNumberLabel.Size = new System.Drawing.Size(106, 16);
-            studentNumberLabel.TabIndex = 12;
-            studentNumberLabel.Text = "Student Number:";
-            // 
-            // studentNumberMaskedTextBox
-            // 
-            this.studentNumberMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentNumber", true));
-            this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(213, 43);
-            this.studentNumberMaskedTextBox.Mask = "0000-0000";
-            this.studentNumberMaskedTextBox.Name = "studentNumberMaskedTextBox";
-            this.studentNumberMaskedTextBox.Size = new System.Drawing.Size(147, 22);
-            this.studentNumberMaskedTextBox.TabIndex = 13;
-            // 
-            // dateCreatedLabel
-            // 
-            dateCreatedLabel.AutoSize = true;
-            dateCreatedLabel.Location = new System.Drawing.Point(50, 169);
-            dateCreatedLabel.Name = "dateCreatedLabel";
-            dateCreatedLabel.Size = new System.Drawing.Size(90, 16);
-            dateCreatedLabel.TabIndex = 13;
-            dateCreatedLabel.Text = "Date Created:";
-            // 
-            // dateCreatedLabel1
-            // 
-            this.dateCreatedLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "DateCreated", true));
-            this.dateCreatedLabel1.Location = new System.Drawing.Point(210, 165);
-            this.dateCreatedLabel1.Name = "dateCreatedLabel1";
-            this.dateCreatedLabel1.Size = new System.Drawing.Size(100, 23);
-            this.dateCreatedLabel1.TabIndex = 14;
-            this.dateCreatedLabel1.Text = "label1";
-            // 
-            // outstandingFeesLabel
-            // 
-            outstandingFeesLabel.AutoSize = true;
-            outstandingFeesLabel.Location = new System.Drawing.Point(532, 169);
-            outstandingFeesLabel.Name = "outstandingFeesLabel";
-            outstandingFeesLabel.Size = new System.Drawing.Size(115, 16);
-            outstandingFeesLabel.TabIndex = 14;
-            outstandingFeesLabel.Text = "Outstanding Fees:";
-            // 
-            // outstandingFeesLabel1
-            // 
-            this.outstandingFeesLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "OutstandingFees", true));
-            this.outstandingFeesLabel1.Location = new System.Drawing.Point(653, 169);
-            this.outstandingFeesLabel1.Name = "outstandingFeesLabel1";
-            this.outstandingFeesLabel1.Size = new System.Drawing.Size(100, 23);
-            this.outstandingFeesLabel1.TabIndex = 15;
-            this.outstandingFeesLabel1.Text = "label1";
-            // 
-            // gradePointAverageLabel
-            // 
-            gradePointAverageLabel.AutoSize = true;
-            gradePointAverageLabel.Location = new System.Drawing.Point(50, 207);
-            gradePointAverageLabel.Name = "gradePointAverageLabel";
-            gradePointAverageLabel.Size = new System.Drawing.Size(136, 16);
-            gradePointAverageLabel.TabIndex = 15;
-            gradePointAverageLabel.Text = "Grade Point Average:";
-            // 
-            // gradePointAverageLabel1
-            // 
-            this.gradePointAverageLabel1.Location = new System.Drawing.Point(210, 207);
-            this.gradePointAverageLabel1.Name = "gradePointAverageLabel1";
-            this.gradePointAverageLabel1.Size = new System.Drawing.Size(100, 23);
-            this.gradePointAverageLabel1.TabIndex = 16;
-            this.gradePointAverageLabel1.Text = "label1";
-            // 
-            // descriptionLabel1
-            // 
-            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "GradePointState.Description", true));
-            this.descriptionLabel1.Location = new System.Drawing.Point(316, 207);
-            this.descriptionLabel1.Name = "descriptionLabel1";
-            this.descriptionLabel1.Size = new System.Drawing.Size(100, 23);
-            this.descriptionLabel1.TabIndex = 17;
-            this.descriptionLabel1.Text = "label1";
+            this.titleLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course", true));
+            this.titleLabel1.Location = new System.Drawing.Point(445, 89);
+            this.titleLabel1.Name = "titleLabel1";
+            this.titleLabel1.Size = new System.Drawing.Size(319, 23);
+            this.titleLabel1.TabIndex = 7;
+            this.titleLabel1.Text = "label1";
             // 
             // StudentData
             // 
@@ -343,15 +349,15 @@
             this.Controls.Add(this.lnkUpdateGrade);
             this.Controls.Add(this.grpRegistration);
             this.Controls.Add(this.grpStudent);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StudentData";
             this.Text = "StudentData";
             this.Load += new System.EventHandler(this.StudentData_Load);
             this.grpStudent.ResumeLayout(false);
             this.grpStudent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             this.grpRegistration.ResumeLayout(false);
             this.grpRegistration.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.registrationBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -365,17 +371,17 @@
         private System.Windows.Forms.LinkLabel lnkUpdateGrade;
         private System.Windows.Forms.LinkLabel lnkViewDetails;
         private System.Windows.Forms.BindingSource studentBindingSource;
-        private System.Windows.Forms.TextBox fullNameTextBox;
-        private System.Windows.Forms.TextBox fullAddressTextBox;
         private System.Windows.Forms.ComboBox registrationNumberComboBox;
         private System.Windows.Forms.BindingSource registrationBindingSource;
-        private System.Windows.Forms.TextBox courseNumberTextBox;
-        private System.Windows.Forms.TextBox creditHoursTextBox;
-        private System.Windows.Forms.TextBox titleTextBox;
         private System.Windows.Forms.MaskedTextBox studentNumberMaskedTextBox;
         private System.Windows.Forms.Label descriptionLabel1;
         private System.Windows.Forms.Label gradePointAverageLabel1;
         private System.Windows.Forms.Label outstandingFeesLabel1;
         private System.Windows.Forms.Label dateCreatedLabel1;
+        private System.Windows.Forms.Label fullAddressLabel1;
+        private System.Windows.Forms.Label fullNameLabel1;
+        private System.Windows.Forms.Label titleLabel1;
+        private System.Windows.Forms.Label creditHoursLabel1;
+        private System.Windows.Forms.Label courseNumberLabel1;
     }
 }
