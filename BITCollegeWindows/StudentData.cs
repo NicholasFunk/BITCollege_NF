@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BITCollege_NF.Data;
+using BITCollege_NF.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +19,11 @@ namespace BITCollegeWindows
         ///These variables will be used to store the current
         ///Student and selected Registration
         ConstructorData constructorData = new ConstructorData();
+
+        /// <summary>
+        /// Used to Retrieve Student and Registration records.
+        /// </summary>
+        BITCollege_NFContext db = new BITCollege_NFContext();
 
         /// <summary>
         /// This constructor will be used when this form is opened from
@@ -71,6 +78,27 @@ namespace BITCollegeWindows
         {
             //keeps location of form static when opened and closed
             this.Location = new Point(0, 0);
+        }
+
+        private void studentNumberMaskedTextBox_Leave(object sender, EventArgs e)
+        {
+
+            // Define a LINQ to SQL query selecting data from the Students table whose StudentNumber matches the value in the MaskedTextBox
+            Student student = db.Students.Where(s => s.StudentNumber.ToString() == studentNumberMaskedTextBox.Text).SingleOrDefault();
+
+            if (student == null)
+            {
+                lnkUpdateGrade.Enabled = false;
+                lnkViewDetails.Enabled = false;
+                studentNumberMaskedTextBox.Focus();
+                studentBindingSource.DataSource = typeof(Student);
+                registrationBindingSource.DataSource = typeof(Registration);
+
+                string message = "Student " + studentNumberMaskedTextBox.Text + " does not exist.";
+                string caption = "Invalid Student Number";
+                MessageBox.Show(message, caption, MessageBoxButtons.OK);
+
+            }
         }
     }
 }

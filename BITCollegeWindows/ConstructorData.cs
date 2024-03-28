@@ -1,4 +1,5 @@
 ﻿using BITCollege_NF.Models;
+using BITCollege_NF.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +18,8 @@ namespace BITCollegeWindows
     /// </summary>
     public class ConstructorData
     {
+
+
         // Pass student related information to the form.
         public int StudentId { get; set; }
 
