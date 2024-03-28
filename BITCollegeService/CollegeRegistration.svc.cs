@@ -58,10 +58,6 @@ namespace BITCollegeService
         public int RegisterCourse(int studentId, int courseId, string notes)
         {
             int codeValue = 0;
-            int maximumAttempts = 0;
-            double courseTuition = 0;
-            MasteryCourse masteryRecord;
-            
 
             IQueryable<Registration> registrations = db.Registrations.Where(x => x.StudentId == studentId && x.CourseId == courseId);
 
@@ -72,88 +68,50 @@ namespace BITCollegeService
 
             Student studentRecord = db.Students.Where(s => s.StudentId == studentId).SingleOrDefault();
 
-            // Error Code Routine
-            // If registration is successful, return a value of 0.
-
-
-            // If an exception occurs while updating, return a value of -300.
-
-
-            // If the student has exceeded the MaximumAttempts of a Mastery course, return a value of -200.
-
-
-            // If the student already has an ungraded registration for this course, return a value of -100.
-
-            // Incomplete Registration Check
-            //foreach (Registration record in registrations)
-            //{
-            //    if (record.Grade == null)
-            //    {
-            //        codeValue = -100;
-            //    }
-            //}
-
-            
-            // Master Attempt Check Incorrect conditional format
-            if (BusinessRules.CourseTypeLookup(courseRecord.CourseType) == CourseType.MASTERY)
+            //Incomplete Registration Check
+            foreach (Registration record in registrations)
             {
-                
-                codeValue = 1;
-                
+                if (record.Grade == null)
+                {
+                    codeValue = -100;
+                }
             }
 
-           
-            
 
+            // Master Attempt Check
+            if (BusinessRules.CourseTypeLookup(courseRecord.CourseType) == CourseType.MASTERY && codeValue == 0)
+            {
+                MasteryCourse masteryCourse = (MasteryCourse)courseRecord;
+                if (registrations.Count() >= masteryCourse.MaximumAttempts)
+                {
+                    codeValue = -200;
+                }
 
-            //foreach (Registration record in registrations.ToList())
-            //{ 
-            //    if (record.Grade == null)
-            //    {
-            //        codeValue = -100;
-            //    }
-            //    numberOfRegistrations += 1;
-            //}
+            }
 
-            //if (BusinessRules.CourseTypeLookup(courseRecord.CourseType) == CourseType.MASTERY)
-            //{
-            //    MasteryCourse masteryCourse = (MasteryCourse)courseRecord;
-            //    if (numberOfRegistrations >= masteryCourse.MaximumAttempts)
-            //    {
-            //        codeValue = -200;
-            //    }
+            // Update Database Record
+            try
+            {
+                Registration registration = new Registration();
+                registration.StudentId = studentId;
+                registration.CourseId = courseId;
+                registration.Notes = notes;
+                registration.RegistrationDate = DateTime.Today;
+                registration.RegistrationNumber = NextRegistration.GetInstance().NextAvailableNumber;
+                db.Registrations.AddOrUpdate(registration);
+                db.SaveChanges();
 
+                studentRecord.OutstandingFees = courseRecord.TuitionAmount;
+                studentRecord.GradePointState.TuitionRateAdjustment(studentRecord);
 
-            //}
+                db.Students.AddOrUpdate(studentRecord);
+                db.SaveChanges();
 
-
-            //try
-            //{
-            //    Registration registration = new Registration();
-            //    registration.StudentId = studentId;
-            //    registration.CourseId = courseId;
-            //    registration.Notes = notes;
-            //    registration.RegistrationDate = DateTime.Today;
-            //    registration.RegistrationNumber = NextRegistration.GetInstance().NextAvailableNumber;
-            //    db.Registrations.AddOrUpdate(registration);
-            //    db.SaveChanges();
-
-            //    courseTuition = courseRecord.TuitionAmount;
-            //    studentRecord.OutstandingFees = courseTuition;
-
-            //    studentRecord.GradePointState.TuitionRateAdjustment(studentRecord);
-
-            //    db.Students.AddOrUpdate(studentRecord);
-            //    db.SaveChanges();
-
-            //}
-            //catch (Exception)
-            //{
-            //    codeValue = -300;
-            //}
-            
-
-
+            }
+            catch (Exception)
+            {
+                codeValue = -300;
+            }
 
             return codeValue;
         }
