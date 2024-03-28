@@ -129,6 +129,24 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.AcademicProgram.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.AuditCourse.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.Course.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.GradedCourse.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.GradePointState.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.HonoursState.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.MasteryCourse.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.NextAuditCourse.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.NextGradedCourse.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.NextMasteryCourse.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.NextRegistration.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.NextStudent.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.NextUniqueNumber.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.ProbationState.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.Registration.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.RegularState.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.Student.datasource" />
+    <None Include="Properties\DataSources\BITCollege_NF.Models.SuspendedState.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
