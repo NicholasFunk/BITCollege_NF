@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BITCollegeService", "BITCollegeService\BITCollegeService.csproj", "{B4A841E8-79F2-4EB7-B117-F3267E69F356}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BITCollegeWindows", "BITCollegeWindows\BITCollegeWindows.csproj", "{18A2E074-9CE7-48F6-B47B-0B55BF8D13C3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B4A841E8-79F2-4EB7-B117-F3267E69F356} = {B4A841E8-79F2-4EB7-B117-F3267E69F356}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskedLabel", "MaskedLabel\MaskedLabel.csproj", "{049F1B57-22DE-42E2-A648-B64B82BF6DF5}"
 EndProject
