@@ -30,42 +30,42 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label fullNameLabel;
-            System.Windows.Forms.Label studentNumberLabel;
             System.Windows.Forms.Label fullAddressLabel;
-            System.Windows.Forms.Label dateCreatedLabel;
-            System.Windows.Forms.Label gradePointAverageLabel;
-            System.Windows.Forms.Label outstandingFeesLabel;
             System.Windows.Forms.Label courseNumberLabel;
             System.Windows.Forms.Label registrationNumberLabel;
             System.Windows.Forms.Label creditHoursLabel;
             System.Windows.Forms.Label titleLabel;
+            System.Windows.Forms.Label studentNumberLabel;
+            System.Windows.Forms.Label dateCreatedLabel;
+            System.Windows.Forms.Label outstandingFeesLabel;
+            System.Windows.Forms.Label gradePointAverageLabel;
             this.grpStudent = new System.Windows.Forms.GroupBox();
             this.grpRegistration = new System.Windows.Forms.GroupBox();
             this.lnkUpdateGrade = new System.Windows.Forms.LinkLabel();
             this.lnkViewDetails = new System.Windows.Forms.LinkLabel();
             this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fullNameTextBox = new System.Windows.Forms.TextBox();
-            this.studentNumberTextBox = new System.Windows.Forms.TextBox();
             this.fullAddressTextBox = new System.Windows.Forms.TextBox();
-            this.dateCreatedTextBox = new System.Windows.Forms.TextBox();
-            this.gradePointAverageTextBox = new System.Windows.Forms.TextBox();
-            this.descriptionTextBox = new System.Windows.Forms.TextBox();
-            this.outstandingFeesTextBox = new System.Windows.Forms.TextBox();
             this.registrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.courseNumberTextBox = new System.Windows.Forms.TextBox();
             this.registrationNumberComboBox = new System.Windows.Forms.ComboBox();
             this.creditHoursTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.studentNumberMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.dateCreatedLabel1 = new System.Windows.Forms.Label();
+            this.outstandingFeesLabel1 = new System.Windows.Forms.Label();
+            this.gradePointAverageLabel1 = new System.Windows.Forms.Label();
+            this.descriptionLabel1 = new System.Windows.Forms.Label();
             fullNameLabel = new System.Windows.Forms.Label();
-            studentNumberLabel = new System.Windows.Forms.Label();
             fullAddressLabel = new System.Windows.Forms.Label();
-            dateCreatedLabel = new System.Windows.Forms.Label();
-            gradePointAverageLabel = new System.Windows.Forms.Label();
-            outstandingFeesLabel = new System.Windows.Forms.Label();
             courseNumberLabel = new System.Windows.Forms.Label();
             registrationNumberLabel = new System.Windows.Forms.Label();
             creditHoursLabel = new System.Windows.Forms.Label();
             titleLabel = new System.Windows.Forms.Label();
+            studentNumberLabel = new System.Windows.Forms.Label();
+            dateCreatedLabel = new System.Windows.Forms.Label();
+            outstandingFeesLabel = new System.Windows.Forms.Label();
+            gradePointAverageLabel = new System.Windows.Forms.Label();
             this.grpStudent.SuspendLayout();
             this.grpRegistration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
@@ -74,24 +74,24 @@
             // 
             // grpStudent
             // 
-            this.grpStudent.Controls.Add(outstandingFeesLabel);
-            this.grpStudent.Controls.Add(this.outstandingFeesTextBox);
-            this.grpStudent.Controls.Add(this.descriptionTextBox);
+            this.grpStudent.Controls.Add(this.descriptionLabel1);
             this.grpStudent.Controls.Add(gradePointAverageLabel);
-            this.grpStudent.Controls.Add(this.gradePointAverageTextBox);
+            this.grpStudent.Controls.Add(this.gradePointAverageLabel1);
+            this.grpStudent.Controls.Add(outstandingFeesLabel);
+            this.grpStudent.Controls.Add(this.outstandingFeesLabel1);
             this.grpStudent.Controls.Add(dateCreatedLabel);
-            this.grpStudent.Controls.Add(this.dateCreatedTextBox);
+            this.grpStudent.Controls.Add(this.dateCreatedLabel1);
+            this.grpStudent.Controls.Add(studentNumberLabel);
+            this.grpStudent.Controls.Add(this.studentNumberMaskedTextBox);
             this.grpStudent.Controls.Add(fullAddressLabel);
             this.grpStudent.Controls.Add(this.fullAddressTextBox);
-            this.grpStudent.Controls.Add(studentNumberLabel);
-            this.grpStudent.Controls.Add(this.studentNumberTextBox);
             this.grpStudent.Controls.Add(fullNameLabel);
             this.grpStudent.Controls.Add(this.fullNameTextBox);
             this.grpStudent.Location = new System.Drawing.Point(47, 58);
             this.grpStudent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.grpStudent.Name = "grpStudent";
             this.grpStudent.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpStudent.Size = new System.Drawing.Size(816, 251);
+            this.grpStudent.Size = new System.Drawing.Size(816, 255);
             this.grpStudent.TabIndex = 0;
             this.grpStudent.TabStop = false;
             this.grpStudent.Text = "Student Data";
@@ -161,24 +161,6 @@
             this.fullNameTextBox.Size = new System.Drawing.Size(540, 31);
             this.fullNameTextBox.TabIndex = 3;
             // 
-            // studentNumberLabel
-            // 
-            studentNumberLabel.AutoSize = true;
-            studentNumberLabel.Location = new System.Drawing.Point(50, 38);
-            studentNumberLabel.Name = "studentNumberLabel";
-            studentNumberLabel.Size = new System.Drawing.Size(106, 16);
-            studentNumberLabel.TabIndex = 3;
-            studentNumberLabel.Text = "Student Number:";
-            // 
-            // studentNumberTextBox
-            // 
-            this.studentNumberTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentNumber", true));
-            this.studentNumberTextBox.Location = new System.Drawing.Point(213, 35);
-            this.studentNumberTextBox.Multiline = true;
-            this.studentNumberTextBox.Name = "studentNumberTextBox";
-            this.studentNumberTextBox.Size = new System.Drawing.Size(147, 27);
-            this.studentNumberTextBox.TabIndex = 4;
-            // 
             // fullAddressLabel
             // 
             fullAddressLabel.AutoSize = true;
@@ -196,65 +178,6 @@
             this.fullAddressTextBox.Name = "fullAddressTextBox";
             this.fullAddressTextBox.Size = new System.Drawing.Size(540, 34);
             this.fullAddressTextBox.TabIndex = 5;
-            // 
-            // dateCreatedLabel
-            // 
-            dateCreatedLabel.AutoSize = true;
-            dateCreatedLabel.Location = new System.Drawing.Point(50, 169);
-            dateCreatedLabel.Name = "dateCreatedLabel";
-            dateCreatedLabel.Size = new System.Drawing.Size(90, 16);
-            dateCreatedLabel.TabIndex = 6;
-            dateCreatedLabel.Text = "Date Created:";
-            // 
-            // dateCreatedTextBox
-            // 
-            this.dateCreatedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "DateCreated", true));
-            this.dateCreatedTextBox.Location = new System.Drawing.Point(213, 166);
-            this.dateCreatedTextBox.Name = "dateCreatedTextBox";
-            this.dateCreatedTextBox.Size = new System.Drawing.Size(147, 22);
-            this.dateCreatedTextBox.TabIndex = 7;
-            // 
-            // gradePointAverageLabel
-            // 
-            gradePointAverageLabel.AutoSize = true;
-            gradePointAverageLabel.Location = new System.Drawing.Point(50, 201);
-            gradePointAverageLabel.Name = "gradePointAverageLabel";
-            gradePointAverageLabel.Size = new System.Drawing.Size(136, 16);
-            gradePointAverageLabel.TabIndex = 8;
-            gradePointAverageLabel.Text = "Grade Point Average:";
-            // 
-            // gradePointAverageTextBox
-            // 
-            this.gradePointAverageTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "GradePointAverage", true));
-            this.gradePointAverageTextBox.Location = new System.Drawing.Point(213, 198);
-            this.gradePointAverageTextBox.Name = "gradePointAverageTextBox";
-            this.gradePointAverageTextBox.Size = new System.Drawing.Size(147, 22);
-            this.gradePointAverageTextBox.TabIndex = 9;
-            // 
-            // descriptionTextBox
-            // 
-            this.descriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "GradePointState.Description", true));
-            this.descriptionTextBox.Location = new System.Drawing.Point(375, 198);
-            this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(147, 22);
-            this.descriptionTextBox.TabIndex = 11;
-            // 
-            // outstandingFeesLabel
-            // 
-            outstandingFeesLabel.AutoSize = true;
-            outstandingFeesLabel.Location = new System.Drawing.Point(532, 172);
-            outstandingFeesLabel.Name = "outstandingFeesLabel";
-            outstandingFeesLabel.Size = new System.Drawing.Size(115, 16);
-            outstandingFeesLabel.TabIndex = 11;
-            outstandingFeesLabel.Text = "Outstanding Fees:";
-            // 
-            // outstandingFeesTextBox
-            // 
-            this.outstandingFeesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "OutstandingFees", true));
-            this.outstandingFeesTextBox.Location = new System.Drawing.Point(653, 169);
-            this.outstandingFeesTextBox.Name = "outstandingFeesTextBox";
-            this.outstandingFeesTextBox.Size = new System.Drawing.Size(100, 22);
-            this.outstandingFeesTextBox.TabIndex = 12;
             // 
             // registrationBindingSource
             // 
@@ -331,6 +254,86 @@
             this.titleTextBox.Size = new System.Drawing.Size(291, 22);
             this.titleTextBox.TabIndex = 7;
             // 
+            // studentNumberLabel
+            // 
+            studentNumberLabel.AutoSize = true;
+            studentNumberLabel.Location = new System.Drawing.Point(48, 46);
+            studentNumberLabel.Name = "studentNumberLabel";
+            studentNumberLabel.Size = new System.Drawing.Size(106, 16);
+            studentNumberLabel.TabIndex = 12;
+            studentNumberLabel.Text = "Student Number:";
+            // 
+            // studentNumberMaskedTextBox
+            // 
+            this.studentNumberMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentNumber", true));
+            this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(213, 43);
+            this.studentNumberMaskedTextBox.Mask = "0000-0000";
+            this.studentNumberMaskedTextBox.Name = "studentNumberMaskedTextBox";
+            this.studentNumberMaskedTextBox.Size = new System.Drawing.Size(147, 22);
+            this.studentNumberMaskedTextBox.TabIndex = 13;
+            // 
+            // dateCreatedLabel
+            // 
+            dateCreatedLabel.AutoSize = true;
+            dateCreatedLabel.Location = new System.Drawing.Point(50, 169);
+            dateCreatedLabel.Name = "dateCreatedLabel";
+            dateCreatedLabel.Size = new System.Drawing.Size(90, 16);
+            dateCreatedLabel.TabIndex = 13;
+            dateCreatedLabel.Text = "Date Created:";
+            // 
+            // dateCreatedLabel1
+            // 
+            this.dateCreatedLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "DateCreated", true));
+            this.dateCreatedLabel1.Location = new System.Drawing.Point(210, 165);
+            this.dateCreatedLabel1.Name = "dateCreatedLabel1";
+            this.dateCreatedLabel1.Size = new System.Drawing.Size(100, 23);
+            this.dateCreatedLabel1.TabIndex = 14;
+            this.dateCreatedLabel1.Text = "label1";
+            // 
+            // outstandingFeesLabel
+            // 
+            outstandingFeesLabel.AutoSize = true;
+            outstandingFeesLabel.Location = new System.Drawing.Point(532, 169);
+            outstandingFeesLabel.Name = "outstandingFeesLabel";
+            outstandingFeesLabel.Size = new System.Drawing.Size(115, 16);
+            outstandingFeesLabel.TabIndex = 14;
+            outstandingFeesLabel.Text = "Outstanding Fees:";
+            // 
+            // outstandingFeesLabel1
+            // 
+            this.outstandingFeesLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "OutstandingFees", true));
+            this.outstandingFeesLabel1.Location = new System.Drawing.Point(653, 169);
+            this.outstandingFeesLabel1.Name = "outstandingFeesLabel1";
+            this.outstandingFeesLabel1.Size = new System.Drawing.Size(100, 23);
+            this.outstandingFeesLabel1.TabIndex = 15;
+            this.outstandingFeesLabel1.Text = "label1";
+            // 
+            // gradePointAverageLabel
+            // 
+            gradePointAverageLabel.AutoSize = true;
+            gradePointAverageLabel.Location = new System.Drawing.Point(50, 207);
+            gradePointAverageLabel.Name = "gradePointAverageLabel";
+            gradePointAverageLabel.Size = new System.Drawing.Size(136, 16);
+            gradePointAverageLabel.TabIndex = 15;
+            gradePointAverageLabel.Text = "Grade Point Average:";
+            // 
+            // gradePointAverageLabel1
+            // 
+            this.gradePointAverageLabel1.Location = new System.Drawing.Point(210, 207);
+            this.gradePointAverageLabel1.Name = "gradePointAverageLabel1";
+            this.gradePointAverageLabel1.Size = new System.Drawing.Size(100, 23);
+            this.gradePointAverageLabel1.TabIndex = 16;
+            this.gradePointAverageLabel1.Text = "label1";
+            // 
+            // descriptionLabel1
+            // 
+            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "GradePointState.Description", true));
+            this.descriptionLabel1.Location = new System.Drawing.Point(316, 207);
+            this.descriptionLabel1.Name = "descriptionLabel1";
+            this.descriptionLabel1.Size = new System.Drawing.Size(100, 23);
+            this.descriptionLabel1.TabIndex = 17;
+            this.descriptionLabel1.Text = "label1";
+            // 
             // StudentData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -361,18 +364,18 @@
         private System.Windows.Forms.GroupBox grpRegistration;
         private System.Windows.Forms.LinkLabel lnkUpdateGrade;
         private System.Windows.Forms.LinkLabel lnkViewDetails;
-        private System.Windows.Forms.TextBox studentNumberTextBox;
         private System.Windows.Forms.BindingSource studentBindingSource;
         private System.Windows.Forms.TextBox fullNameTextBox;
-        private System.Windows.Forms.TextBox descriptionTextBox;
-        private System.Windows.Forms.TextBox gradePointAverageTextBox;
-        private System.Windows.Forms.TextBox dateCreatedTextBox;
         private System.Windows.Forms.TextBox fullAddressTextBox;
-        private System.Windows.Forms.TextBox outstandingFeesTextBox;
         private System.Windows.Forms.ComboBox registrationNumberComboBox;
         private System.Windows.Forms.BindingSource registrationBindingSource;
         private System.Windows.Forms.TextBox courseNumberTextBox;
         private System.Windows.Forms.TextBox creditHoursTextBox;
         private System.Windows.Forms.TextBox titleTextBox;
+        private System.Windows.Forms.MaskedTextBox studentNumberMaskedTextBox;
+        private System.Windows.Forms.Label descriptionLabel1;
+        private System.Windows.Forms.Label gradePointAverageLabel1;
+        private System.Windows.Forms.Label outstandingFeesLabel1;
+        private System.Windows.Forms.Label dateCreatedLabel1;
     }
 }
