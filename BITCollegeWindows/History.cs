@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BITCollege_NF.Data;
+using BITCollege_NF.Models;
 
 namespace BITCollegeWindows
 {
@@ -31,6 +34,10 @@ namespace BITCollegeWindows
         public History(ConstructorData constructorData)
         {
             InitializeComponent();
+            this.constructorData = constructorData;
+            studentNumberMaskedTextBox.Text = this.constructorData.studentData.StudentNumber.ToString();
+            descriptionLabel1.Text = this.constructorData.studentData.AcademicProgram.Description.ToString();
+            fullNameLabel1.Text = this.constructorData.studentData.FullName;
         }
 
 
@@ -55,11 +62,14 @@ namespace BITCollegeWindows
         private void History_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
-        }
 
-        private void registrationDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            var query = from registrations in db.Registrations
+                        join courses in db.Courses
+                        on registrations.CourseId equals courses.CourseId
+                        where registrations.StudentId == constructorData.studentData.StudentId
+                        select registrations;
 
+            registrationBindingSource.DataSource = query.ToList();
         }
     }
 }

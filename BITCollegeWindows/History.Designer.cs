@@ -33,13 +33,15 @@
             System.Windows.Forms.Label fullNameLabel;
             System.Windows.Forms.Label descriptionLabel;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.descriptionLabel1 = new System.Windows.Forms.Label();
-            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.registrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fullNameLabel1 = new System.Windows.Forms.Label();
+            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.studentNumberMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.lnkReturn = new System.Windows.Forms.LinkLabel();
-            this.registrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.registrationDataGridView = new System.Windows.Forms.DataGridView();
             this.RegistrationNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,8 +52,8 @@
             fullNameLabel = new System.Windows.Forms.Label();
             descriptionLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.registrationBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.registrationDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,11 +78,11 @@
             // descriptionLabel
             // 
             descriptionLabel.AutoSize = true;
-            descriptionLabel.Location = new System.Drawing.Point(37, 74);
+            descriptionLabel.Location = new System.Drawing.Point(37, 91);
             descriptionLabel.Name = "descriptionLabel";
-            descriptionLabel.Size = new System.Drawing.Size(78, 16);
+            descriptionLabel.Size = new System.Drawing.Size(62, 16);
             descriptionLabel.TabIndex = 5;
-            descriptionLabel.Text = "Description:";
+            descriptionLabel.Text = "Program:";
             // 
             // groupBox1
             // 
@@ -94,34 +96,41 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(865, 146);
+            this.groupBox1.Size = new System.Drawing.Size(865, 160);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Student Data";
             // 
             // descriptionLabel1
             // 
-            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "AcademicProgram.Description", true));
-            this.descriptionLabel1.Location = new System.Drawing.Point(201, 74);
+            this.descriptionLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course.AcademicProgram.Description", true));
+            this.descriptionLabel1.Location = new System.Drawing.Point(201, 91);
             this.descriptionLabel1.Name = "descriptionLabel1";
             this.descriptionLabel1.Size = new System.Drawing.Size(150, 23);
             this.descriptionLabel1.TabIndex = 6;
             // 
-            // studentBindingSource
+            // registrationBindingSource
             // 
-            this.studentBindingSource.DataSource = typeof(BITCollege_NF.Models.Student);
+            this.registrationBindingSource.DataSource = typeof(BITCollege_NF.Models.Registration);
             // 
             // fullNameLabel1
             // 
+            this.fullNameLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fullNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FullName", true));
             this.fullNameLabel1.Location = new System.Drawing.Point(559, 33);
             this.fullNameLabel1.Name = "fullNameLabel1";
             this.fullNameLabel1.Size = new System.Drawing.Size(247, 23);
             this.fullNameLabel1.TabIndex = 5;
             // 
+            // studentBindingSource
+            // 
+            this.studentBindingSource.DataSource = typeof(BITCollege_NF.Models.Student);
+            // 
             // studentNumberMaskedTextBox
             // 
             this.studentNumberMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentNumber", true));
+            this.studentNumberMaskedTextBox.Enabled = false;
             this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(204, 33);
             this.studentNumberMaskedTextBox.Mask = "0000-0000";
             this.studentNumberMaskedTextBox.Name = "studentNumberMaskedTextBox";
@@ -140,10 +149,6 @@
             this.lnkReturn.Text = "Return to Student Data";
             this.lnkReturn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkReturn_LinkClicked);
             // 
-            // registrationBindingSource
-            // 
-            this.registrationBindingSource.DataSource = typeof(BITCollege_NF.Models.Registration);
-            // 
             // registrationDataGridView
             // 
             this.registrationDataGridView.AutoGenerateColumns = false;
@@ -161,12 +166,13 @@
             this.registrationDataGridView.RowTemplate.Height = 24;
             this.registrationDataGridView.Size = new System.Drawing.Size(865, 288);
             this.registrationDataGridView.TabIndex = 2;
-            this.registrationDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.registrationDataGridView_CellContentClick);
             // 
             // RegistrationNumber
             // 
             this.RegistrationNumber.DataPropertyName = "RegistrationNumber";
-            this.RegistrationNumber.HeaderText = "RegistrationNumber";
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.RegistrationNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            this.RegistrationNumber.HeaderText = "Registration Number";
             this.RegistrationNumber.MinimumWidth = 6;
             this.RegistrationNumber.Name = "RegistrationNumber";
             this.RegistrationNumber.Width = 125;
@@ -174,6 +180,9 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "RegistrationDate";
+            dataGridViewCellStyle2.Format = "yyyy-MM-dd";
+            dataGridViewCellStyle2.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn5.HeaderText = "Date";
             this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -181,7 +190,7 @@
             // 
             // Course
             // 
-            this.Course.DataPropertyName = "Course";
+            this.Course.DataPropertyName = "Description";
             this.Course.HeaderText = "Course";
             this.Course.MinimumWidth = 6;
             this.Course.Name = "Course";
@@ -189,11 +198,11 @@
             // 
             // Grade
             // 
-            this.Grade.DataPropertyName = "Grade.ToString(\"P2\")";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Format = "%";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Grade.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Grade.DataPropertyName = "Grade";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = ".00%";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Grade.DefaultCellStyle = dataGridViewCellStyle3;
             this.Grade.HeaderText = "Grade";
             this.Grade.MinimumWidth = 6;
             this.Grade.Name = "Grade";
@@ -205,7 +214,7 @@
             this.Notes.HeaderText = "Notes";
             this.Notes.MinimumWidth = 6;
             this.Notes.Name = "Notes";
-            this.Notes.Width = 125;
+            this.Notes.Width = 200;
             // 
             // History
             // 
@@ -221,8 +230,8 @@
             this.Load += new System.EventHandler(this.History_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.registrationBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.registrationDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -236,9 +245,9 @@
         private System.Windows.Forms.MaskedTextBox studentNumberMaskedTextBox;
         private System.Windows.Forms.BindingSource studentBindingSource;
         private System.Windows.Forms.Label fullNameLabel1;
-        private System.Windows.Forms.Label descriptionLabel1;
         private System.Windows.Forms.BindingSource registrationBindingSource;
         private System.Windows.Forms.DataGridView registrationDataGridView;
+        private System.Windows.Forms.Label descriptionLabel1;
         private System.Windows.Forms.DataGridViewTextBoxColumn RegistrationNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Course;

@@ -24,5 +24,7 @@ namespace BITCollegeWindows
 
         public IQueryable<Registration> registrationData { get; set; }
 
+        
+
     }
 }
