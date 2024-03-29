@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BITCollege_NF.Data;
 
 namespace BITCollegeWindows
 {
     public partial class History : Form
     {
+        BITCollege_NFContext db = new BITCollege_NFContext();
 
         ///given:  student and registration data will passed throughout 
         ///application. This object will be used to store the current
@@ -53,6 +55,11 @@ namespace BITCollegeWindows
         private void History_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
+        }
+
+        private void registrationDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
