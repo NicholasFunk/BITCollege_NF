@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace BITCollegeWindows
         ///These variables will be used to store the current
         ///Student and selected Registration
         ConstructorData constructorData = new ConstructorData();
+        
 
         /// <summary>
         /// Used to Retrieve Student and Registration records.
@@ -45,7 +47,9 @@ namespace BITCollegeWindows
         public StudentData (ConstructorData constructor)
         {
             InitializeComponent();
-            //Further code to be added.
+            constructorData = constructor;
+            studentNumberMaskedTextBox.Text = constructorData.studentData.StudentNumber.ToString();
+            studentNumberMaskedTextBox_Leave(null, null);
         }
 
         /// <summary>
@@ -84,21 +88,62 @@ namespace BITCollegeWindows
         {
 
             // Define a LINQ to SQL query selecting data from the Students table whose StudentNumber matches the value in the MaskedTextBox
-            Student student = db.Students.Where(s => s.StudentNumber.ToString() == studentNumberMaskedTextBox.Text).SingleOrDefault();
+            studentRecordQuery();
 
-            if (student == null)
+            switch (constructorData.studentData)
             {
-                lnkUpdateGrade.Enabled = false;
-                lnkViewDetails.Enabled = false;
-                studentNumberMaskedTextBox.Focus();
-                studentBindingSource.DataSource = typeof(Student);
-                registrationBindingSource.DataSource = typeof(Registration);
+                case null:
+                    // Disable links
+                    lnkUpdateGrade.Enabled = false;
+                    lnkViewDetails.Enabled = false;
+                    studentNumberMaskedTextBox.Focus();
+                    studentBindingSource.DataSource = typeof(Student);
 
-                string message = "Student " + studentNumberMaskedTextBox.Text + " does not exist.";
-                string caption = "Invalid Student Number";
-                MessageBox.Show(message, caption, MessageBoxButtons.OK);
+                    // Display a messagebox about the error
+                    string message = "Student " + studentNumberMaskedTextBox.Text + " does not exist.";
+                    string caption = "Invalid Student Number";
+                    MessageBox.Show(message, caption, MessageBoxButtons.OK);
+                    break;
 
+                default:
+                    // Establishes a new datasource from the successful student query.
+                    studentBindingSource.DataSource = constructorData.studentData;
+
+                    // Query all student related registration records.
+                    registrationRecordsQuery();
+                    break;
             }
+
+            switch (constructorData.registrationData)
+            {
+                case null:
+                    lnkUpdateGrade.Enabled = false;
+                    lnkViewDetails.Enabled = false;
+                    registrationBindingSource.DataSource = typeof(Registration);
+                    break;
+                default:
+                    registrationBindingSource.DataSource = constructorData.registrationData.ToList();
+                    lnkUpdateGrade.Enabled = true;
+                    lnkViewDetails.Enabled = true;
+                    break;
+            }
+
+
+
         }
+
+        public void studentRecordQuery() 
+        {
+            Student studentRecord = db.Students.Where(s => s.StudentNumber.ToString() == studentNumberMaskedTextBox.Text).SingleOrDefault();
+            constructorData.studentData = studentRecord;
+        }
+
+        public void registrationRecordsQuery()
+        {
+            IQueryable<Registration> registrationRecords = db.Registrations.Where(r => r.StudentId == constructorData.studentData.StudentId);
+            constructorData.registrationData = registrationRecords;
+        }
+
+        
     }
 }
