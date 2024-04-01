@@ -39,10 +39,6 @@ namespace BITCollegeWindows
 
             studentBindingSource.DataSource = constructorData.studentData;
             registrationBindingSource.DataSource = constructorData.registrations.ToList();
-
-            //studentNumberMaskedTextBox.Text = this.constructorData.studentData.StudentNumber.ToString();
-            //descriptionLabel1.Text = this.constructorData.studentData.AcademicProgram.Description.ToString();
-            //fullNameLabel1.Text = this.constructorData.studentData.FullName;
         }
 
 
@@ -67,7 +63,6 @@ namespace BITCollegeWindows
         private void History_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
-
             
 
             try
