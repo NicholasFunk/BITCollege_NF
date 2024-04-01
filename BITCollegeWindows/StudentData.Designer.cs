@@ -249,7 +249,7 @@
             // studentNumberMaskedTextBox
             // 
             this.studentNumberMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentNumber", true));
-            this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(213, 43);
+            this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(209, 43);
             this.studentNumberMaskedTextBox.Mask = "0000-0000";
             this.studentNumberMaskedTextBox.Name = "studentNumberMaskedTextBox";
             this.studentNumberMaskedTextBox.Size = new System.Drawing.Size(147, 22);

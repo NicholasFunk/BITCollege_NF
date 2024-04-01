@@ -104,10 +104,10 @@
             // descriptionLabel1
             // 
             this.descriptionLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Course.AcademicProgram.Description", true));
-            this.descriptionLabel1.Location = new System.Drawing.Point(201, 91);
+            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Student.AcademicProgram.Description", true));
+            this.descriptionLabel1.Location = new System.Drawing.Point(176, 90);
             this.descriptionLabel1.Name = "descriptionLabel1";
-            this.descriptionLabel1.Size = new System.Drawing.Size(150, 23);
+            this.descriptionLabel1.Size = new System.Drawing.Size(242, 41);
             this.descriptionLabel1.TabIndex = 6;
             // 
             // registrationBindingSource
@@ -131,7 +131,7 @@
             // 
             this.studentNumberMaskedTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "StudentNumber", true));
             this.studentNumberMaskedTextBox.Enabled = false;
-            this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(204, 33);
+            this.studentNumberMaskedTextBox.Location = new System.Drawing.Point(176, 33);
             this.studentNumberMaskedTextBox.Mask = "0000-0000";
             this.studentNumberMaskedTextBox.Name = "studentNumberMaskedTextBox";
             this.studentNumberMaskedTextBox.Size = new System.Drawing.Size(147, 22);
@@ -175,6 +175,7 @@
             this.RegistrationNumber.HeaderText = "Registration Number";
             this.RegistrationNumber.MinimumWidth = 6;
             this.RegistrationNumber.Name = "RegistrationNumber";
+            this.RegistrationNumber.ReadOnly = true;
             this.RegistrationNumber.Width = 125;
             // 
             // dataGridViewTextBoxColumn5
@@ -186,14 +187,16 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "Date";
             this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
             this.dataGridViewTextBoxColumn5.Width = 125;
             // 
             // Course
             // 
-            this.Course.DataPropertyName = "Description";
+            this.Course.DataPropertyName = "Course";
             this.Course.HeaderText = "Course";
             this.Course.MinimumWidth = 6;
             this.Course.Name = "Course";
+            this.Course.ReadOnly = true;
             this.Course.Width = 200;
             // 
             // Grade
@@ -206,6 +209,7 @@
             this.Grade.HeaderText = "Grade";
             this.Grade.MinimumWidth = 6;
             this.Grade.Name = "Grade";
+            this.Grade.ReadOnly = true;
             this.Grade.Width = 50;
             // 
             // Notes
@@ -214,6 +218,7 @@
             this.Notes.HeaderText = "Notes";
             this.Notes.MinimumWidth = 6;
             this.Notes.Name = "Notes";
+            this.Notes.ReadOnly = true;
             this.Notes.Width = 200;
             // 
             // History

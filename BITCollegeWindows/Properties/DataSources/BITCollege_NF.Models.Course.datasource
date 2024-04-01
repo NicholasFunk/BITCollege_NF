@@ -7,4 +7,29 @@
 -->
 <GenericObjectDataSource DisplayName="Course" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
    <TypeInfo>BITCollege_NF.Models.Course, BITCollege_NF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeUISetting>
+      <PropertyUISettings>
+         <PropertyUISetting Name="CourseNumber">
+            <ControlSettings>
+               <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+                  <BindableControlInfo Name="MaskedLabel" Type="EWSoftware.MaskedLabelControl.MaskedLabel" AssemblyName="EWSoftware.MaskedLabelControl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" AssemblyCodeBase="file:///C:/Users/Nicholas Funk/Documents/rrc_Term5/Programming 3/Module_06/Assignment/BITCollege_NF/NicholasFunk/BITCollege_NF/MaskedLabel/obj/Debug/EWSoftware.MaskedLabelControl.dll" Frameworks=".NETFramework,Version=v4.7.2;.NETFramework,Version=v4.8" />
+               </ControlSetting>
+            </ControlSettings>
+         </PropertyUISetting>
+         <PropertyUISetting Name="Title">
+            <ControlSettings>
+               <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+                  <BindableControlInfo Name="Label" Type="System.Windows.Forms.Label" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+               </ControlSetting>
+            </ControlSettings>
+         </PropertyUISetting>
+         <PropertyUISetting Name="CourseType">
+            <ControlSettings>
+               <ControlSetting ArtifactName="Microsoft:System.Windows.Forms:Form">
+                  <BindableControlInfo Name="Label" Type="System.Windows.Forms.Label" AssemblyName="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+               </ControlSetting>
+            </ControlSettings>
+         </PropertyUISetting>
+      </PropertyUISettings>
+   </TypeUISetting>
 </GenericObjectDataSource>

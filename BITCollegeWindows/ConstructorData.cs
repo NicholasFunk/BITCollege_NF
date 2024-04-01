@@ -22,7 +22,9 @@ namespace BITCollegeWindows
         // Pass student related information to the form.
         public Student studentData { get; set; }
 
-        public IQueryable<Registration> registrationData { get; set; }
+        public IQueryable<Registration> registrations { get; set; }
+
+        public Registration registrationData { get; set; }
 
         
 

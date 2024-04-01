@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,15 +30,19 @@ namespace BITCollegeWindows
         /// specific information about the student and registration
         /// further code required:  
         /// </summary>
-        /// <param name="constructorData">constructorData object containing
+        /// <param name="constructor">constructor object containing
         /// specific student and registration data.</param>
-        public History(ConstructorData constructorData)
+        public History(ConstructorData constructor)
         {
             InitializeComponent();
-            this.constructorData = constructorData;
-            studentNumberMaskedTextBox.Text = this.constructorData.studentData.StudentNumber.ToString();
-            descriptionLabel1.Text = this.constructorData.studentData.AcademicProgram.Description.ToString();
-            fullNameLabel1.Text = this.constructorData.studentData.FullName;
+            this.constructorData = constructor;
+
+            studentBindingSource.DataSource = constructorData.studentData;
+            registrationBindingSource.DataSource = constructorData.registrations.ToList();
+
+            //studentNumberMaskedTextBox.Text = this.constructorData.studentData.StudentNumber.ToString();
+            //descriptionLabel1.Text = this.constructorData.studentData.AcademicProgram.Description.ToString();
+            //fullNameLabel1.Text = this.constructorData.studentData.FullName;
         }
 
 
@@ -63,13 +68,25 @@ namespace BITCollegeWindows
         {
             this.Location = new Point(0, 0);
 
-            var query = from registrations in db.Registrations
-                        join courses in db.Courses
-                        on registrations.CourseId equals courses.CourseId
-                        where registrations.StudentId == constructorData.studentData.StudentId
-                        select registrations;
+            
 
-            registrationBindingSource.DataSource = query.ToList();
+            try
+            {
+                var query = from registrations in db.Registrations
+                            join courses in db.Courses
+                            on registrations.CourseId equals courses.CourseId
+                            where registrations.StudentId == constructorData.studentData.StudentId
+                            select registrations;
+                registrationBindingSource.DataSource = query.ToList();
+            }
+            catch (Exception)
+            {
+                // Display a messagebox about the error
+                string message = "Something when wrong when fetching the database.";
+                string caption = "Null Database Query";
+                MessageBox.Show(message, caption, MessageBoxButtons.OK);
+            }
+            
         }
     }
 }

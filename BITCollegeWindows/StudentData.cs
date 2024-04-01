@@ -57,6 +57,9 @@ namespace BITCollegeWindows
         /// </summary>
         private void lnkUpdateGrade_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            // Querry the current registration selection
+            Registration registrationGrade = db.Registrations.Where(r => r.RegistrationNumber.ToString() == registrationNumberComboBox.SelectedValue.ToString()).SingleOrDefault();
+            constructorData.registrationData = registrationGrade;
             Grading grading = new Grading(constructorData);
             grading.MdiParent = this.MdiParent;
             grading.Show();
@@ -114,7 +117,7 @@ namespace BITCollegeWindows
                     break;
             }
 
-            switch (constructorData.registrationData)
+            switch (constructorData.registrations)
             {
                 case null:
                     lnkUpdateGrade.Enabled = false;
@@ -122,7 +125,7 @@ namespace BITCollegeWindows
                     registrationBindingSource.DataSource = typeof(Registration);
                     break;
                 default:
-                    registrationBindingSource.DataSource = constructorData.registrationData.ToList();
+                    registrationBindingSource.DataSource = constructorData.registrations.ToList();
                     lnkUpdateGrade.Enabled = true;
                     lnkViewDetails.Enabled = true;
                     break;
@@ -141,7 +144,7 @@ namespace BITCollegeWindows
         public void registrationRecordsQuery()
         {
             IQueryable<Registration> registrationRecords = db.Registrations.Where(r => r.StudentId == constructorData.studentData.StudentId);
-            constructorData.registrationData = registrationRecords;
+            constructorData.registrations = registrationRecords;
         }
 
         

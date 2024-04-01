@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BITCollege_NF.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,11 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Utility;
 
 namespace BITCollegeWindows
 {
     public partial class Grading : Form
     {
+
+        BITCollege_NFContext db = new BITCollege_NFContext();
 
         ///given:  student and registration data will passed throughout 
         ///application. This object will be used to store the current
@@ -30,6 +34,13 @@ namespace BITCollegeWindows
         public Grading(ConstructorData constructor)
         {
             InitializeComponent();
+            this.constructorData = constructor;
+
+            studentBindingSource.DataSource = constructorData.studentData;
+            registrationBindingSource.DataSource = constructorData.registrationData;
+
+            courseNumberMaskedLabel.Mask = BusinessRules.CourseFormat(constructorData.registrationData.Course.CourseType);
+            
         }
 
         /// <summary>
@@ -53,6 +64,7 @@ namespace BITCollegeWindows
         private void Grading_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
+            // courseNumberMaskedLabel.Mask = BusinessRules.CourseFormat();
         }
 
         /// <summary>
@@ -62,5 +74,6 @@ namespace BITCollegeWindows
         {
 
         }
+
     }
 }
