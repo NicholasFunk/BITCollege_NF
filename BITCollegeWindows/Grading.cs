@@ -34,13 +34,10 @@ namespace BITCollegeWindows
         public Grading(ConstructorData constructor)
         {
             InitializeComponent();
-            this.constructorData = constructor;
+            constructorData = constructor;
 
             studentBindingSource.DataSource = constructorData.studentData;
             registrationBindingSource.DataSource = constructorData.registrationData;
-
-            courseNumberMaskedLabel.Mask = BusinessRules.CourseFormat(constructorData.registrationData.Course.CourseType);
-            
         }
 
         /// <summary>
@@ -64,7 +61,20 @@ namespace BITCollegeWindows
         private void Grading_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
-            // courseNumberMaskedLabel.Mask = BusinessRules.CourseFormat();
+            courseNumberMaskedLabel.Mask = BusinessRules.CourseFormat(constructorData.registrationData.Course.CourseType);
+            switch (constructorData.registrationData.Grade)
+            {
+                case null:
+                    gradeTextBox.Enabled = true;
+                    lnkUpdate.Enabled = true;
+                    break;
+
+                default:
+                    gradeTextBox.Enabled = false;
+                    lnkUpdate.Enabled = false;
+                    lblExisting.Visible = true;
+                    break;
+            }
         }
 
         /// <summary>

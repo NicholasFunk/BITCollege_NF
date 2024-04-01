@@ -192,7 +192,7 @@
             this.fullNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FullName", true));
             this.fullNameLabel1.Location = new System.Drawing.Point(210, 84);
             this.fullNameLabel1.Name = "fullNameLabel1";
-            this.fullNameLabel1.Size = new System.Drawing.Size(100, 23);
+            this.fullNameLabel1.Size = new System.Drawing.Size(543, 23);
             this.fullNameLabel1.TabIndex = 2;
             // 
             // studentBindingSource
@@ -205,7 +205,7 @@
             this.fullAddressLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "FullAddress", true));
             this.fullAddressLabel1.Location = new System.Drawing.Point(209, 126);
             this.fullAddressLabel1.Name = "fullAddressLabel1";
-            this.fullAddressLabel1.Size = new System.Drawing.Size(100, 23);
+            this.fullAddressLabel1.Size = new System.Drawing.Size(544, 23);
             this.fullAddressLabel1.TabIndex = 3;
             // 
             // descriptionLabel1
@@ -231,7 +231,7 @@
             // 
             this.outstandingFeesLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.outstandingFeesLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "OutstandingFees", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
-            this.outstandingFeesLabel1.Location = new System.Drawing.Point(653, 166);
+            this.outstandingFeesLabel1.Location = new System.Drawing.Point(664, 167);
             this.outstandingFeesLabel1.Name = "outstandingFeesLabel1";
             this.outstandingFeesLabel1.Size = new System.Drawing.Size(100, 23);
             this.outstandingFeesLabel1.TabIndex = 5;
