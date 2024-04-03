@@ -77,7 +77,7 @@ namespace BITCollegeWindows
             catch (Exception)
             {
                 // Display a messagebox about the error
-                string message = "Something when wrong when fetching the database.";
+                string message = "Something went wrong when fetching the database.";
                 string caption = "Null Database Query";
                 MessageBox.Show(message, caption, MessageBoxButtons.OK);
             }

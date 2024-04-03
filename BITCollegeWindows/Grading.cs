@@ -82,36 +82,35 @@ namespace BITCollegeWindows
         /// </summary>
         private void lnkUpdate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            /*Discussion
-            • When the user enters a Grade (e.g. 0.50), the TextBox (if formatted correctly – see
-            above) will correctly display the Grade as 50.00%. However, the entered grade must be
-            updated as 0.50 according to the rules placed on the field when the model was
-            designed. Therefore, the percent formatting must be stripped and the Grade value
-            must be divided by 100 (getting it back to the original 0.50 value) before capturing that
-            value for database update.
-            Requirement
-            • Use given functionality in the Utility project to define a String which will contain the
-            value from the TextBox without the percent formatting.
-            • Use given functionality in the Utility project to ensure that the above value is numeric.
-            o If non-numeric:
-            ▪ Display an appropriate MessageBox to the end user and do not proceed
-            with the update.
-            o If numeric:
-            ▪ Divide the above value by 100 and ensure this value is within the 0 - 1
-            range of numeric values.
-            ▪ If not within the range, display an appropriate MessageBox to the end
-            user and do not proceed with the update.
-            • Ensure the Messagebox explains that the grade must be entered
-            as a decimal value such that it appropriately displays when
-            formatted as a percent.
-            ▪ If the data is within the proper range of values, use the Client Endpoint of
-            the WCF Web Service (created in an earlier assignment) to update the
-            Grade, the Student’s GradePointAverage and corresponding Grade Point
-            State.
-            • Disable the Grade TextBox so that no further Grade modification can be made. This will
-            also give the user a visual cue that the update has completed.
-            */
-        }
+            String newGrade = Numeric.ClearFormatting(gradeTextBox.Text, "%");
+            double numericGrade = 0;
 
+            if (Numeric.IsNumeric(newGrade, System.Globalization.NumberStyles.Number))
+            {
+                numericGrade = Convert.ToDouble(newGrade) / 100;
+                switch (numericGrade)
+                {
+                    case double i when i > 0 && i <= 1:
+                        // Use WCF Web Service to update the grade.
+                        BITCollegeServiceReference.CollegeRegistrationClient collegeRegistration = new BITCollegeServiceReference.CollegeRegistrationClient();
+                        collegeRegistration.UpdateGrade(numericGrade, constructorData.registrationData.RegstrationId, constructorData.registrationData.Notes);
+                        gradeTextBox.Enabled = false;
+                        break;
+                    default:
+                        // Display a messagebox about the error
+                        string message = "A grade must be entered as a decimal: 0.## and will be displayed as a percent.";
+                        string caption = "Invalid Entry!";
+                        MessageBox.Show(message, caption, MessageBoxButtons.OK);
+                        break;
+                }
+            }
+            else
+            {
+                // Display a messagebox about the error
+                string message = "Input value is not of a numeric type.";
+                string caption = "Invalid Input: Not Numeric";
+                MessageBox.Show(message, caption, MessageBoxButtons.OK);
+            }
+        }
     }
 }
