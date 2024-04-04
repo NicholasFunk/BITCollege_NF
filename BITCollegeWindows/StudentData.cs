@@ -7,7 +7,9 @@ using System.Data;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,7 +22,7 @@ namespace BITCollegeWindows
         ///These variables will be used to store the current
         ///Student and selected Registration
         ConstructorData constructorData = new ConstructorData();
-        
+
 
         /// <summary>
         /// Used to Retrieve Student and Registration records.
@@ -44,7 +46,7 @@ namespace BITCollegeWindows
         /// </summary>
         /// <param name="constructorData">constructorData object containing
         /// specific student and registration data.</param>
-        public StudentData (ConstructorData constructor)
+        public StudentData(ConstructorData constructor)
         {
             InitializeComponent();
             constructorData = constructor;
@@ -72,6 +74,7 @@ namespace BITCollegeWindows
         /// </summary>
         private void lnkViewDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            constructorData.selectedRegistration = registrationNumberComboBox.SelectedIndex;
             History history = new History(constructorData);
             history.MdiParent = this.MdiParent;
             history.Show();
@@ -92,7 +95,31 @@ namespace BITCollegeWindows
 
             // Define a LINQ to SQL query selecting data from the Students table whose StudentNumber matches the value in the MaskedTextBox
             studentRecordQuery();
+            studentDataCheck();
 
+            if (constructorData.studentData != null)
+            {
+                registrationRecordsQuery();
+                registrationsDataCheck();
+            }
+
+            // Grade point state changes when we update the registration grades.
+        }
+
+        public void studentRecordQuery()
+        {
+            Student studentRecord = db.Students.Where(s => s.StudentNumber.ToString() == studentNumberMaskedTextBox.Text).SingleOrDefault();
+            constructorData.studentData = studentRecord;
+        }
+
+        public void registrationRecordsQuery()
+        {
+            IQueryable<Registration> registrationRecords = db.Registrations.Where(r => r.StudentId == constructorData.studentData.StudentId);
+            constructorData.registrations = registrationRecords;
+        }
+
+        public void studentDataCheck()
+        {
             switch (constructorData.studentData)
             {
                 case null:
@@ -110,43 +137,41 @@ namespace BITCollegeWindows
 
                 default:
                     // Establishes a new datasource from the successful student query.
-                    studentBindingSource.DataSource = constructorData.studentData;
-
-                    // Query all student related registration records.
-                    registrationRecordsQuery();
+                    if (constructorData.studentData != null)
+                    {
+                        studentBindingSource.DataSource = constructorData.studentData;
+                    }
                     break;
             }
+        }
 
-            switch (constructorData.registrations)
+        public void registrationsDataCheck()
+        {
+            if (constructorData.registrations.Count() < 1)
             {
-                case null:
-                    lnkUpdateGrade.Enabled = false;
-                    lnkViewDetails.Enabled = false;
-                    registrationBindingSource.DataSource = typeof(Registration);
-                    break;
-                default:
-                    registrationBindingSource.DataSource = constructorData.registrations.ToList();
-                    lnkUpdateGrade.Enabled = true;
-                    lnkViewDetails.Enabled = true;
-                    break;
+                fullNameLabel1.Text = "";
+                fullAddressLabel1.Text = "";
+                dateCreatedLabel1.Text = "";
+                descriptionLabel1.Text = "";
+                gradePointAverageLabel1.Text = "";
+                outstandingFeesLabel1.Text = "";
+                lnkUpdateGrade.Enabled = false;
+                lnkViewDetails.Enabled = false;
+                studentNumberMaskedTextBox.Focus();
+                registrationBindingSource.DataSource = typeof(Registration);
+
+                // Display a messagebox about the error
+                string message = "Student " + studentNumberMaskedTextBox.Text + " does not have any registrations.";
+                string caption = "No Registered Courses Available";
+                MessageBox.Show(message, caption, MessageBoxButtons.OK);
             }
-
-
-
+            else
+            {
+                registrationBindingSource.DataSource = constructorData.registrations.ToList();
+                lnkUpdateGrade.Enabled = true;
+                lnkViewDetails.Enabled = true;
+            }
         }
 
-        public void studentRecordQuery() 
-        {
-            Student studentRecord = db.Students.Where(s => s.StudentNumber.ToString() == studentNumberMaskedTextBox.Text).SingleOrDefault();
-            constructorData.studentData = studentRecord;
-        }
-
-        public void registrationRecordsQuery()
-        {
-            IQueryable<Registration> registrationRecords = db.Registrations.Where(r => r.StudentId == constructorData.studentData.StudentId);
-            constructorData.registrations = registrationRecords;
-        }
-
-        
     }
 }

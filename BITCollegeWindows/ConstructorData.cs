@@ -26,7 +26,7 @@ namespace BITCollegeWindows
 
         public Registration registrationData { get; set; }
 
-        
+        public int selectedRegistration { get; set; }
 
     }
 }

@@ -35,8 +35,7 @@ namespace BITCollegeWindows
         public History(ConstructorData constructor)
         {
             InitializeComponent();
-            this.constructorData = constructor;
-
+            constructorData = constructor;
             studentBindingSource.DataSource = constructorData.studentData;
             registrationBindingSource.DataSource = constructorData.registrations.ToList();
         }
@@ -51,6 +50,7 @@ namespace BITCollegeWindows
         {
             //return to student with the data selected for this form
             StudentData student = new StudentData(constructorData);
+
             student.MdiParent = this.MdiParent;
             student.Show();
             this.Close();
@@ -71,7 +71,10 @@ namespace BITCollegeWindows
                             join courses in db.Courses
                             on registrations.CourseId equals courses.CourseId
                             where registrations.StudentId == constructorData.studentData.StudentId
-                            select registrations;
+                            select new { RegistrationNumber = registrations.RegistrationNumber,                         RegistrationDate = registrations.RegistrationDate, 
+                                Grade = registrations.Grade, 
+                                Title = courses.Title, 
+                                Notes = registrations.Notes };
                 registrationBindingSource.DataSource = query.ToList();
             }
             catch (Exception)
@@ -81,6 +84,9 @@ namespace BITCollegeWindows
                 string caption = "Null Database Query";
                 MessageBox.Show(message, caption, MessageBoxButtons.OK);
             }
+
+            // Assign each newly selected property with the associated column name.
+            
             
         }
     }

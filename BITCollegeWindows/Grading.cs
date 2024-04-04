@@ -95,6 +95,7 @@ namespace BITCollegeWindows
                         BITCollegeServiceReference.CollegeRegistrationClient collegeRegistration = new BITCollegeServiceReference.CollegeRegistrationClient();
                         collegeRegistration.UpdateGrade(numericGrade, constructorData.registrationData.RegstrationId, constructorData.registrationData.Notes);
                         gradeTextBox.Enabled = false;
+                        lnkUpdate.Enabled = false;
                         break;
                     default:
                         // Display a messagebox about the error

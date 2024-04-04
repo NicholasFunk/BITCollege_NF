@@ -32,9 +32,9 @@
             System.Windows.Forms.Label studentNumberLabel;
             System.Windows.Forms.Label fullNameLabel;
             System.Windows.Forms.Label descriptionLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.descriptionLabel1 = new System.Windows.Forms.Label();
             this.registrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -104,7 +104,7 @@
             // descriptionLabel1
             // 
             this.descriptionLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.registrationBindingSource, "Student.AcademicProgram.Description", true));
+            this.descriptionLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "AcademicProgram.Description", true));
             this.descriptionLabel1.Location = new System.Drawing.Point(176, 90);
             this.descriptionLabel1.Name = "descriptionLabel1";
             this.descriptionLabel1.Size = new System.Drawing.Size(242, 41);
@@ -170,8 +170,8 @@
             // RegistrationNumber
             // 
             this.RegistrationNumber.DataPropertyName = "RegistrationNumber";
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.RegistrationNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.RegistrationNumber.DefaultCellStyle = dataGridViewCellStyle7;
             this.RegistrationNumber.HeaderText = "Registration Number";
             this.RegistrationNumber.MinimumWidth = 6;
             this.RegistrationNumber.Name = "RegistrationNumber";
@@ -181,9 +181,9 @@
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "RegistrationDate";
-            dataGridViewCellStyle2.Format = "yyyy-MM-dd";
-            dataGridViewCellStyle2.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Format = "yyyy-MM-dd";
+            dataGridViewCellStyle8.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewTextBoxColumn5.HeaderText = "Date";
             this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -192,7 +192,7 @@
             // 
             // Course
             // 
-            this.Course.DataPropertyName = "Course";
+            this.Course.DataPropertyName = "Title";
             this.Course.HeaderText = "Course";
             this.Course.MinimumWidth = 6;
             this.Course.Name = "Course";
@@ -202,10 +202,10 @@
             // Grade
             // 
             this.Grade.DataPropertyName = "Grade";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Format = ".00%";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Grade.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.Format = ".00%";
+            dataGridViewCellStyle9.NullValue = null;
+            this.Grade.DefaultCellStyle = dataGridViewCellStyle9;
             this.Grade.HeaderText = "Grade";
             this.Grade.MinimumWidth = 6;
             this.Grade.Name = "Grade";
