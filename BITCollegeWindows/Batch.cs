@@ -15,8 +15,19 @@ namespace BITCollegeWindows
     public class Batch
     {
 
+        /// <summary>
+        /// Represents the name of the file being processed
+        /// </summary>
         private String inputFileName;
+
+        /// <summary>
+        /// Represent the name of the log file that corresponds with the file being processed
+        /// </summary>
         private String logFileName;
+
+        /// <summary>
+        /// Represent all data to be written to the log file that corresponds with the file being processed
+        /// </summary>
         private String logData;
 
 
@@ -47,7 +58,17 @@ namespace BITCollegeWindows
 
         public void ProcessTransmission(String programAcronym)
         {
+            DateTime date = DateTime.Now;
 
+            if (date.Day >= 10)
+            {
+                inputFileName = Convert.ToString(date.Year) + "-0" + Convert.ToString(date.Day) + "-" + programAcronym + ".xml";
+            }
+            else 
+            {
+                inputFileName = Convert.ToString(date.Year) + "-00" + Convert.ToString(date.Day) + "-" + programAcronym + ".xml";
+            }
+            
         }
     }
 }
