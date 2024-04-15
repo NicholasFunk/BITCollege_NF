@@ -58,15 +58,46 @@ namespace BITCollegeWindows
 
         public void ProcessTransmission(String programAcronym)
         {
+            // current date
             DateTime date = DateTime.Now;
+            
+            // a file name with no extension
+            string fileName = "";
 
             if (date.Day >= 10)
             {
-                inputFileName = Convert.ToString(date.Year) + "-0" + Convert.ToString(date.Day) + "-" + programAcronym + ".xml";
+                fileName = Convert.ToString(date.Year) + "-0" + Convert.ToString(date.Day) + "-" + programAcronym;
             }
             else 
             {
-                inputFileName = Convert.ToString(date.Year) + "-00" + Convert.ToString(date.Day) + "-" + programAcronym + ".xml";
+                fileName = Convert.ToString(date.Year) + "-00" + Convert.ToString(date.Day) + "-" + programAcronym;
+            }
+
+            // inputFileName xml file
+            inputFileName = fileName + ".xml";
+
+            // logFileName txt file
+            logFileName = "LOG " + fileName + ".txt";
+
+            if (File.Exists(inputFileName))
+            {
+                try
+                {
+                    // inputFileName exists, begin processing the file
+                    ProcessHeader();
+                    ProcessDetails();
+                }
+                catch (Exception e)
+                {
+                    // error occured while loading, append error message
+                    logData += e.Message;
+                    throw;
+                }
+            }
+            else
+            {
+                // inputFileName doesn't exist, append error message
+                logData += ("Warning: " + inputFileName + " does not exist in the current context.");
             }
             
         }
