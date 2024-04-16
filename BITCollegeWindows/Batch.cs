@@ -45,7 +45,23 @@ namespace BITCollegeWindows
 
         private void ProcessErrors(IEnumerable<XElement> beforeQuery, IEnumerable<XElement> afterQuery, String message)
         {
+            foreach (var record in beforeQuery.Except(afterQuery))
+            {
+                string errorMessage = "";
 
+                // compare the records from the beforeQuery to those from the afterQuery. 
+                logData += "---------ERROR---------" +
+                    Environment.NewLine + "File: " + inputFileName +
+                    Environment.NewLine + "Program: " + record.Element("program").ToString() +
+                    Environment.NewLine + "Student Number: " + record.Element("student_no").ToString() + 
+                    Environment.NewLine + "Course Number: " + record.Element("course_no").ToString() +
+                    Environment.NewLine + "Registration Number: " + record.Element("registration_no").ToString() +
+                    Environment.NewLine + "Type: " + record.Element("type").ToString() + 
+                    Environment.NewLine + "Grade: " + record.Element("grade").ToString() +
+                    Environment.NewLine + "Notes: " + record.Element("notes").ToString() +
+                    Environment.NewLine + "Nodes: " + record.Elements().Count() +
+                    Environment.NewLine + "Message: " + errorMessage;
+            }
         }
 
         private void ProcessHeader()
@@ -195,19 +211,38 @@ namespace BITCollegeWindows
             IEnumerable<string> allCourseNo = db.Courses.Select(s => s.CourseNumber).ToList();
 
 
-            foreach (var transaction in validTransactions_GradeValue)
+            foreach (var transaction in validTransactions_StudentsNo)
             {
-                // First convert the string into a double, then cast it as a long.
                 string courseNumber = transaction.Element("course_no").Value;
                 int type = Convert.ToInt32(transaction.Element("type").Value);
 
-                if (courseNumber == "*" || allCourseNo.Contains(courseNumber) && type == 1)
+                if (courseNumber == "*" && type == 2 || allCourseNo.Contains(courseNumber) && type == 1)
                 {
                     validTransactions_CourseNumbers.Append(transaction);
                 }
             }
 
             // Registration Numbers must exist in the database
+            // Course number must exist in the database
+            IEnumerable<XElement> validTransactions_RegistrationNo = Enumerable.Empty<XElement>();
+
+            // Retreive a list of all student numbers
+            IEnumerable<long> allRegistrationNo = db.Registrations.Select(s => s.RegistrationNumber).ToList();
+
+
+            foreach (var transaction in validTransactions_CourseNumbers)
+            {
+                
+                // First convert the string into a double, then cast it as a long.
+                long registrationNumber = (long)Convert.ToDouble(transaction.Element("registration_no").Value);
+                int type = Convert.ToInt32(transaction.Element("type").Value);
+
+                if (transaction.Element("registration_no").Value == "*" && type == 1 || allRegistrationNo.Contains(registrationNumber) && type == 2)
+                {
+                    validTransactions_RegistrationNo.Append(transaction);
+                }
+            }
+
 
             // ProcessErrors(something, something, something);
 
@@ -215,12 +250,25 @@ namespace BITCollegeWindows
 
         private void ProcessTransactions(IEnumerable<XElement> transactionRecords)
         {
+            foreach (var transaction in transactionRecords)
+            {
+
+            }
+
+
 
         }
 
+        // Called upon completion of a file being processed.
         public String WriteLogData()
         {
-            return logData;
+            StreamWriter streamWriter = new StreamWriter(logFileName, true);
+            streamWriter.Write(logData);
+            streamWriter.Close();
+            string collectedLogData = logData;
+            logData = String.Empty;
+            logFileName = String.Empty;
+            return collectedLogData;
         }
 
         public void ProcessTransmission(String programAcronym)
