@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.IO;
+using System.Runtime.Remoting;
+using BITCollege_NF.Models;
+using System.Collections.ObjectModel;
 
 namespace BITCollegeWindows
 {
@@ -54,6 +57,7 @@ namespace BITCollegeWindows
 
             IEnumerable<XElement> checkSumElements = xDocument.Descendants().Where(d => d.Name == "student_no");
 
+
             // Get all attributes
             XAttribute att_date = xElement.Attribute("date");
             XAttribute att_program = xElement.Attribute("program");
@@ -61,7 +65,7 @@ namespace BITCollegeWindows
 
             // Fetches a list of all unique program acronyms within the Academic Programs Table.
             var uniqueProgramsAcronyms = db.AcademicPrograms.AsEnumerable().Select(row => row.ProgramAcronym).Distinct().ToList();
-         
+
             // Validate all attributes
             if (xElement.Attributes().Count() < 3)
             {
@@ -108,10 +112,105 @@ namespace BITCollegeWindows
             IEnumerable<XElement> nextQuery = previousQuery.Where(d => d.Nodes().Count() == 7);
 
             // All transactions program element that equals the root program attribute value
-            IEnumerable<XElement> programQuery = nextQuery.Where(d => d.Element("program").Value == xDocument.Root.Attribute("program").Value);
+            IEnumerable<XElement> validTransactions_Programs = Enumerable.Empty<XElement>();
+
+            foreach (var transaction in nextQuery)
+            {
+                if (transaction.Element("program").Value == xDocument.Root.Attribute("program").Value)
+                {
+                    validTransactions_Programs.Append(transaction);
+                }
+            }
+
+            // All transactions that have a numeric type
+            IEnumerable<XElement> validTransactions_Type = Enumerable.Empty<XElement>();
+
+            foreach (var transaction in validTransactions_Programs)
+            {
+
+                if (Utility.Numeric.IsNumeric(transaction.Element("type").Value, System.Globalization.NumberStyles.Number))
+                {
+                    validTransactions_Type.Append(transaction);
+                }
+
+            }
+
+            // All transactions that have a numeric grade of have a value of '*'.
+            IEnumerable<XElement> validTransactions_Grade = Enumerable.Empty<XElement>();
+
+            foreach (var transaction in validTransactions_Type)
+            {
+                if (Utility.Numeric.IsNumeric(transaction.Element("grade").Value, System.Globalization.NumberStyles.Number) || transaction.Element("grade").Value == "*")
+                {
+                    validTransactions_Grade.Append(transaction);
+                }
+            }
+
+            // All transactions that have a type value of 1 or 2.
+            IEnumerable<XElement> validTransactions_TypeValue = Enumerable.Empty<XElement>();
+
+            foreach (var transaction in validTransactions_Grade)
+            {
+                int checkValue = Convert.ToInt32(transaction.Element("type").Value);
+                if (checkValue == 1 || checkValue == 2)
+                {
+                    validTransactions_Grade.Append(transaction);
+                }
+            }
+
+            // All transactions that have a grade within each transaction must have a value of '*'. Within type = 2, the grade must have a value between 0 and 100 inclusive.
+            IEnumerable<XElement> validTransactions_GradeValue = Enumerable.Empty<XElement>();
+
+            foreach (var transaction in validTransactions_TypeValue)
+            {
+                if (Convert.ToInt32(transaction.Element("type").Value) == 1 && transaction.Element("grade").Value == "*" || Convert.ToInt32(transaction.Element("type").Value) == 2 && Enumerable.Range(0, 100).Contains(Convert.ToInt32(transaction.Element("grade").Value)))
+                {
+                    validTransactions_GradeValue.Append(transaction);
+                }
+            }
+
+            // Each student no. must exist in the database
+            IEnumerable<XElement> validTransactions_StudentsNo = Enumerable.Empty<XElement>();
+
+
+            // Retreive a list of all student numbers
+            IEnumerable<long> allStudentNo = db.Students.Select(s => s.StudentNumber).ToList();
+
+
+            foreach (var transaction in validTransactions_GradeValue)
+            {
+                // First convert the string into a double, then cast it as a long.
+                long studentNumber = (long)Convert.ToDouble(transaction.Element("student_no").Value);
+                
+                if (allStudentNo.Contains(studentNumber))
+                {
+                    validTransactions_StudentsNo.Append(transaction);
+                }
+            }
+
+            // Course number must exist in the database
+            IEnumerable<XElement> validTransactions_CourseNumbers = Enumerable.Empty<XElement>();
+
+            // Retreive a list of all student numbers
+            IEnumerable<string> allCourseNo = db.Courses.Select(s => s.CourseNumber).ToList();
+
+
+            foreach (var transaction in validTransactions_GradeValue)
+            {
+                // First convert the string into a double, then cast it as a long.
+                string courseNumber = transaction.Element("course_no").Value;
+                int type = Convert.ToInt32(transaction.Element("type").Value);
+
+                if (courseNumber == "*" || allCourseNo.Contains(courseNumber) && type == 1)
+                {
+                    validTransactions_CourseNumbers.Append(transaction);
+                }
+            }
+
+            // Registration Numbers must exist in the database
 
             // ProcessErrors(something, something, something);
-           
+
         }
 
         private void ProcessTransactions(IEnumerable<XElement> transactionRecords)
@@ -128,7 +227,7 @@ namespace BITCollegeWindows
         {
             // current date
             DateTime todaysDate = DateTime.Now;
-            
+
             // a file name with no extension
             string fileName = "";
 
@@ -136,7 +235,7 @@ namespace BITCollegeWindows
             {
                 fileName = Convert.ToString(todaysDate.Year) + "-0" + Convert.ToString(todaysDate.Day) + "-" + programAcronym;
             }
-            else 
+            else
             {
                 fileName = Convert.ToString(todaysDate.Year) + "-00" + Convert.ToString(todaysDate.Day) + "-" + programAcronym;
             }
@@ -167,7 +266,7 @@ namespace BITCollegeWindows
                 // inputFileName doesn't exist, append error message
                 logData += ("Warning: " + inputFileName + " does not exist in the current context.");
             }
-            
+
         }
     }
 }
