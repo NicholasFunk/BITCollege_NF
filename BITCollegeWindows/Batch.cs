@@ -47,7 +47,7 @@ namespace BITCollegeWindows
         {
             foreach (var record in beforeQuery.Except(afterQuery))
             {
-                string errorMessage = "";
+                s
 
                 // compare the records from the beforeQuery to those from the afterQuery. 
                 logData += "---------ERROR---------" +
@@ -60,7 +60,7 @@ namespace BITCollegeWindows
                     Environment.NewLine + "Grade: " + record.Element("grade").ToString() +
                     Environment.NewLine + "Notes: " + record.Element("notes").ToString() +
                     Environment.NewLine + "Nodes: " + record.Elements().Count() +
-                    Environment.NewLine + "Message: " + errorMessage;
+                    Environment.NewLine + "Message: " + message;
             }
         }
 
@@ -122,19 +122,24 @@ namespace BITCollegeWindows
         private void ProcessDetails()
         {
             XDocument xDocument = XDocument.Load(inputFileName);
-            IEnumerable<XElement> previousQuery = xDocument.Descendants().Where(d => d.Name == "transaction");
+            IEnumerable<XElement> beforeQuery = xDocument.Descendants().Where(d => d.Name == "transaction");
 
             // The next query is equal to all transactions that have 7 elements.
-            IEnumerable<XElement> nextQuery = previousQuery.Where(d => d.Nodes().Count() == 7);
+            IEnumerable<XElement> afterQuery = beforeQuery.Where(d => d.Nodes().Count() == 7);
 
             // All transactions program element that equals the root program attribute value
             IEnumerable<XElement> validTransactions_Programs = Enumerable.Empty<XElement>();
 
-            foreach (var transaction in nextQuery)
+            foreach (var transaction in afterQuery)
             {
                 if (transaction.Element("program").Value == xDocument.Root.Attribute("program").Value)
                 {
                     validTransactions_Programs.Append(transaction);
+                }
+                else
+                {
+                    string errorMessage = "Invalid Program Acronym";
+                    ProcessErrors(validTransactions_Programs, afterQuery, errorMessage);
                 }
             }
 
@@ -148,6 +153,11 @@ namespace BITCollegeWindows
                 {
                     validTransactions_Type.Append(transaction);
                 }
+                else
+                {
+                    string errorMessage = "Invalid Type Is Not Numeric";
+                    ProcessErrors(validTransactions_Programs, validTransactions_Type, errorMessage);
+                }
 
             }
 
@@ -159,6 +169,11 @@ namespace BITCollegeWindows
                 if (Utility.Numeric.IsNumeric(transaction.Element("grade").Value, System.Globalization.NumberStyles.Number) || transaction.Element("grade").Value == "*")
                 {
                     validTransactions_Grade.Append(transaction);
+                }
+                else
+                {
+                    string errorMessage = "Invalid Grade Is Not Numeric";
+                    ProcessErrors(validTransactions_Type, validTransactions_Grade, errorMessage);
                 }
             }
 
@@ -172,6 +187,11 @@ namespace BITCollegeWindows
                 {
                     validTransactions_Grade.Append(transaction);
                 }
+                else
+                {
+                    string errorMessage = "Invalid Type";
+                    ProcessErrors(validTransactions_Grade, validTransactions_TypeValue, errorMessage);
+                }
             }
 
             // All transactions that have a grade within each transaction must have a value of '*'. Within type = 2, the grade must have a value between 0 and 100 inclusive.
@@ -182,6 +202,11 @@ namespace BITCollegeWindows
                 if (Convert.ToInt32(transaction.Element("type").Value) == 1 && transaction.Element("grade").Value == "*" || Convert.ToInt32(transaction.Element("type").Value) == 2 && Enumerable.Range(0, 100).Contains(Convert.ToInt32(transaction.Element("grade").Value)))
                 {
                     validTransactions_GradeValue.Append(transaction);
+                }
+                else
+                {
+                    string errorMessage = "Invalid Grade Value Or Type Value";
+                    ProcessErrors(validTransactions_TypeValue, validTransactions_GradeValue, errorMessage);
                 }
             }
 
@@ -202,6 +227,11 @@ namespace BITCollegeWindows
                 {
                     validTransactions_StudentsNo.Append(transaction);
                 }
+                else
+                {
+                    string errorMessage = "Invalid Student Number, No Student Records Found";
+                    ProcessErrors(validTransactions_GradeValue, validTransactions_StudentsNo, errorMessage);
+                }
             }
 
             // Course number must exist in the database
@@ -219,6 +249,11 @@ namespace BITCollegeWindows
                 if (courseNumber == "*" && type == 2 || allCourseNo.Contains(courseNumber) && type == 1)
                 {
                     validTransactions_CourseNumbers.Append(transaction);
+                }
+                else
+                {
+                    string errorMessage = "Invalid Course Number, No Course Records Found";
+                    ProcessErrors(validTransactions_StudentsNo, validTransactions_CourseNumbers, errorMessage);
                 }
             }
 
@@ -241,11 +276,12 @@ namespace BITCollegeWindows
                 {
                     validTransactions_RegistrationNo.Append(transaction);
                 }
+                else
+                {
+                    string errorMessage = "Invalid Registration Number, No Course Records Found";
+                    ProcessErrors(validTransactions_CourseNumbers, validTransactions_RegistrationNo, errorMessage);
+                }
             }
-
-
-            // ProcessErrors(something, something, something);
-
         }
 
         private void ProcessTransactions(IEnumerable<XElement> transactionRecords)
