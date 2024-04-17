@@ -28,7 +28,27 @@ namespace BITCollegeWindows
         /// </summary>
         private void lnkProcess_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            Batch batch = new Batch();
+            if (radSelect.Checked)
+            {
+                // If a single transmission selection has been made.
+                batch.ProcessTransmission(programAcronymComboBox.SelectedValue.ToString());
 
+                // Capture the log information and append to the rich text box.
+                rtxtLog.Text += batch.WriteLogData();
+            }
+            else
+            {
+                // If all transmissions have been selected.
+                foreach (var item in programAcronymComboBox.Items)
+                {
+                    // Pass the ProgramAcronym.
+                    batch.ProcessTransmission(item.ToString());
+
+                    // Capture the log information for each item.
+                    rtxtLog.Text += batch.WriteLogData();
+                }
+            }
         }
 
         /// <summary>
