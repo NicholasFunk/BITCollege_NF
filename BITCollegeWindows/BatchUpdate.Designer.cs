@@ -28,23 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label programAcronymLabel;
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lnkProcess = new System.Windows.Forms.LinkLabel();
             this.radSelect = new System.Windows.Forms.RadioButton();
             this.radAll = new System.Windows.Forms.RadioButton();
             this.rtxtLog = new System.Windows.Forms.RichTextBox();
+            this.academicProgramBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.programAcronymComboBox = new System.Windows.Forms.ComboBox();
+            programAcronymLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.academicProgramBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(programAcronymLabel);
+            this.groupBox1.Controls.Add(this.programAcronymComboBox);
             this.groupBox1.Controls.Add(this.lnkProcess);
             this.groupBox1.Controls.Add(this.radSelect);
             this.groupBox1.Controls.Add(this.radAll);
             this.groupBox1.Location = new System.Drawing.Point(35, 46);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(952, 208);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -66,7 +74,7 @@
             // 
             this.radSelect.AutoSize = true;
             this.radSelect.Location = new System.Drawing.Point(59, 73);
-            this.radSelect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radSelect.Margin = new System.Windows.Forms.Padding(4);
             this.radSelect.Name = "radSelect";
             this.radSelect.Size = new System.Drawing.Size(267, 20);
             this.radSelect.TabIndex = 1;
@@ -78,7 +86,7 @@
             // 
             this.radAll.AutoSize = true;
             this.radAll.Location = new System.Drawing.Point(59, 44);
-            this.radAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radAll.Margin = new System.Windows.Forms.Padding(4);
             this.radAll.Name = "radAll";
             this.radAll.Size = new System.Drawing.Size(252, 20);
             this.radAll.TabIndex = 0;
@@ -89,11 +97,35 @@
             // rtxtLog
             // 
             this.rtxtLog.Location = new System.Drawing.Point(35, 294);
-            this.rtxtLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtxtLog.Margin = new System.Windows.Forms.Padding(4);
             this.rtxtLog.Name = "rtxtLog";
             this.rtxtLog.Size = new System.Drawing.Size(951, 207);
             this.rtxtLog.TabIndex = 1;
             this.rtxtLog.Text = "";
+            // 
+            // academicProgramBindingSource
+            // 
+            this.academicProgramBindingSource.DataSource = typeof(BITCollege_NF.Models.AcademicProgram);
+            // 
+            // programAcronymLabel
+            // 
+            programAcronymLabel.AutoSize = true;
+            programAcronymLabel.Location = new System.Drawing.Point(55, 119);
+            programAcronymLabel.Name = "programAcronymLabel";
+            programAcronymLabel.Size = new System.Drawing.Size(62, 16);
+            programAcronymLabel.TabIndex = 3;
+            programAcronymLabel.Text = "Program:";
+            // 
+            // programAcronymComboBox
+            // 
+            this.programAcronymComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.academicProgramBindingSource, "ProgramAcronym", true));
+            this.programAcronymComboBox.DataSource = this.academicProgramBindingSource;
+            this.programAcronymComboBox.DisplayMember = "Description";
+            this.programAcronymComboBox.FormattingEnabled = true;
+            this.programAcronymComboBox.Location = new System.Drawing.Point(140, 116);
+            this.programAcronymComboBox.Name = "programAcronymComboBox";
+            this.programAcronymComboBox.Size = new System.Drawing.Size(225, 24);
+            this.programAcronymComboBox.TabIndex = 4;
             // 
             // BatchUpdate
             // 
@@ -102,12 +134,13 @@
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.rtxtLog);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BatchUpdate";
             this.Text = "Batch Student Update";
             this.Load += new System.EventHandler(this.BatchUpdate_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.academicProgramBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -119,5 +152,7 @@
         private System.Windows.Forms.RadioButton radSelect;
         private System.Windows.Forms.RadioButton radAll;
         private System.Windows.Forms.RichTextBox rtxtLog;
+        private System.Windows.Forms.ComboBox programAcronymComboBox;
+        private System.Windows.Forms.BindingSource academicProgramBindingSource;
     }
 }
