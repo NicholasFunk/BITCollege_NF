@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BITCollege_NF.Data;
+using BITCollege_NF.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +14,9 @@ namespace BITCollegeWindows
 {
     public partial class BatchUpdate : Form
     {
+
+        private BITCollege_NFContext db = new BITCollege_NFContext();
+
         public BatchUpdate()
         {
             InitializeComponent();
@@ -33,6 +38,20 @@ namespace BITCollegeWindows
         private void BatchUpdate_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
+            IEnumerable<AcademicProgram> academicPrograms = db.AcademicPrograms.ToList();
+            academicProgramBindingSource.DataSource = academicPrograms;
+        }
+
+        private void radAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radAll.Checked)
+            {
+                programAcronymComboBox.Enabled = false;
+            }
+            else
+            {
+                programAcronymComboBox.Enabled = true;
+            }
         }
     }
 }

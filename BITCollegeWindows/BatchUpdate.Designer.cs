@@ -31,16 +31,25 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label programAcronymLabel;
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.programAcronymComboBox = new System.Windows.Forms.ComboBox();
+            this.academicProgramBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lnkProcess = new System.Windows.Forms.LinkLabel();
             this.radSelect = new System.Windows.Forms.RadioButton();
             this.radAll = new System.Windows.Forms.RadioButton();
             this.rtxtLog = new System.Windows.Forms.RichTextBox();
-            this.academicProgramBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.programAcronymComboBox = new System.Windows.Forms.ComboBox();
             programAcronymLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.academicProgramBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // programAcronymLabel
+            // 
+            programAcronymLabel.AutoSize = true;
+            programAcronymLabel.Location = new System.Drawing.Point(55, 119);
+            programAcronymLabel.Name = "programAcronymLabel";
+            programAcronymLabel.Size = new System.Drawing.Size(62, 16);
+            programAcronymLabel.TabIndex = 3;
+            programAcronymLabel.Text = "Program:";
             // 
             // groupBox1
             // 
@@ -57,6 +66,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Batch Selection";
+            // 
+            // programAcronymComboBox
+            // 
+            this.programAcronymComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.academicProgramBindingSource, "ProgramAcronym", true));
+            this.programAcronymComboBox.DataSource = this.academicProgramBindingSource;
+            this.programAcronymComboBox.DisplayMember = "Description";
+            this.programAcronymComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.programAcronymComboBox.FormattingEnabled = true;
+            this.programAcronymComboBox.Location = new System.Drawing.Point(140, 116);
+            this.programAcronymComboBox.Name = "programAcronymComboBox";
+            this.programAcronymComboBox.Size = new System.Drawing.Size(225, 24);
+            this.programAcronymComboBox.TabIndex = 4;
+            this.programAcronymComboBox.ValueMember = "ProgramAcronym";
+            // 
+            // academicProgramBindingSource
+            // 
+            this.academicProgramBindingSource.DataSource = typeof(BITCollege_NF.Models.AcademicProgram);
             // 
             // lnkProcess
             // 
@@ -81,6 +107,7 @@
             this.radSelect.TabStop = true;
             this.radSelect.Text = "Select a Program to Grade and Register";
             this.radSelect.UseVisualStyleBackColor = true;
+            this.radSelect.CheckedChanged += new System.EventHandler(this.radAll_CheckedChanged);
             // 
             // radAll
             // 
@@ -93,6 +120,7 @@
             this.radAll.TabStop = true;
             this.radAll.Text = "Grade and Register for ALL Programs";
             this.radAll.UseVisualStyleBackColor = true;
+            this.radAll.CheckedChanged += new System.EventHandler(this.radAll_CheckedChanged);
             // 
             // rtxtLog
             // 
@@ -102,30 +130,6 @@
             this.rtxtLog.Size = new System.Drawing.Size(951, 207);
             this.rtxtLog.TabIndex = 1;
             this.rtxtLog.Text = "";
-            // 
-            // academicProgramBindingSource
-            // 
-            this.academicProgramBindingSource.DataSource = typeof(BITCollege_NF.Models.AcademicProgram);
-            // 
-            // programAcronymLabel
-            // 
-            programAcronymLabel.AutoSize = true;
-            programAcronymLabel.Location = new System.Drawing.Point(55, 119);
-            programAcronymLabel.Name = "programAcronymLabel";
-            programAcronymLabel.Size = new System.Drawing.Size(62, 16);
-            programAcronymLabel.TabIndex = 3;
-            programAcronymLabel.Text = "Program:";
-            // 
-            // programAcronymComboBox
-            // 
-            this.programAcronymComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.academicProgramBindingSource, "ProgramAcronym", true));
-            this.programAcronymComboBox.DataSource = this.academicProgramBindingSource;
-            this.programAcronymComboBox.DisplayMember = "Description";
-            this.programAcronymComboBox.FormattingEnabled = true;
-            this.programAcronymComboBox.Location = new System.Drawing.Point(140, 116);
-            this.programAcronymComboBox.Name = "programAcronymComboBox";
-            this.programAcronymComboBox.Size = new System.Drawing.Size(225, 24);
-            this.programAcronymComboBox.TabIndex = 4;
             // 
             // BatchUpdate
             // 
