@@ -9,6 +9,7 @@ using System.IO;
 using System.Runtime.Remoting;
 using BITCollege_NF.Models;
 using System.Collections.ObjectModel;
+using Utility;
 
 namespace BITCollegeWindows
 {
@@ -21,6 +22,9 @@ namespace BITCollegeWindows
 
         // Create an instance of the database context
         BITCollege_NFContext db = new BITCollege_NFContext();
+
+        // Create ainstance of the BITCollege_NFService
+        BITCollegeServiceReference.CollegeRegistrationClient registerService = new BITCollegeServiceReference.CollegeRegistrationClient();
 
         /// <summary>
         /// Represents the name of the file being processed
@@ -47,16 +51,14 @@ namespace BITCollegeWindows
         {
             foreach (var record in beforeQuery.Except(afterQuery))
             {
-                s
-
                 // compare the records from the beforeQuery to those from the afterQuery. 
                 logData += "---------ERROR---------" +
                     Environment.NewLine + "File: " + inputFileName +
                     Environment.NewLine + "Program: " + record.Element("program").ToString() +
-                    Environment.NewLine + "Student Number: " + record.Element("student_no").ToString() + 
+                    Environment.NewLine + "Student Number: " + record.Element("student_no").ToString() +
                     Environment.NewLine + "Course Number: " + record.Element("course_no").ToString() +
                     Environment.NewLine + "Registration Number: " + record.Element("registration_no").ToString() +
-                    Environment.NewLine + "Type: " + record.Element("type").ToString() + 
+                    Environment.NewLine + "Type: " + record.Element("type").ToString() +
                     Environment.NewLine + "Grade: " + record.Element("grade").ToString() +
                     Environment.NewLine + "Notes: " + record.Element("notes").ToString() +
                     Environment.NewLine + "Nodes: " + record.Elements().Count() +
@@ -222,7 +224,7 @@ namespace BITCollegeWindows
             {
                 // First convert the string into a double, then cast it as a long.
                 long studentNumber = (long)Convert.ToDouble(transaction.Element("student_no").Value);
-                
+
                 if (allStudentNo.Contains(studentNumber))
                 {
                     validTransactions_StudentsNo.Append(transaction);
@@ -267,7 +269,7 @@ namespace BITCollegeWindows
 
             foreach (var transaction in validTransactions_CourseNumbers)
             {
-                
+
                 // First convert the string into a double, then cast it as a long.
                 long registrationNumber = (long)Convert.ToDouble(transaction.Element("registration_no").Value);
                 int type = Convert.ToInt32(transaction.Element("type").Value);
@@ -286,13 +288,62 @@ namespace BITCollegeWindows
 
         private void ProcessTransactions(IEnumerable<XElement> transactionRecords)
         {
+
             foreach (var transaction in transactionRecords)
             {
+                int transaction_type = Convert.ToInt32(transaction.Element("type").Value);
+                double grade = Convert.ToDouble(transaction.Element("grade").Value);
+                string notes = transaction.Element("notes").Value;
 
+                // Fetch the studentId from the Students table.
+                long studentNumber = (long)Convert.ToDouble(transaction.Element("student_no").Value);
+                int studentId = db.Students.Where(s => s.StudentNumber == studentNumber).Select(s => s.StudentId).SingleOrDefault();
+
+                // Fetch the courseId from the Courses table.
+                string courseNumber = transaction.Element("course_no").Value;
+                int courseId = db.Courses.Where(c => c.CourseNumber == courseNumber).Select(c => c.CourseId).SingleOrDefault();
+
+                // Fetch the registrationId from the Registrations table.
+                long registrationNumber = (long)Convert.ToDouble(transaction.Element("registration_no").Value);
+                int registrationId = db.Registrations.Where(r => r.RegistrationNumber == registrationNumber).Select(r => r.RegstrationId).SingleOrDefault();
+
+                // Use the WCF Service to register the student into the specified course.
+                if (transaction_type == 1)
+                {
+                    int returnCode = registerService.RegisterCourse(studentId, courseId, notes);
+
+
+                    switch (returnCode)
+                    {
+                        // Registration was successful
+                        case 0:
+                            logData += Environment.NewLine + "Student: " + studentNumber.ToString() + " has successfully registered for course: " + courseNumber.ToString() + ".";
+                            break;
+                        // Registration was unsuccessful
+                        default:
+                            logData += Environment.NewLine + "REGISTRATION ERROR: " + BusinessRules.RegisterError(returnCode);
+                            break;
+                    }
+                }
+
+                if (transaction_type == 2)
+                {
+                    double? returnCode = registerService.UpdateGrade(grade, registrationId, notes);
+
+                    switch (returnCode)
+                    {
+                        // Update Grade was successful
+                        case 0:
+                            logData += Environment.NewLine + "A grade of: " + grade.ToString() + " has been successfully applied to registration: " + registrationId.ToString() + ".";
+                            break;
+                        // Update Grade was unsuccessful
+                        default:
+                            logData += Environment.NewLine + "REGISTRATION ERROR: " + BusinessRules.RegisterError((int)returnCode);
+                            break;
+                    }
+
+                }
             }
-
-
-
         }
 
         // Called upon completion of a file being processed.
