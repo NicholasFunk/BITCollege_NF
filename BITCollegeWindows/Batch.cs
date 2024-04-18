@@ -137,6 +137,8 @@ namespace BITCollegeWindows
         /// </summary>
         private void ProcessDetails()
         {
+            string errorMessage = "";
+
             XDocument xDocument = XDocument.Load(inputFileName);
             IEnumerable<XElement> beforeQuery = xDocument.Descendants().Where(d => d.Name == "transaction");
 
@@ -150,11 +152,12 @@ namespace BITCollegeWindows
             {
                 if (transaction.Element("program").Value == xDocument.Root.Attribute("program").Value)
                 {
+                    errorMessage = "N/A";
                     validTransactions_Programs = validTransactions_Programs.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Program Acronym";
+                    errorMessage = "Invalid Program Acronym";
                     ProcessErrors(validTransactions_Programs, afterQuery, errorMessage);
                 }
             }
@@ -165,13 +168,14 @@ namespace BITCollegeWindows
             foreach (XElement transaction in validTransactions_Programs)
             {
 
-                if (Utility.Numeric.IsNumeric(transaction.Element("type").Value, System.Globalization.NumberStyles.Number))
+                if (Utility.Numeric.IsNumeric(transaction.Element("type").Value, System.Globalization.NumberStyles.Integer) == true)
                 {
+                    errorMessage = "N/A";
                     validTransactions_Type = validTransactions_Type.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Type Is Not Numeric";
+                    errorMessage = "Invalid Type Is Not Numeric";
                     ProcessErrors(validTransactions_Programs, validTransactions_Type, errorMessage);
                 }
 
@@ -182,13 +186,14 @@ namespace BITCollegeWindows
 
             foreach (XElement transaction in validTransactions_Type)
             {
-                if (Utility.Numeric.IsNumeric(transaction.Element("grade").Value, System.Globalization.NumberStyles.Number) || transaction.Element("grade").Value == "*")
+                if (Utility.Numeric.IsNumeric(transaction.Element("grade").Value, System.Globalization.NumberStyles.Any) == true|| transaction.Element("grade").Value == "*")
                 {
+                    errorMessage = "N/A";
                     validTransactions_Grade = validTransactions_Grade.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Grade Is Not Numeric";
+                    errorMessage = "Invalid Grade";
                     ProcessErrors(validTransactions_Type, validTransactions_Grade, errorMessage);
                 }
             }
@@ -201,11 +206,12 @@ namespace BITCollegeWindows
                 int checkValue = Convert.ToInt32(transaction.Element("type").Value);
                 if (checkValue == 1 || checkValue == 2)
                 {
+                    errorMessage = "N/A";
                     validTransactions_TypeValue = validTransactions_TypeValue.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Type";
+                    errorMessage = "Invalid Type";
                     ProcessErrors(validTransactions_Grade, validTransactions_TypeValue, errorMessage);
                 }
             }
@@ -217,11 +223,12 @@ namespace BITCollegeWindows
             {
                 if (Convert.ToInt32(transaction.Element("type").Value) == 1 && transaction.Element("grade").Value == "*" || Convert.ToInt32(transaction.Element("type").Value) == 2 && Enumerable.Range(0, 100).Contains(Convert.ToInt32(transaction.Element("grade").Value)))
                 {
+                    errorMessage = "N/A";
                     validTransactions_GradeValue = validTransactions_GradeValue.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Grade Value Or Type Value";
+                    errorMessage = "Invalid Grade Value Or Type Value";
                     ProcessErrors(validTransactions_TypeValue, validTransactions_GradeValue, errorMessage);
                 }
             }
@@ -241,11 +248,12 @@ namespace BITCollegeWindows
 
                 if (allStudentNo.Contains(studentNumber))
                 {
+                    errorMessage = "N/A";
                     validTransactions_StudentsNo = validTransactions_StudentsNo.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Student Number, No Student Records Found";
+                    errorMessage = "Invalid Student Number, No Student Records Found";
                     ProcessErrors(validTransactions_GradeValue, validTransactions_StudentsNo, errorMessage);
                 }
             }
@@ -264,11 +272,12 @@ namespace BITCollegeWindows
 
                 if (courseNumber == "*" && type == 2 || allCourseNo.Contains(courseNumber) && type == 1)
                 {
+                    errorMessage = "N/A";
                     validTransactions_CourseNumbers = validTransactions_CourseNumbers.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Course Number, No Course Records Found";
+                    errorMessage = "Invalid Course Number, No Course Records Found";
                     ProcessErrors(validTransactions_StudentsNo, validTransactions_CourseNumbers, errorMessage);
                 }
             }
@@ -290,11 +299,12 @@ namespace BITCollegeWindows
 
                 if (transaction.Element("registration_no").Value == "*" && type == 1 || allRegistrationNo.Contains(registrationNumber) && type == 2)
                 {
+                    errorMessage = "N/A";
                     validTransactions_RegistrationNo = validTransactions_RegistrationNo.Append(transaction);
                 }
                 else
                 {
-                    string errorMessage = "Invalid Registration Number, No Course Records Found";
+                    errorMessage = "Invalid Registration Number, No Course Records Found";
                     ProcessErrors(validTransactions_CourseNumbers, validTransactions_RegistrationNo, errorMessage);
                 }
             }
@@ -347,7 +357,9 @@ namespace BITCollegeWindows
                 {
                     try
                     {
-                        registerService.UpdateGrade(grade, registrationId, notes);
+                        double? gradePointAverage = registerService.UpdateGrade(grade, registrationId, notes);
+
+
                         logData += Environment.NewLine + "A grade of: " + (100 * grade).ToString() + "%" + " has been successfully applied to registration: " + registrationId.ToString() + ".";
                     }
                     catch (Exception e )
