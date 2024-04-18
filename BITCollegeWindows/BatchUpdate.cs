@@ -2,6 +2,7 @@
 using BITCollege_NF.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,6 +17,7 @@ namespace BITCollegeWindows
     {
 
         private BITCollege_NFContext db = new BITCollege_NFContext();
+        
 
         public BatchUpdate()
         {
@@ -29,26 +31,24 @@ namespace BITCollegeWindows
         private void lnkProcess_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Batch batch = new Batch();
-            if (radSelect.Checked)
+
+            if (radSelect.Checked.Equals(true))
             {
                 // If a single transmission selection has been made.
                 batch.ProcessTransmission(programAcronymComboBox.SelectedValue.ToString());
 
                 // Capture the log information and append to the rich text box.
-                rtxtLog.Text += batch.WriteLogData();
             }
             else
             {
-                // If all transmissions have been selected.
-                foreach (var item in programAcronymComboBox.Items)
-                {
-                    // Pass the ProgramAcronym.
-                    batch.ProcessTransmission(item.ToString());
 
-                    // Capture the log information for each item.
-                    rtxtLog.Text += batch.WriteLogData();
+                foreach (AcademicProgram item in programAcronymComboBox.Items)
+                {
+                    batch.ProcessTransmission(item.ProgramAcronym);
                 }
             }
+
+            rtxtLog.Text += batch.WriteLogData();
         }
 
         /// <summary>
@@ -58,13 +58,14 @@ namespace BITCollegeWindows
         private void BatchUpdate_Load(object sender, EventArgs e)
         {
             this.Location = new Point(0, 0);
-            IEnumerable<AcademicProgram> academicPrograms = db.AcademicPrograms.ToList();
-            academicProgramBindingSource.DataSource = academicPrograms;
+            
+            IQueryable<AcademicProgram> academicPrograms = db.AcademicPrograms;
+            academicProgramBindingSource.DataSource = academicPrograms.ToList();
         }
 
         private void radAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (radAll.Checked)
+            if (radAll.Checked.Equals(true))
             {
                 programAcronymComboBox.Enabled = false;
             }
@@ -73,5 +74,7 @@ namespace BITCollegeWindows
                 programAcronymComboBox.Enabled = true;
             }
         }
+
+        
     }
 }

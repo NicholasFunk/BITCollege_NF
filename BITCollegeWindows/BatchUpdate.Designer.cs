@@ -69,7 +69,8 @@
             // 
             // programAcronymComboBox
             // 
-            this.programAcronymComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.academicProgramBindingSource, "ProgramAcronym", true));
+            this.programAcronymComboBox.CausesValidation = false;
+            this.programAcronymComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.academicProgramBindingSource, "ProgramAcronym", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.programAcronymComboBox.DataSource = this.academicProgramBindingSource;
             this.programAcronymComboBox.DisplayMember = "Description";
             this.programAcronymComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;

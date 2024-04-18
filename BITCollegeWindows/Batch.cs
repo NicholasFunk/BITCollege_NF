@@ -10,6 +10,9 @@ using System.Runtime.Remoting;
 using BITCollege_NF.Models;
 using System.Collections.ObjectModel;
 using Utility;
+using System.Linq.Expressions;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace BITCollegeWindows
 {
@@ -69,6 +72,7 @@ namespace BITCollegeWindows
         private void ProcessHeader()
         {
             int checksum = 0;
+            bool acronymFlag = false;
 
             XDocument xDocument = XDocument.Load(inputFileName);
             XElement xElement = xDocument.Element("student_update");
@@ -82,7 +86,7 @@ namespace BITCollegeWindows
             XAttribute att_checksum = xElement.Attribute("checksum");
 
             // Fetches a list of all unique program acronyms within the Academic Programs Table.
-            var uniqueProgramsAcronyms = db.AcademicPrograms.AsEnumerable().Select(row => row.ProgramAcronym).Distinct().ToList();
+            IEnumerable<string> uniqueProgramsAcronyms = db.AcademicPrograms.Select(a => a.ProgramAcronym).Distinct();
 
             // Validate all attributes
             if (xElement.Attributes().Count() < 3)
@@ -91,22 +95,33 @@ namespace BITCollegeWindows
             }
 
             // Validates the date attribute
-            else if (att_date.Value != todaysDate.ToString())
+            // Convert the attribute value into a date time with days of the year, not month.
+            else if (att_date.Value != DateTime.Now.ToString("yyyy-MM-dd"))
             {
+                MessageBox.Show(att_date.Value + " " + DateTime.Now.ToString("yyyy-MM-dd"));
                 throw new Exception("The date attribute value does not match the current date!");
+                
             }
 
+
+
             // Validates the program attribute
-            foreach (var acronym in uniqueProgramsAcronyms)
+            foreach (string acronym in uniqueProgramsAcronyms)
             {
-                if (att_program.Value != acronym)
+                // If it matches, set the flag to true and escape.
+                if (att_program.Value.Equals(acronym))
                 {
-                    throw new Exception("The program attribute value does not match any known acronyms!");
+                    acronymFlag = true;
                 }
             }
 
+            if (acronymFlag == false)
+            {
+                throw new Exception("The program attribute value does not match any known acronyms!");
+            }
+
             // Adding all student no.s together
-            foreach (var element in checkSumElements)
+            foreach (XElement element in checkSumElements)
             {
                 checksum += Convert.ToInt32(element.Value);
             }
@@ -132,7 +147,7 @@ namespace BITCollegeWindows
             // All transactions program element that equals the root program attribute value
             IEnumerable<XElement> validTransactions_Programs = Enumerable.Empty<XElement>();
 
-            foreach (var transaction in afterQuery)
+            foreach (XElement transaction in afterQuery)
             {
                 if (transaction.Element("program").Value == xDocument.Root.Attribute("program").Value)
                 {
@@ -148,7 +163,7 @@ namespace BITCollegeWindows
             // All transactions that have a numeric type
             IEnumerable<XElement> validTransactions_Type = Enumerable.Empty<XElement>();
 
-            foreach (var transaction in validTransactions_Programs)
+            foreach (XElement transaction in validTransactions_Programs)
             {
 
                 if (Utility.Numeric.IsNumeric(transaction.Element("type").Value, System.Globalization.NumberStyles.Number))
@@ -166,7 +181,7 @@ namespace BITCollegeWindows
             // All transactions that have a numeric grade of have a value of '*'.
             IEnumerable<XElement> validTransactions_Grade = Enumerable.Empty<XElement>();
 
-            foreach (var transaction in validTransactions_Type)
+            foreach (XElement transaction in validTransactions_Type)
             {
                 if (Utility.Numeric.IsNumeric(transaction.Element("grade").Value, System.Globalization.NumberStyles.Number) || transaction.Element("grade").Value == "*")
                 {
@@ -182,7 +197,7 @@ namespace BITCollegeWindows
             // All transactions that have a type value of 1 or 2.
             IEnumerable<XElement> validTransactions_TypeValue = Enumerable.Empty<XElement>();
 
-            foreach (var transaction in validTransactions_Grade)
+            foreach (XElement transaction in validTransactions_Grade)
             {
                 int checkValue = Convert.ToInt32(transaction.Element("type").Value);
                 if (checkValue == 1 || checkValue == 2)
@@ -199,7 +214,7 @@ namespace BITCollegeWindows
             // All transactions that have a grade within each transaction must have a value of '*'. Within type = 2, the grade must have a value between 0 and 100 inclusive.
             IEnumerable<XElement> validTransactions_GradeValue = Enumerable.Empty<XElement>();
 
-            foreach (var transaction in validTransactions_TypeValue)
+            foreach (XElement transaction in validTransactions_TypeValue)
             {
                 if (Convert.ToInt32(transaction.Element("type").Value) == 1 && transaction.Element("grade").Value == "*" || Convert.ToInt32(transaction.Element("type").Value) == 2 && Enumerable.Range(0, 100).Contains(Convert.ToInt32(transaction.Element("grade").Value)))
                 {
@@ -220,7 +235,7 @@ namespace BITCollegeWindows
             IEnumerable<long> allStudentNo = db.Students.Select(s => s.StudentNumber).ToList();
 
 
-            foreach (var transaction in validTransactions_GradeValue)
+            foreach (XElement transaction in validTransactions_GradeValue)
             {
                 // First convert the string into a double, then cast it as a long.
                 long studentNumber = (long)Convert.ToDouble(transaction.Element("student_no").Value);
@@ -243,7 +258,7 @@ namespace BITCollegeWindows
             IEnumerable<string> allCourseNo = db.Courses.Select(s => s.CourseNumber).ToList();
 
 
-            foreach (var transaction in validTransactions_StudentsNo)
+            foreach (XElement transaction in validTransactions_StudentsNo)
             {
                 string courseNumber = transaction.Element("course_no").Value;
                 int type = Convert.ToInt32(transaction.Element("type").Value);
@@ -267,7 +282,7 @@ namespace BITCollegeWindows
             IEnumerable<long> allRegistrationNo = db.Registrations.Select(s => s.RegistrationNumber).ToList();
 
 
-            foreach (var transaction in validTransactions_CourseNumbers)
+            foreach (XElement transaction in validTransactions_CourseNumbers)
             {
 
                 // First convert the string into a double, then cast it as a long.
@@ -289,7 +304,7 @@ namespace BITCollegeWindows
         private void ProcessTransactions(IEnumerable<XElement> transactionRecords)
         {
 
-            foreach (var transaction in transactionRecords)
+            foreach (XElement transaction in transactionRecords)
             {
                 int transaction_type = Convert.ToInt32(transaction.Element("type").Value);
                 double grade = Convert.ToDouble(transaction.Element("grade").Value);
@@ -368,11 +383,13 @@ namespace BITCollegeWindows
 
             if (todaysDate.Day >= 10)
             {
-                fileName = Convert.ToString(todaysDate.Year) + "-0" + Convert.ToString(todaysDate.Day) + "-" + programAcronym;
+                // 2024-109
+                fileName = Convert.ToString(todaysDate.Year) + "-" + Convert.ToString(DateTime.Now.DayOfYear) + "-" + programAcronym;
             }
             else
             {
-                fileName = Convert.ToString(todaysDate.Year) + "-00" + Convert.ToString(todaysDate.Day) + "-" + programAcronym;
+                // 2024-009
+                fileName = Convert.ToString(todaysDate.Year) + "-0" + Convert.ToString(DateTime.Now.DayOfYear) + "-" + programAcronym;
             }
 
             // inputFileName xml file
@@ -392,14 +409,13 @@ namespace BITCollegeWindows
                 catch (Exception e)
                 {
                     // error occured while loading, append error message
-                    logData += e.Message;
-                    throw;
+                    logData += e.Message + Environment.NewLine;
                 }
             }
             else
             {
                 // inputFileName doesn't exist, append error message
-                logData += ("Warning: " + inputFileName + " does not exist in the current context.");
+                logData += ("Warning: " + inputFileName + " does not exist in the current context." + Environment.NewLine);
             }
 
         }
