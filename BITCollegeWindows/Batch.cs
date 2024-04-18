@@ -65,7 +65,8 @@ namespace BITCollegeWindows
                     Environment.NewLine + "Grade: " + record.Element("grade").ToString() +
                     Environment.NewLine + "Notes: " + record.Element("notes").ToString() +
                     Environment.NewLine + "Nodes: " + record.Elements().Count() +
-                    Environment.NewLine + "Message: " + message;
+                    Environment.NewLine + "Message: " + message +
+                    Environment.NewLine;
             }
         }
 
@@ -102,8 +103,6 @@ namespace BITCollegeWindows
                 throw new Exception("The date attribute value does not match the current date!");
                 
             }
-
-
 
             // Validates the program attribute
             foreach (string acronym in uniqueProgramsAcronyms)
@@ -151,7 +150,7 @@ namespace BITCollegeWindows
             {
                 if (transaction.Element("program").Value == xDocument.Root.Attribute("program").Value)
                 {
-                    validTransactions_Programs.Append(transaction);
+                    validTransactions_Programs = validTransactions_Programs.Append(transaction);
                 }
                 else
                 {
@@ -168,7 +167,7 @@ namespace BITCollegeWindows
 
                 if (Utility.Numeric.IsNumeric(transaction.Element("type").Value, System.Globalization.NumberStyles.Number))
                 {
-                    validTransactions_Type.Append(transaction);
+                    validTransactions_Type = validTransactions_Type.Append(transaction);
                 }
                 else
                 {
@@ -185,7 +184,7 @@ namespace BITCollegeWindows
             {
                 if (Utility.Numeric.IsNumeric(transaction.Element("grade").Value, System.Globalization.NumberStyles.Number) || transaction.Element("grade").Value == "*")
                 {
-                    validTransactions_Grade.Append(transaction);
+                    validTransactions_Grade = validTransactions_Grade.Append(transaction);
                 }
                 else
                 {
@@ -202,7 +201,7 @@ namespace BITCollegeWindows
                 int checkValue = Convert.ToInt32(transaction.Element("type").Value);
                 if (checkValue == 1 || checkValue == 2)
                 {
-                    validTransactions_Grade.Append(transaction);
+                    validTransactions_TypeValue = validTransactions_TypeValue.Append(transaction);
                 }
                 else
                 {
@@ -218,7 +217,7 @@ namespace BITCollegeWindows
             {
                 if (Convert.ToInt32(transaction.Element("type").Value) == 1 && transaction.Element("grade").Value == "*" || Convert.ToInt32(transaction.Element("type").Value) == 2 && Enumerable.Range(0, 100).Contains(Convert.ToInt32(transaction.Element("grade").Value)))
                 {
-                    validTransactions_GradeValue.Append(transaction);
+                    validTransactions_GradeValue = validTransactions_GradeValue.Append(transaction);
                 }
                 else
                 {
@@ -242,7 +241,7 @@ namespace BITCollegeWindows
 
                 if (allStudentNo.Contains(studentNumber))
                 {
-                    validTransactions_StudentsNo.Append(transaction);
+                    validTransactions_StudentsNo = validTransactions_StudentsNo.Append(transaction);
                 }
                 else
                 {
@@ -265,7 +264,7 @@ namespace BITCollegeWindows
 
                 if (courseNumber == "*" && type == 2 || allCourseNo.Contains(courseNumber) && type == 1)
                 {
-                    validTransactions_CourseNumbers.Append(transaction);
+                    validTransactions_CourseNumbers = validTransactions_CourseNumbers.Append(transaction);
                 }
                 else
                 {
@@ -291,7 +290,7 @@ namespace BITCollegeWindows
 
                 if (transaction.Element("registration_no").Value == "*" && type == 1 || allRegistrationNo.Contains(registrationNumber) && type == 2)
                 {
-                    validTransactions_RegistrationNo.Append(transaction);
+                    validTransactions_RegistrationNo = validTransactions_RegistrationNo.Append(transaction);
                 }
                 else
                 {
@@ -299,6 +298,9 @@ namespace BITCollegeWindows
                     ProcessErrors(validTransactions_CourseNumbers, validTransactions_RegistrationNo, errorMessage);
                 }
             }
+
+            ProcessTransactions(validTransactions_RegistrationNo);
+
         }
 
         private void ProcessTransactions(IEnumerable<XElement> transactionRecords)
@@ -307,7 +309,7 @@ namespace BITCollegeWindows
             foreach (XElement transaction in transactionRecords)
             {
                 int transaction_type = Convert.ToInt32(transaction.Element("type").Value);
-                double grade = Convert.ToDouble(transaction.Element("grade").Value);
+                double grade = Convert.ToDouble(transaction.Element("grade").Value) / 100;
                 string notes = transaction.Element("notes").Value;
 
                 // Fetch the studentId from the Students table.
@@ -343,20 +345,15 @@ namespace BITCollegeWindows
 
                 if (transaction_type == 2)
                 {
-                    double? returnCode = registerService.UpdateGrade(grade, registrationId, notes);
-
-                    switch (returnCode)
+                    try
                     {
-                        // Update Grade was successful
-                        case 0:
-                            logData += Environment.NewLine + "A grade of: " + grade.ToString() + " has been successfully applied to registration: " + registrationId.ToString() + ".";
-                            break;
-                        // Update Grade was unsuccessful
-                        default:
-                            logData += Environment.NewLine + "REGISTRATION ERROR: " + BusinessRules.RegisterError((int)returnCode);
-                            break;
+                        registerService.UpdateGrade(grade, registrationId, notes);
+                        logData += Environment.NewLine + "A grade of: " + (100 * grade).ToString() + "%" + " has been successfully applied to registration: " + registrationId.ToString() + ".";
                     }
-
+                    catch (Exception e )
+                    {
+                        logData += Environment.NewLine + "UPDATE GRADE ERROR: " + e.Message;
+                    }
                 }
             }
         }
